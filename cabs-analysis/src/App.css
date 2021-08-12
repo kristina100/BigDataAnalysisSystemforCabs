@@ -1,0 +1,44 @@
+*{
+  margin: 0;
+  padding:0;
+}
+#header-ct{
+  height: 50px;
+  width: 100vw;
+  background-color: #292929;
+}
+#header{
+  height: 100%;
+  width: 52%;
+  margin-left: 22%;
+  display: flex;
+  justify-content: space-between;
+}
+#logo{
+  width: 130px;
+  height: 50px;
+  color: white;
+  user-select: none;
+  line-height: 50px;
+  text-align: center;
+}
+
+
+.noActive{
+  width: 130px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  color: #999;
+  user-select: none;
+  text-decoration: none;
+}
+.noActive:hover,#graph-ct:hover{
+  color: #03DAC5;
+  background-color: #6a6a6a;
+}
+.onActive,.active{
+  color: #03DAC5;
+  background-color: #6a6a6a;
+}
+
