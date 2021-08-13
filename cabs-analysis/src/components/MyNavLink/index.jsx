@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {NavLink} from 'react-router-dom'
 
-export default class MyNavLink extends Component {
-	render() {
-		return (
-			<NavLink activeClassName="onActive" className="noActive" {...this.props}/>
-		)
-	}
+function MyNavLink (props){
+	return (
+		<NavLink activeClassName="onActive" className="noActive" {...props}/>
+	)
 }
+export default MyNavLink;

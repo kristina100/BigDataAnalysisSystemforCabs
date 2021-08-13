@@ -28,7 +28,7 @@ export default class App extends Component {
             <Route path="/path" component={Path}/>
             <Route path="/abnormal" component={Abnormal}/>
             <Route path="/advertise" component={Advertise}/>
-            <Redirect to="/show"/>
+            <Redirect to="/heatmap"/>
           </Switch>
         </div>
       </div>

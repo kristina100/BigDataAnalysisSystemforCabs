@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import axios from 'axios'
+import Date from '../../components/Date';
 export default class Heatmap extends Component {
     componentDidMount() {
         var heatmap;
@@ -26,19 +27,90 @@ export default class Heatmap extends Component {
           });    //在地图对象叠加热力图
           
         });  
-        /* for(let i=1;i<10;i++){
-          //eslint-disable-next-line no-loop-func
-          setTimeout(() => { 
-            axios.get('http://39.98.41.126:31106/selectByTimeSlot/2017-02-01_04:00:00/2017-02-01_12:00:00/1/100000').then(
-          response => {   
-            heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
-          },
-          error => {
-            console.log(error.message);
-          }
-        )
-           }, 2000*i);
-          
+        const showHeat = (i)=>{
+            setTimeout(() => { 
+                axios.get('http://39.98.41.126:31106/selectByTimeSlot/2017-02-01_00:00:00/2017-02-01_01:00:00/'+ i +'/100').then(
+                  response => {  
+                      console.log(response.data); 
+                      heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
+                  },
+                  error => {
+                      console.log(error.message);
+                  }
+              )
+              }, 1000*i);
+        }
+      /*    for(let i=1;i<10;i++){
+        //eslint-disable-next-line no-loop-func
+        setTimeout(() => { 
+            console.log(i);
+            axios.get('http://39.98.41.126:31106/selectByTimeSlot/2017-02-01_04:00:00/2017-02-01_12:00:00/'+i+'/10000').then(
+                response => {   
+                  heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
+                },
+                error => {
+                  console.log(error.message);
+                }
+              )
+                 }, 2000*i);
+                
+              }   */
+
+
+              //promise链
+        PubSub.subscribe('date',(_,data)=>{
+            data[0] = data[0].replace(' ','_');
+            data[1] = data[1].replace(' ','_');
+            for(let i=1;i<10;i++){
+                //eslint-disable-next-line no-loop-func
+                setTimeout(() => { 
+                    
+                    axios.get('http://39.98.41.126:31103/selectByTimeSlot/'+data[0]+'/'+data[1]+'/'+ i +'/10000').then(
+                      response => {  
+                        console.log(i);
+                          heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
+                      },
+                      error => {
+                          console.log(error.message);
+                      }
+                  )
+                  
+                }, 2000*i);
+
+            } 
+            /* for (var i = 1; i < 10; i++) {
+                console.log(i);
+                //eslint-disable-next-line no-loop-func
+                setTimeout((function(i) {
+                    return function() {
+                        axios.get('http://39.98.41.126:31106/selectByTimeSlot/'+data[0]+'/'+data[1]+'/'+ i +'/10000').then(
+                      response => {  
+                 
+                          heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
+                      },
+                      error => {
+                          console.log(error.message);
+                      }
+                  )
+                    };
+                })(i), 2000*i); 
+            } */
+           
+            
+        }) 
+      /*   for(let i=1;i<10;i++){
+            //eslint-disable-next-line no-loop-func
+            setTimeout(() => { 
+              axios.get('http://39.98.41.126:31106/selectByTimeSlot/2017-02-01_00:00:00/2017-02-01_01:00:00/'+ i +'/100').then(
+                response => {   
+                    heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
+                },
+                error => {
+                    console.log(error.message);
+                }
+            )
+            }, 1000*i);
+            
         }  */
         
   
@@ -312,10 +384,25 @@ export default class Heatmap extends Component {
   
   
       }
+
+      search = (e) => {
+        if(e.keyCode !== 13){
+            return;
+        }
+        console.log(e.target.value);
+        
+      }
+    
     render() {
         return (
             <div className="map-ct">
-                <div id="heat-section"></div>
+                <div id="heat-section">
+                    <div id="time-ct">
+                        <p>请输入时间</p>
+                        <Date onOk={this.onOk}></Date>
+                        <p>Tips:暂时只能查询2017年2.01~3.01的信息</p>
+                    </div>
+                </div>
                 <div style={{width:'80%',height:'100%'}} ref="container"></div>
             </div>
         )
