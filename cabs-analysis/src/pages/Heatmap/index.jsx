@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import axios from 'axios'
+import { Switch,Redirect } from 'react-router'
 import Date from '../../components/Date';
+import { NavLink } from 'react-router-dom';
+import './index.css'
+import 'antd/dist/antd.css';
+import { message } from 'antd';
 export default class Heatmap extends Component {
     componentDidMount() {
         var heatmap;
+        let heatflag = 0;
+        const key = 'updatable';
         let container = this.refs.container;
         var map = new window.AMap.Map(container, {
    
@@ -27,92 +34,43 @@ export default class Heatmap extends Component {
           });    //在地图对象叠加热力图
           
         });  
-        /* const showHeat = (i)=>{
-            setTimeout(() => { 
-                axios.get('http://39.98.41.126:31106/selectByTimeSlot/2017-02-01_00:00:00/2017-02-01_01:00:00/'+ i +'/100').then(
-                  response => {  
-                      console.log(response.data); 
-                      heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
-                  },
-                  error => {
-                      console.log(error.message);
-                  }
-              )
-              }, 1000*i);
-        } */
-      /*    for(let i=1;i<10;i++){
-        //eslint-disable-next-line no-loop-func
-        setTimeout(() => { 
-            console.log(i);
-            axios.get('http://39.98.41.126:31106/selectByTimeSlot/2017-02-01_04:00:00/2017-02-01_12:00:00/'+i+'/10000').then(
-                response => {   
-                  heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
-                },
-                error => {
-                  console.log(error.message);
-                }
-              )
-                 }, 2000*i);
-                
-              }   */
+       
+  
 
-
+      
               //promise链
         PubSub.subscribe('date',(_,data)=>{
             data[0] = data[0].replace(' ','_');
             data[1] = data[1].replace(' ','_');
-            console.log(data);
-            for(let i=1;i<10;i++){
-                //eslint-disable-next-line no-loop-func
-                setTimeout(() => { 
-                    
-                    axios.get('http://39.98.41.126:31103/selectByTimeSlot/'+data[0]+'/'+data[1]+'/'+ i +'/10000').then(
-                      response => {  
-                        console.log(i);
-                          heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
-                      },
-                      error => {
-                          console.log(error.message);
-                      }
-                  )
-                  
-                }, 2000*i);
-
-            } 
-            /* for (var i = 1; i < 10; i++) {
-                console.log(i);
-                //eslint-disable-next-line no-loop-func
-                setTimeout((function(i) {
-                    return function() {
+            
+            if(heatflag === 0){
+                heatflag = 1;
+                (async () => {
+                    const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
+                    message.loading({ content: '正在渲染...', key});
+          
+                    for (let i = 1; i <= 10; i++) {
                         axios.get('http://39.98.41.126:31106/selectByTimeSlot/'+data[0]+'/'+data[1]+'/'+ i +'/10000').then(
-                      response => {  
-                 
-                          heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
-                      },
-                      error => {
-                          console.log(error.message);
-                      }
-                  )
-                    };
-                })(i), 2000*i); 
-            } */
-           
+                            //eslint-disable-next-line no-loop-func    
+                            response => {  
+                                heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
+                            },
+                            error => {
+                                console.log(error.message);
+                            }
+                        )
+                        await sleep(1500)
+                    }
+                    message.success({ content: '渲染完成！', key, duration: 2 });
+                    heatflag = 0;
+                })()  
+            }else{
+                message.warning({content:'正在渲染中，请稍后再试！',duration:2});
+            }
+            
             
         }) 
-      /*   for(let i=1;i<10;i++){
-            //eslint-disable-next-line no-loop-func
-            setTimeout(() => { 
-              axios.get('http://39.98.41.126:31106/selectByTimeSlot/2017-02-01_00:00:00/2017-02-01_01:00:00/'+ i +'/100').then(
-                response => {   
-                    heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
-                },
-                error => {
-                    console.log(error.message);
-                }
-            )
-            }, 1000*i);
-            
-        }  */
+    
         
   
          
@@ -386,24 +344,30 @@ export default class Heatmap extends Component {
   
       }
 
-      search = (e) => {
+    search = (e) => {
         if(e.keyCode !== 13){
             return;
         }
         console.log(e.target.value);
-        
-      }
+    }
     
     render() {
         return (
             <div className="map-ct">
                 <div id="heat-section">
-                    <div id="time-ct">
-                        <p>车流量热力图</p>
-                        <p>请在下方选择您需要查询的起始时间，系统会展示半小时内的出租车流量图</p>
-                        <Date onOk={this.onOk}></Date>                       
-                        <p>Tips:<br/><span>目前只能查询2017年2.01~3.01的信息。</span></p>
-                    </div>
+                <div id="heat-btn-ct">
+                    <NavLink className="heat-btn" to="/heatmap/history">历史<div></div></NavLink>
+                    <NavLink className="heat-btn" to="/heatmap/predict">预测<div></div></NavLink>
+                    <Switch>
+                        <Redirect to="/heatmap/history"/>
+                    </Switch>
+                </div>
+                <div id="time-ct">
+                    <p>车流量热力图</p>         
+                    <p>请在下方选择您需要查询的起始时间，系统会展示半小时内的出租车流量图</p>
+                    <Date onOk={this.onOk}></Date>                       
+                    <p>Tips:<br/><span>目前只能查询2017年2.01~2.28的信息。</span></p>
+                </div>
                 </div>
                 <div style={{width:'80%',height:'100%'}} ref="container"></div>
             </div>
