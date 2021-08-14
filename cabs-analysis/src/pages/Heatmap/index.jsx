@@ -27,7 +27,7 @@ export default class Heatmap extends Component {
           });    //在地图对象叠加热力图
           
         });  
-        const showHeat = (i)=>{
+        /* const showHeat = (i)=>{
             setTimeout(() => { 
                 axios.get('http://39.98.41.126:31106/selectByTimeSlot/2017-02-01_00:00:00/2017-02-01_01:00:00/'+ i +'/100').then(
                   response => {  
@@ -39,7 +39,7 @@ export default class Heatmap extends Component {
                   }
               )
               }, 1000*i);
-        }
+        } */
       /*    for(let i=1;i<10;i++){
         //eslint-disable-next-line no-loop-func
         setTimeout(() => { 
@@ -61,6 +61,7 @@ export default class Heatmap extends Component {
         PubSub.subscribe('date',(_,data)=>{
             data[0] = data[0].replace(' ','_');
             data[1] = data[1].replace(' ','_');
+            console.log(data);
             for(let i=1;i<10;i++){
                 //eslint-disable-next-line no-loop-func
                 setTimeout(() => { 
@@ -398,9 +399,10 @@ export default class Heatmap extends Component {
             <div className="map-ct">
                 <div id="heat-section">
                     <div id="time-ct">
-                        <p>请输入时间</p>
-                        <Date onOk={this.onOk}></Date>
-                        <p>Tips:暂时只能查询2017年2.01~3.01的信息</p>
+                        <p>车流量热力图</p>
+                        <p>请在下方选择您需要查询的起始时间，系统会展示半小时内的出租车流量图</p>
+                        <Date onOk={this.onOk}></Date>                       
+                        <p>Tips:<br/><span>目前只能查询2017年2.01~3.01的信息。</span></p>
                     </div>
                 </div>
                 <div style={{width:'80%',height:'100%'}} ref="container"></div>
