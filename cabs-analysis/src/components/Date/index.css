@@ -1,0 +1,139 @@
+.ant-picker-time-panel-column{
+    color: #03dac5 !important;  
+}
+
+.ant-picker-header-view{
+    color: #03dac5!important;
+}
+.ant-picker-datetime-panel .ant-picker-time-panel {
+    border-left: 1px solid white;
+}
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+    color: black;
+    background: #03dac5!important;
+}
+.ant-picker-header-view button {
+    color: #03dac5!important;
+    font-weight: inherit;
+}
+.ant-picker-prev-icon::before, .ant-picker-next-icon::before, .ant-picker-super-prev-icon::before, .ant-picker-super-next-icon::before {
+   
+    color: #03dac5!important;
+}
+.ant-picker-ranges > li {
+ 
+    color: #03dac5!important;
+}
+.ant-picker-super-prev-icon::after, .ant-picker-super-next-icon::after {
+    color: #03dac5;
+}
+.ant-picker-panel-container .ant-picker-panel {
+ 
+    background: #303030;
+
+}
+.ant-picker-panel{
+    border: 0;
+}
+.ant-picker-cell-start > .ant-picker-cell-inner{
+    color: rgba(255, 255, 255, 0.7);
+}
+.ant-picker-cell-disabled > .ant-picker-cell-inner{
+    color: rgba(255, 255, 255, 0.25);
+}
+.ant-picker-cell-in-view {
+    color: white;
+}
+.ant-picker-cell-disabled {
+    color: rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+}
+.ant-picker-time-panel-column > li.ant-picker-time-panel-cell .ant-picker-time-panel-cell-inner {
+    color: white;
+}
+.ant-picker-time-panel-column > li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
+    background: #03dac5;
+    color: #303030;
+}
+
+.ant-picker-time-panel-column > li.ant-picker-time-panel-cell .ant-picker-time-panel-cell-inner:hover{
+    background: #03dac5;
+    color: #303030;
+}
+.ant-btn-primary {
+    border-color: #03dac5;
+    background: #03dac5;
+}
+
+.ant-picker-cell:hover > .ant-picker-cell-inner{
+    background-color: #03dac5;
+}
+
+
+.ant-picker-date-panel .ant-picker-content th {
+    color: #03dac5;
+}
+a{
+    color: white;
+}
+.ant-picker-now-btn:hover{
+    color: #03dac5;
+}
+.ant-btn-primary:hover{
+    background-color: #03dac5;
+    
+}
+.ant-picker-cell:hover.ant-picker-cell .ant-picker-cell-inner{
+    background-color: #03dac5;
+    color: #303030;
+}
+
+.ant-btn > span{
+    color: #303030;
+    font-size: 13px;
+}
+.ant-picker-cell:hover .ant-picker-cell-inner{
+    background: #03dac5 !important;
+    color: #303030;
+}
+.ant-picker-time-panel-column::-webkit-scrollbar {
+    width: 6px;
+    
+}
+.ant-picker-time-panel-column::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+    
+} 
+
+.ant-picker-time-panel-column::-webkit-scrollbar-thumb {
+    background-color: #03dac5; 
+}
+
+.ant-picker-time-panel-column::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.ant-picker:hover, .ant-picker-focused{
+    border-color: #03dac5;
+}
+.ant-picker-focused {
+
+    box-shadow: 0 0 0 1px #03dac5;
+}
+.ant-picker{
+    background:#303030;
+}
+.ant-picker-dropdown{
+    border: 1px solid white;
+}
+.anticon svg{
+    fill:white;
+    background-color: #303030;
+    transition: 0.2s all;
+}
+.anticon svg:hover{
+    fill: #03dac5;
+}
+.ant-picker-input > input{
+    color: #f0f0f0;
+}

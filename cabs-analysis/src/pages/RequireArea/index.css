@@ -1,0 +1,122 @@
+.outBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+
+}
+
+/* 左边的导航栏 */
+.left_nav {
+    height: 100%;
+    width: 25%;
+    background-color: #303030;
+}
+
+.left_nav header {
+    text-align: center;
+    color: #fff;
+    margin: 15px;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #FFF;
+    font-size: 16px;
+}
+
+.left_nav ul {
+    list-style: none;
+    margin: 15px;
+    color: #fff;
+}
+
+.left_nav ul li {
+    cursor: pointer;
+    height: 45px;
+    line-height: 45px;
+}
+
+.tipMessage {
+    color: #999;
+    font-size: 14px;
+    width: 120px;
+    text-align: center;
+    font-weight: 400;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer !important;
+}
+
+.hover {
+    /* color: red; */
+    opacity: 0.9;
+}
+
+/* 大框架：右边等级盒子 */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.right_levelnav {
+    width: 18%;
+    height: 58%;
+    padding: 0 20px;
+    background-color: #303030;
+    color: #fff;
+    position: relative;
+    z-index: 999;
+}
+
+.right_levelnav ul li {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    line-height: 40px;
+    list-style: none;
+    color: #FFFFFF;
+
+}
+
+/* 颜色块 */
+.level .color {
+    display: inline-block;
+    width: 40px;
+    height: 32px;
+    background-color: green;
+    margin-right: 40px;
+}
+
+/* 顶部 */
+.ant-switch-checked {
+    background-color: #03DAC5 !important;
+}
+
+.right_levelnav div[class^="btn"] {
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    /* background-color: green; */
+}
+
+.right_levelnav .title {
+    font-size: 16px;
+    margin: 15px 0;
+}
+
+.right_levelnav .chooseTime {
+
+    visibility: hidden;
+    height: 35px;
+    text-align: center;
+    margin-top: 10px;
+
+}
