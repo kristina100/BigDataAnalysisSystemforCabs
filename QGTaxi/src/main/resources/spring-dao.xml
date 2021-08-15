@@ -1,0 +1,80 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--配置扫描包-->
+    <context:component-scan base-package="com.taxi.dao"/>
+    <context:property-placeholder location="classpath:*.properties"/>
+
+    <!-- ClickHouse DataSource：使用 c3p0 的数据源替换 MyBatis 的配置 -->
+    <bean id="clickDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${driver}"/>
+        <property name="jdbcUrl" value="${url}"/>
+        <property name="user" value="${user}"/>
+        <property name="password" value="${password}"/>
+
+        <!-- 设置连接池的最大最小连接数 -->
+        <property name="maxPoolSize" value="10"/>
+        <property name="minPoolSize" value="5"/>
+        <!-- 不自动提交 -->
+        <property name="autoCommitOnClose" value="false"/>
+        <!-- 获取连接的超时时间 -->
+        <property name="checkoutTimeout" value="10000"/>
+        <!-- 当获取连接失败后的重试次数 -->
+        <property name="acquireRetryAttempts" value="2"/>
+    </bean>
+
+    <!-- MYSQL DataSource：使用 c3p0 的数据源替换 MyBatis 的配置 -->
+    <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${driver2}"/>
+        <property name="jdbcUrl" value="${url2}"/>
+        <property name="user" value="${user2}"/>
+        <property name="password" value="${password2}"/>
+
+        <!-- 设置连接池的最大最小连接数 -->
+        <property name="maxPoolSize" value="10"/>
+        <property name="minPoolSize" value="5"/>
+        <!-- 不自动提交 -->
+        <property name="autoCommitOnClose" value="false"/>
+        <!-- 获取连接的超时时间 -->
+        <property name="checkoutTimeout" value="10000"/>
+        <!-- 当获取连接失败后的重试次数 -->
+        <property name="acquireRetryAttempts" value="2"/>
+    </bean>
+
+
+    <!-- 配置动态数据源 -->
+    <bean id ="dataSource" class= "com.taxi.utils.dbchange.DynamicDataSource" >
+        <property name ="targetDataSources">
+            <!-- 配置两个数据库源 -->
+            <map key-type ="java.lang.String">
+                <entry value-ref="clickDataSource" key="clickDataSource"/>
+                <entry value-ref="myDataSource" key="myDataSource"/>
+            </map >
+        </property>
+
+        <!-- 默认使用 clickHouse -->
+        <property name ="defaultTargetDataSource" ref= "clickDataSource"/>
+    </bean>
+
+
+    <!-- sqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 绑定 MyBatis 配置文件 -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+
+    <!-- 配置 dao 接口扫描包，实现动态将 dao 接口注入到 Spring 容器中 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入 sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- 要扫描的 dao 包 -->
+        <property name="basePackage" value="com.taxi.dao"/>
+    </bean>
+</beans>

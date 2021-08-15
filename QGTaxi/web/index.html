@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  <style>
+    html,
+    body,
+    #map {
+      width: 100%;
+      height: 100vh;
+    }
+  </style>
+  <title>弧线的绘制和编辑</title>
+  <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+  <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=9fa33d360789648f4a1f31314f9d102a"></script>
+  <script src="https://webapi.amap.com/loca?v=2.0.0&key=9fa33d360789648f4a1f31314f9d102a"></script>
+</head>
+
+<body>
+  <div id="map"></div>
+  <script type="text/javascript">
+    const map = new AMap.Map('map', {
+      viewMode: '2D',
+      resizeEnable: true, // 是否监控地图容器尺寸变化
+      zoom: 11, // 初始化地图层级
+      center: [112.2247, 24.5304], // 初始化地图中心点
+      mapStyle: 'amap://styles/whitesmoke'
+    });
+
+    var loca = new Loca.Container({
+      map,
+    });
+
+    // 颜色配置
+    var headColors = ['#ECFFB1', '#146968', '#05498b', '#03a19b', '#146442', '#147568', '#149968', '#116968'];
+    var trailColors = [
+      'rgba(255,178,6, 0.2)',
+      'rgba(255,178,6, 0.2)',
+      'rgba(0, 179, 169, 0.1)',
+      'rgba(20,105,104, 0.2)',
+      'rgba(20,105,104, 0.2)',
+      'rgba(20,105,104, 0.2)',
+      'rgba(20,105,104, 0.2)',
+      'rgba(20,105,104, 0.2)',
+    ];
+
+    let a = async function(){
+    const response = await fetch(`http://39.98.41.126:31106/random/1/113/114/23/24/2`)
+    const data = await response.json()
+    // console.log(data);
+    let finalLine = [],
+        finalSpot = [];
+// 测试用起点和终点
+    let allLine = data;
+    //线构造函数
+    function MakeLineFnc([...positionArr]) {
+      this.geometry = {
+        "type": "LineString",
+        "coordinates": [...positionArr]
+      }
+    }
+// 点构造函数
+    function MakeSpotFnc([...spotArr]) {
+      this.geometry = {
+        "type":"Point",
+        "coordinates":[...spotArr]
+      }
+    }
+
+    for (const line of allLine) {
+      finalLine.push(new MakeLineFnc(line))
+      finalSpot.push(new MakeSpotFnc(line[0]))
+      finalSpot.push(new MakeSpotFnc(line[1]))
+    //   console.log(finalLine);
+    }
+
+
+    let line1 = new MakeLineFnc([[112.220777, 24.547829], [112.249007, 24.528932]]);
+
+    // 进入北京方向的线
+    var LineSource = new Loca.GeoJSONSource({
+      // url: 'https://a.amap.com/Loca/static/loca-v2/demos/mock_data/data-line-in.json',
+      data: {
+        "type": "FeatureCollection",
+        "features": finalLine
+      }
+    });
+    var Linelayer = new Loca.PulseLineLayer({
+      // loca,
+      zIndex: 11,
+      opacity: 1,
+      visible: true,
+      zooms: [2, 22],
+    });
+
+    Linelayer.setStyle({
+      altitude: 0,
+      lineWidth: (_, feature) => 1,
+      headColor: (_, feature) => headColors[2],
+      trailColor: (_, feature) => trailColors[2],
+      interval: 0.5,
+      duration: 5000,
+    });
+    Linelayer.setSource(LineSource);
+    loca.add(Linelayer);
+
+    // 下方呼吸点层
+    var scatter = new Loca.ScatterLayer({
+      // loca,
+      zIndex: 10,
+      opacity: 0.5,
+      visible: true,
+      zooms: [2, 22],
+    });
+    var scatterGeo = new Loca.GeoJSONSource({
+      data: {
+        "type": "FeatureCollection",
+        "features": finalSpot
+      }
+    });
+    scatter.setSource(scatterGeo);
+    scatter.setStyle({
+      unit: 'px',
+      size: (_, feature) => {
+        var size = 20;
+        return [size, size];
+      },
+      borderWidth: 0,
+      texture: 'https://a.amap.com/Loca/static/loca-v2/demos/images/breath_yellow.png',
+      duration: 2000,
+      animate: true,
+    });
+    loca.add(scatter)
+
+    loca.animate.start();
+    }()
+
+  </script>
+</body>
+
+</html>

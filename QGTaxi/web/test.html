@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>Test</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" type="text/css">
+    <style>
+        html,body,#container{
+            height: 100%
+        }
+        .btn{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+
+<div id="info">
+    点击地图获取量测点，右键或双击左键结束测量
+</div>
+<div class="input-card" style="width:20rem;background-color:transparent;box-shadow:none">
+    <div class="input-item">
+        <input type="button" class="btn" id='default' value="默认样式测距" style='margin-right: 1rem;'/>
+        <input type="button" class="btn" id='custom' value="自定义样式测距"/>
+    </div>
+</div>
+
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=8c0e85a323c988ebe4305d364ccf9eb0&plugin=AMap.RangingTool"></script>
+<script type="text/javascript">
+    var map, ruler1, ruler2;
+    //地图初始化
+    map = new AMap.Map("container", {
+        resizeEnable: true
+    });
+    //默认样式
+    ruler1 = new AMap.RangingTool(map);
+
+    //自定义样式
+    var startMarkerOptions= {
+        icon: new AMap.Icon({
+            size: new AMap.Size(19, 31),//图标大小
+            imageSize:new AMap.Size(19, 31),
+            image: "https://webapi.amap.com/theme/v1.3/markers/b/start.png"
+        })
+    };
+    var endMarkerOptions = {
+        icon: new AMap.Icon({
+            size: new AMap.Size(19, 31),//图标大小
+            imageSize:new AMap.Size(19, 31),
+            image: "https://webapi.amap.com/theme/v1.3/markers/b/end.png"
+        }),
+        offset: new AMap.Pixel(-9, -31)
+    };
+    var midMarkerOptions = {
+        icon: new AMap.Icon({
+            size: new AMap.Size(19, 31),//图标大小
+            imageSize:new AMap.Size(19, 31),
+            image: "https://webapi.amap.com/theme/v1.3/markers/b/mid.png"
+        }),
+        offset: new AMap.Pixel(-9, -31)
+    };
+    var lineOptions = {
+        strokeStyle: "solid",
+        strokeColor: "#FF33FF",
+        strokeOpacity: 1,
+        strokeWeight: 2
+    };
+    var rulerOptions = {
+        startMarkerOptions: startMarkerOptions,
+        midMarkerOptions:midMarkerOptions,
+        endMarkerOptions: endMarkerOptions,
+        lineOptions: lineOptions
+    };
+    ruler2 = new AMap.RangingTool(map, rulerOptions);
+
+    //启用默认样式测距
+    document.getElementById('default').onclick=function(){
+        ruler2.turnOff();
+        ruler1.turnOn();
+    }
+    //启用自定义样式测距
+    document.getElementById('custom').onclick = function() {
+        ruler1.turnOff();
+        ruler2.turnOn();
+    }
+</script>
+</body>
+</html>
