@@ -28,14 +28,16 @@ export default class controller extends Component {
             message.warning('最多能够同时查看五辆出租车的路径');
             return;
         }
+        // console.log(this.refs.carName.value);
 
         PubSub.publish('setCar', { finding: true, delete: false, carName: this.refs.carName.value, pathDate: this.state.pathDate })
     }
 
     checkCar = (check) => {
+        let name = this.refs.carName.value
         if (check) {
             let newCarObj = {
-                carName: '粤A' + this.refs.carName.value,
+                carName: '粤A' + name,
                 pathDate: this.state.pathDate
             }
             const { carInfos } = this.state
@@ -75,6 +77,7 @@ export default class controller extends Component {
     componentWillUnmount() {
         PubSub.unsubscribe(this.token)
         PubSub.unsubscribe(this.token1)
+        PubSub.unsubscribe(this.token2)
     }
 
     render() {
