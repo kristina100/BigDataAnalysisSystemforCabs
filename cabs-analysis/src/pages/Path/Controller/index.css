@@ -1,0 +1,27 @@
+#control {
+    float: left;
+    width: 280px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .4) ;
+    padding: 50px 15px 0 15px;
+}
+
+#findCar {
+    height: 40px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #525252 !important;
+    padding-left: 50px;
+}
+
+#findInput{
+    position: relative;
+}
+
+#firstName {
+    display: inline-block;
+    position: absolute;
+    height: 40px;
+    font-size: 18px;
+    padding: 8px 0px 0px 15px;
+}
