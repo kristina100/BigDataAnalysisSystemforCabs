@@ -12,7 +12,7 @@ const columns = [
         width: '20%',
     },
     {
-        title: '公司ID',
+        title: '起点',
         dataIndex: 'company_id',
         // filters: [
         //     { text: 'Male', value: 'male' },
@@ -21,15 +21,15 @@ const columns = [
         width: '20%',
     },
     {
-        title: '异常地点',
+        title: '终点',
         dataIndex: 'location',
     }
     ,
     {
-        title: '异常描述与评价',
+        title: '时间',
         dataIndex: 'error',
     }, {
-        title: '营运里程',
+        title: `全部异常`,
         dataIndex: 'load_mile',
     }
 ];
@@ -46,6 +46,18 @@ export default class Abnormal extends React.Component {
     };
 
     componentDidMount() {
+        // 增加下拉列表到dom中
+        let theadTr = document.querySelector('.ant-table-thead').querySelector('tr');
+        let Inform = document.createElement('ul');
+        Inform.className = 'wrongInform noHover'
+        theadTr.appendChild(Inform);
+        // 给伪元素添加点击事件
+        // let downTd = 
+        for (let i = 0; i < 5; ++i) {
+            let li = document.createElement('li');
+            Inform.appendChild(li);
+            li.innerHTML = `异常${i}`;
+        }
         const { pagination } = this.state;
         this.fetch({ pagination });  // 初次进入页面，默认处在第一页，页面数据10条，然后发起请求
     }
@@ -63,7 +75,7 @@ export default class Abnormal extends React.Component {
         let { current } = params.pagination;
         let { pageSize } = params.pagination;
         reqwest({
-            url: `http://39.98.41.126:31103/findErrorTaxis/${current}/${pageSize}`,
+            // url: `http://39.98.41.126:31103/findErrorTaxis/${current}/${pageSize}`,
             method: 'get'
         }).then(data => {
             // 收到数据就更改state，react根据state里的数据重新渲染表格数据

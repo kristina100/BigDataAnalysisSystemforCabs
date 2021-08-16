@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'icomoon';
+    src: url('../../fonts/icomoon.eot');
+    src: url('../../fonts/icomoon.eot?jpzchj#iefix') format('embedded-opentype'),
+        url('../../fonts/icomoon.ttf?jpzchj') format('truetype'),
+        url('../../fonts/icomoon.woff?jpzchj') format('woff'),
+        url('../../fonts/icomoon.svg?jpzchj#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
 .header {
     height: 80px;
     background-color: pink;
@@ -8,6 +20,11 @@
     margin: 16px 0;
     text-align: center;
     display: block;
+}
+
+/* 表格字体大小 */
+.ant-table {
+    font-size: 16px;
 }
 
 /* 底部页码样式 */
@@ -102,4 +119,58 @@
 /* 背景样式 */
 body {
     background-color: #000 !important;
+}
+
+/* 下拉框上面的样式*/
+.ant-table-thead tr {
+    position: relative;
+}
+
+thead th:nth-child(5)::after {
+    font-family: 'icomoon';
+    content: '';
+    margin-left: 50px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* 箭头向下的样式 */
+data-down {
+    font-family: 'icomoon';
+    content: attr('');
+}
+
+/* 下拉框样式 */
+.wrongInform {
+    position: absolute;
+    top: 60px;
+    right: 152px;
+    padding: 10px;
+    min-width: 210px;
+    max-width: 220px;
+    border-radius: 5px;
+    list-style: none;
+    color: #fff;
+    background-color: #303030;
+    z-index: 999;
+}
+
+.wrongInform li {
+    height: 40px;
+    line-height: 40px;
+    text-indent: 1em;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    color: #999999;
+    text-align: center;
+}
+
+.wrongInform li:hover {
+    background-color: #616161;
+    color: #E3E3E3;
+    cursor: pointer;
+}
+
+.noHover {
+    /* display: none; */
 }
