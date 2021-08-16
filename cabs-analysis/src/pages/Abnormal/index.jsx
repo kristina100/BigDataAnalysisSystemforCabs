@@ -2,18 +2,19 @@ import React from 'react';
 import { Table } from 'antd';
 import reqwest from 'reqwest';
 import './index.css'
+import axios from 'axios';
 
 const columns = [
     {
         title: '车牌号',
-        dataIndex: 'plate_no',
+        dataIndex: 'plateNo',
         // sorter: true,
         // render: name => `${name.first} ${name.last}`,
         width: '20%',
     },
     {
         title: '起点',
-        dataIndex: 'company_id',
+        dataIndex: 'onLocation',
         // filters: [
         //     { text: 'Male', value: 'male' },
         //     { text: 'Female', value: 'female' },
@@ -22,15 +23,15 @@ const columns = [
     },
     {
         title: '终点',
-        dataIndex: 'location',
+        dataIndex: 'offLocation',
     }
     ,
     {
         title: '时间',
-        dataIndex: 'error',
+        dataIndex: 'errorDate',
     }, {
         title: `全部异常`,
-        dataIndex: 'load_mile',
+        dataIndex: 'error',
     }
 ];
 
@@ -43,9 +44,13 @@ export default class Abnormal extends React.Component {
             pageSize: 10,
         },
         loading: false,
+        keyWords: '全部异常'
     };
 
     componentDidMount() {
+        let { pagination } = this.state;
+        let that = this; // 记录this的指向
+        // 设置下拉盒子
         let flagDown = 0;  // 1 向下  0 向上
         // 增加下拉列表到dom中
         let theadTr = document.querySelector('.ant-table-thead').querySelector('tr');
@@ -67,22 +72,62 @@ export default class Abnormal extends React.Component {
                 downTd.setAttribute('data-down', '');
                 Inform.className = 'wrongInform hover'
             }
-
         })
 
-        for (let i = 0; i < 5; ++i) {
-            let li = document.createElement('li');
-            Inform.appendChild(li);
-            li.innerHTML = `异常${i}`;
-        }
-        const { pagination } = this.state;
+        axios.get(`http://39.98.41.126:31103/getErrorType`).then(
+            response => {
+                // 根据请求类别接口生成li
+                for (let i = 0; i < response.data.length; ++i) {
+                    let li = document.createElement('li');
+                    li.innerHTML = response.data[i];
+                    Inform.appendChild(li);
+                }
+
+                let li = document.createElement('li');
+                li.innerHTML = `全部异常`;
+                Inform.insertBefore(li, Inform.children[0]);
+
+                // 添加点击事件
+                for (let i = 0; i < Inform.children.length; ++i) {
+                    Inform.children[i].addEventListener('click', function () {
+                        // 自动变为向上，并且隐藏盒子
+                        flagDown = 0;  // 1 向下  0 向上
+                        downTd.setAttribute('data-down', '');
+                        Inform.className = 'wrongInform noHover'
+                        let keyWords;
+                        if (i == 0) {
+                            keyWords = '';
+                            downTd.innerHTML = '全部异常'
+                        } else {
+                            keyWords = this.innerHTML;
+                            downTd.innerHTML = this.innerHTML;
+                        }
+                        that.fetch({ keyWords, pagination })
+                    })
+                }
+            }
+        )
+
+
         this.fetch({ pagination });  // 初次进入页面，默认处在第一页，页面数据10条，然后发起请求
     }
 
+    toRealTime = (date) => {
+        date = new Date(parseInt(date));
+        let Y = date.getFullYear() + '-';
+        let M = ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-';
+        let D = date.getDate();
+        return Y + M + D;
+    }
+
     handleTableChange = (pagination) => {
+        this.setState({
+            pagination
+        })
         // 检测到了底部页码改变，就要根据当前状态发出请求
         this.fetch({
-            pagination
+            pagination,
+            keyWords: this.state.keyWords
         });
     };
 
@@ -91,12 +136,18 @@ export default class Abnormal extends React.Component {
         // 根据表格组件检测到的当前所处页面以及页面数据量，发起对应的页面以及页面数据量的请求
         let { current } = params.pagination;
         let { pageSize } = params.pagination;
+        let { keyWords } = params;
+        let myUrl = keyWords ? `http://39.98.41.126:31103/findErrorTaxis/${current}/${pageSize}/${keyWords}` : `http://39.98.41.126:31103/findErrorTaxis/${current}/${pageSize}/`
+
         reqwest({
-            // url: `http://39.98.41.126:31103/findErrorTaxis/${current}/${pageSize}`,
+            url: myUrl,
             method: 'get'
         }).then(data => {
-            // 收到数据就更改state，react根据state里的数据重新渲染表格数据
             console.log(data);
+            data.list.map((item) => {
+                item.errorDate = this.toRealTime(Number(item.errorDate));
+            })
+            // 收到数据就更改state，react根据state里的数据重新渲染表格数据
             this.setState({
                 loading: false,
                 data: data.list,
@@ -104,24 +155,22 @@ export default class Abnormal extends React.Component {
                     ...params.pagination,
                     total: data.total // 数据总条数，根据这个数据来分页
                 },
+                keyWords: keyWords
             });
         });
     };
 
-
     render() {
         const { data, pagination, loading } = this.state;
-
         // rowKey 回调的第一个参数是每一条数据，可以用数据的id来作为唯一的key值
-        return (
-            <Table className="w place"
-                columns={columns}
-                rowKey={record => record.id}
-                dataSource={data}
-                pagination={pagination}
-                loading={loading}
-                onChange={this.handleTableChange}
-            />
+        return (<Table className="place w"
+            columns={columns}
+            rowKey={record => record.id}
+            dataSource={data}
+            pagination={pagination}
+            loading={loading}
+            onChange={this.handleTableChange}
+        />
         );
 
     }

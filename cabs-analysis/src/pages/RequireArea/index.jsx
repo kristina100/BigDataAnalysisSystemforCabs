@@ -230,34 +230,29 @@ export default class Rightcontent extends Component {
                 const { name, adcode } = feature.properties;
                 let data = [];
                 timeArr.push(Date.now());
-                // console.log(time1, time2);
-                console.log(time1[2] - time2[2]);
+
                 if (time1[0] == time2[0] && time1[1] == time2[1] && time1[2] - time2[2] <= 0.5 && time1[0] != NaN && time2[0] != NaN) {
-                    alert('请勿频繁的点击！');
+                    that.warning('请您勿频繁的点击！')  // 注意此时的this指向不是实例
                     pointSimplifierIns.setData(null);
                     timeArr = [];
                     flagChange = 0;
                 } else {
-                    // http://39.98.41.126:31100/getHotPoints
-
                     axios.get(`http://39.98.41.126:31100/getHotPoints`).then(
                         response => {
                             dataPrint = response.data.split('\n').filter((item) => {
                                 return item != ''
                             });
                             if (flagChange >= 15) {
-                                alert('请您勿频繁的操作！');
+                                that.warning('请您勿频繁的操作！')
                                 pointSimplifierIns.setData(null);
                                 timeArr = [];
                                 flagChange = 0;
                             } else {
-                                // console.log(1, Date.now());
                                 getData(dataPrint, adcode, function (newDataPrint) {
                                     data = newDataPrint;
                                     pointSimplifierIns.setData(data);
                                 })
                             }
-                            // console.log(2, Date.now());
                         }
                     )
                 }

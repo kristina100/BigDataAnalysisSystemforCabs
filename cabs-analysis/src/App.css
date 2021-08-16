@@ -1,19 +1,22 @@
-*{
+* {
   margin: 0;
-  padding:0;
+  padding: 0;
 }
-#wrapper{
+
+#wrapper {
   width: 100vw;
   height: 100vh;
   min-width: 1200px;
 }
-#header-ct{
+
+#header-ct {
   height: 50px;
   width: 100vw;
   min-width: 1200px;
   background-color: #292929;
 }
-#header{
+
+#header {
   height: 50px;
   width: 52%;
   margin-left: 22%;
@@ -21,7 +24,8 @@
   min-width: 800px;
   justify-content: space-between;
 }
-#logo{
+
+#logo {
   width: 130px;
   height: 50px;
   color: white;
@@ -30,7 +34,7 @@
   text-align: center;
 }
 
-.noActive{
+.noActive {
   width: 130px;
   height: 50px;
   text-align: center;
@@ -39,7 +43,8 @@
   user-select: none;
   text-decoration: none;
 }
-.noActive::before{
+
+.noActive::before {
   content: '';
   display: inline-block;
   position: relative;
@@ -48,82 +53,101 @@
   height: 24px;
   background-size: 24px 24px;
 }
-.noActive:nth-child(2):before{
+
+.noActive:nth-child(2):before {
   top: 8px;
   background-image: url(./images/heatmap1.svg);
 }
-.noActive:nth-child(3):before{
+
+.noActive:nth-child(3):before {
   top: 6px;
   background-image: url(./images/require1.svg);
 }
-.noActive:nth-child(4):before{
+
+.noActive:nth-child(4):before {
   top: 6px;
   background-image: url(./images/path1.svg);
 }
-.noActive:nth-child(5):before{
+
+.noActive:nth-child(5):before {
   top: 6px;
   background-image: url(./images/abnormal1.svg);
 }
-.noActive:nth-child(6):before{
+
+.noActive:nth-child(6):before {
   top: 5px;
   background-image: url(./images/advertise1.svg);
 }
-.noActive:hover{
+
+.noActive:hover {
   color: #03DAC5;
   background-color: #6a6a6a;
 }
-.onActive{
+
+.onActive {
   color: #03DAC5;
   background-color: #6a6a6a;
 }
-.onActive:nth-child(2):before{
+
+.onActive:nth-child(2):before {
   top: 8px;
   background-image: url(./images/heatmap2.svg);
 }
-.onActive:nth-child(3):before{
+
+.onActive:nth-child(3):before {
   top: 6px;
   background-image: url(./images/require2.svg);
 }
-.onActive:nth-child(4):before{
+
+.onActive:nth-child(4):before {
   top: 6px;
   background-image: url(./images/path2.svg);
 }
-.onActive:nth-child(5):before{
+
+.onActive:nth-child(5):before {
   top: 6px;
   background-image: url(./images/abnormal2.svg);
 }
-.onActive:nth-child(6):before{
+
+.onActive:nth-child(6):before {
   top: 5px;
   background-image: url(./images/advertise2.svg);
 }
 
-.noActive:nth-child(2):hover.noActive:nth-child(2):before{
+.noActive:nth-child(2):hover.noActive:nth-child(2):before {
   background-image: url(./images/heatmap2.svg);
 }
-.noActive:nth-child(3):hover.noActive:nth-child(3):before{
+
+.noActive:nth-child(3):hover.noActive:nth-child(3):before {
   top: 6px;
   background-image: url(./images/require2.svg);
 }
-.noActive:nth-child(4):hover.noActive:nth-child(4):before{
+
+.noActive:nth-child(4):hover.noActive:nth-child(4):before {
   top: 6px;
   background-image: url(./images/path2.svg);
 }
-.noActive:nth-child(5):hover.noActive:nth-child(5):before{
+
+.noActive:nth-child(5):hover.noActive:nth-child(5):before {
   top: 6px;
   background-image: url(./images/abnormal2.svg);
 }
-.noActive:nth-child(6):hover.noActive:nth-child(6):before{
+
+.noActive:nth-child(6):hover.noActive:nth-child(6):before {
   top: 5px;
   background-image: url(./images/advertise2.svg);
 }
 
-#main{
+#main {
+  justify-content: center;
+  /* align-items: center; */
   min-height: calc(100% - 50px);
   height: 600px;
   width: 100%;
   display: flex;
 }
-.map-ct{
+
+.map-ct {
   height: 100%;
   width: 100%;
   display: flex;

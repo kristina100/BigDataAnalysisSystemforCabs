@@ -22,6 +22,14 @@
     display: block;
 }
 
+/* .ant-table-thead {
+    display: flex;
+    justify-content: space-around;
+} */
+.ant-table-thead>tr>th {
+    width: 20%;
+}
+
 /* 表格字体大小 */
 .ant-table {
     font-size: 16px;
@@ -126,21 +134,18 @@ body {
     position: relative !important;
     /* 禁用父元素的点击事件 */
     pointer-events: none;
+    padding-left: 60px;
 }
 
-/* 箭头向下的样式 */
-/* .ant-table-thead tr th:nth-child(5)::after {
-    font-family: 'icomoon';
-    content: attr(data-down);
-} */
 
+/* 控制伪元素的内容 */
 .ant-table-thead tr th:nth-child(5)::after {
     display: inline-block;
     font-family: 'icomoon';
     content: attr(data-down);
     width: 30px;
     height: 30px;
-    margin-left: 50px;
+    margin-left: 20px;
     font-size: 20px;
     cursor: pointer;
     /* 伪元素添加点击事件 */
@@ -152,8 +157,8 @@ body {
 /* 下拉框样式 */
 .wrongInform {
     position: absolute;
-    top: 28%;
-    right: 13%;
+    top: 8%;
+    right: 2vw;
     padding: 10px;
     min-width: 210px;
     max-width: 220px;
@@ -167,7 +172,6 @@ body {
 .wrongInform li {
     height: 40px;
     line-height: 40px;
-    text-indent: 1em;
     margin-bottom: 5px;
     border-radius: 8px;
     color: #999999;
