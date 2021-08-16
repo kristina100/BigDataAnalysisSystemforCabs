@@ -82,11 +82,20 @@ export default class Map3 extends Component {
                                 lineWidth: 12
                             },
                             pathNavigatorStyle: {//轨迹巡航器(那个箭头一样的东西)样式
-
                                 fillStyle: color,
                                 // content: PathSimplifier.Render.Canvas.getImageContent(''),
 
                             },
+                            startPointStyle:{
+                                fillStyle: '#03dac5',
+                                radius: 7,
+                                strokeStyle:'white'
+                            },
+                            endPointStyle: {
+                                fillStyle: '#03dac5',
+                                radius: 7,
+                                strokeStyle:'white'
+                            }
                         };
                     }
                 }
@@ -105,6 +114,9 @@ export default class Map3 extends Component {
         //获取到车牌号，将车牌号传入后台，获取数据将路径存入路径总数组种
         if(carName === undefined || carName === ''){
             message.warning({content:'请输入车牌号！',key ,duration:1.5})
+            return ;
+        }else if(carName.length < 5){
+            message.warning({content:'请输入正确的车牌号！',key ,duration:1.5})
             return ;
         }
         let sendCarName = '粤A' + carName

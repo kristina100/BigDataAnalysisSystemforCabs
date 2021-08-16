@@ -42,14 +42,14 @@ body,
 }
 .triangle {
     position: relative;
-    top: 68px;
+    top: 74px;
     left: 43%;
     width: 0;
     height: 0;
-    border-bottom: 38px solid transparent;
+    border-bottom: 20px solid transparent;
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
-    border-top: 38px solid #fff;
+    border-top: 20px solid #fff;
 }
 
 .words {
@@ -59,7 +59,7 @@ body,
     margin-left: 10px;
     color: #333;
     font-size: 16px;
-    margin-top: 8px;
+    margin-top: 3px;
     padding-bottom: 10px;
     overflow: hidden;
     text-overflow: ellipsis;

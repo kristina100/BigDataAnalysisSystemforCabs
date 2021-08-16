@@ -1,0 +1,21 @@
+#ana-predict{
+    padding-left: 16px;
+    padding-top: 10px;
+}
+#ana-predict p:nth-child(1){
+    font-size: 20px;
+    color: #03DAC5;
+}
+#ana-predict p{
+    margin-bottom: 6px;
+}
+
+#ana-predict p:nth-child(2){
+    margin-top: 14px;
+    font-size:  16px;
+    color: #03DAC5; 
+}
+#ana-predict p:nth-child(4){
+    font-size:  16px;
+    color: #03DAC5; 
+}

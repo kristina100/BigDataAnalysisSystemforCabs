@@ -1,13 +1,14 @@
 #carController {
     position: relative;
+    width: 285px;
     height: 50px;
-    background-color: #d1d0d0;
+    background-color: #616161;
     border: 2px solid;
-    border-radius: 15px;
-    padding: 10px;
+    border-radius: 6px;
+    padding: 10px 14px 12px 10px;
     margin-top: 20px;
     font-size: 18px;
-    font-weight: 700;
+    color: #c7c7c7;
 }
 
 #carName {
@@ -18,8 +19,13 @@
     font-weight: 400;
 }
 
-#deleteBtn {
+.deleteBtn {
     position: absolute;
-    right: 7px;
-    top: 7px;
+    right: 11px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.deleteBtn path {
+    cursor: pointer;
 }

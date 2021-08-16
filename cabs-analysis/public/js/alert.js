@@ -102,7 +102,7 @@ window.alert = function(msg) {
 	//关闭当前alert弹窗
 	function alertBtnClick(){
 		body.removeChild(alertMask);
-		maskStyle = head.getElementsByClassName('mask-style')[0];
+		let maskStyle = head.getElementsByClassName('mask-style')[0];
 		head.removeChild(maskStyle);	//移除生成的css样式
 		
 	}
