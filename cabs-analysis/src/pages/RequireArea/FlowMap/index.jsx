@@ -6,7 +6,7 @@ export default class FlowMap extends Component {
         const map = new window.AMap.Map(this.refs.container, {
             viewMode: '2D',
             resizeEnable: true, // 是否监控地图容器尺寸变化
-            zoom: 7, // 初始化地图层级
+            zoom: 12, // 初始化地图层级
             center: [113.2247, 23.1304], // 初始化地图中心点
             mapStyle: 'amap://styles/whitesmoke'
           });

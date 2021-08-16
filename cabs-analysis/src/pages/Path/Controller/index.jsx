@@ -91,12 +91,11 @@ export default class controller extends Component {
             <div id="control">
                 <div id="findInput">
                     <span id="firstName">粤A</span>
-                    <input type="text" id="findCar" ref="carName" placeholder="请输入车牌号" maxLength="5" onKeyUp={this.noWord} />
+                    <input type="text" id="findCar" ref="carName" placeholder="请输入车牌号" maxLength="5" onKeyUp={this.noWord} autocomplete="off" />
                 </div>
-                <div>查询日期</div>
                 {/* <input type="date" ref="pathDate"/> */}
                 <Datepick />
-                <button onClick={() => { this.findCar() }}>查询车辆</button>
+                <span id="findBtn" onClick={() => { this.findCar() }}>查询车辆</span>
                 {
                     carInfos.map((carInfos, index) => {
                         return <Car key={index} {...carInfos} deleteCar={this.deleteCar} color={colors[index]} />
