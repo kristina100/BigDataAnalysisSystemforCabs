@@ -53,11 +53,13 @@ export default class Advertise extends Component {
                position: markerList[i],
            })
            myList.push(marker);
-           window.AMap.event.addListener(marker, 'click', function () {
+            console.log(window.AMap);
+           window.AMap.Event.addListener(marker, 'click', function () {
                lngLatToaddres(marker.getPosition().lng, marker.getPosition().lat,function(titleData) {
                    makeInfoWindow(marker.getPosition().lng.toFixed(4), marker.getPosition().lat.toFixed(4), marker,titleData)
                });
            })
+         
        }
        map.add(myList);
      }

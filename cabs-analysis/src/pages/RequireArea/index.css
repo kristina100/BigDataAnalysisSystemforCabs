@@ -1,0 +1,132 @@
+/* .outBox {
+    width: 100%;
+    height: 100%;
+
+} */
+
+.container {
+    /* display: flex;
+    align-items: center;
+    justify-content: space-between !important; */
+    width: 100%;
+    height: 100%;
+}
+
+.amap-logo {
+    display: none;
+}
+
+.amap-copyright {
+    opacity: 0;
+}
+
+/* 左边的导航栏 */
+.left_nav {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 20%;
+    background-color: #303030;
+    z-index: 999;
+}
+
+.left_nav header {
+    text-align: center;
+    color: #fff;
+    margin: 15px;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #FFF;
+    font-size: 16px;
+}
+
+.left_nav ul {
+    list-style: none;
+    margin: 15px;
+    color: #fff;
+}
+
+.left_nav ul li {
+    cursor: pointer;
+    height: 45px;
+    line-height: 45px;
+}
+
+.tipMessage {
+    color: #999;
+    font-size: 14px;
+    width: 120px;
+    text-align: center;
+    font-weight: 400;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer !important;
+}
+
+.hover {
+    opacity: 0.9;
+}
+
+/* 右边等级盒子 */
+.right_levelnav {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 15%;
+    height: 60%;
+    padding: 0 20px;
+
+    margin-top: -15%;
+    background-color: #303030;
+    color: #fff;
+
+    z-index: 999;
+}
+
+.right_levelnav ul li {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    line-height: 40px;
+    list-style: none;
+    color: #FFFFFF;
+
+}
+
+/* 颜色块 */
+.level .color {
+    display: inline-block;
+    width: 40px;
+    height: 32px;
+    background-color: green;
+    margin-right: 40px;
+}
+
+/* 顶部 */
+.ant-switch-checked {
+    background-color: #03DAC5 !important;
+}
+
+.right_levelnav div[class^="btn"] {
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    /* background-color: green; */
+}
+
+.right_levelnav .title {
+    font-size: 16px;
+    margin: 15px 0;
+}
+
+.right_levelnav .chooseTime {
+
+    visibility: hidden;
+    height: 35px;
+    text-align: center;
+    margin-top: 10px;
+
+}

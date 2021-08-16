@@ -7,7 +7,7 @@ import Date from '../../components/Date';
 import './index.css'
 import 'antd/dist/antd.css';
 import { message } from 'antd';
-export default class Heatmap extends Component {
+export default class HeatMap extends Component {
     componentDidMount() {
         var heatmap;
         let heatflag = 0;
@@ -19,8 +19,8 @@ export default class Heatmap extends Component {
           zoom:9,
           mapStyle: 'amap://styles/whitesmoke'
        });
-        map.plugin(["AMap.Heatmap"],function() {      //加载热力图插件
-          heatmap = new window.AMap.Heatmap(map,{
+        map.plugin(["AMap.HeatMap"],function() {      //加载热力图插件
+          heatmap = new window.AMap.HeatMap(map,{
           zIndex:10,
           radius: 25, //给定半径
           opacity: [0, 0.7],
