@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import axios from 'axios'
-import { Switch,Redirect } from 'react-router'
+
 import Date from '../../components/Date';
-import { NavLink } from 'react-router-dom';
+
 import './index.css'
 import 'antd/dist/antd.css';
 import { message } from 'antd';
@@ -355,13 +355,7 @@ export default class Heatmap extends Component {
         return (
             <div className="map-ct">
                 <div id="heat-section">
-                <div id="heat-btn-ct">
-                    <NavLink className="heat-btn" to="/heatmap/history">历史<div></div></NavLink>
-                    <NavLink className="heat-btn" to="/heatmap/predict">预测<div></div></NavLink>
-                    <Switch>
-                        <Redirect to="/heatmap/history"/>
-                    </Switch>
-                </div>
+                
                 <div id="time-ct">
                     <p>车流量热力图</p>         
                     <p>请在下方选择您需要查询的起始时间，系统会展示半小时内的出租车流量图</p>

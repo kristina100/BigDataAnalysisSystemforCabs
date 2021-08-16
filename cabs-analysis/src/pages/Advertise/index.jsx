@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
+import History from '../../components/History'
+import Predict from '../../components/Predict'
+import { Switch,Redirect , Route } from 'react-router'
+import { NavLink } from 'react-router-dom';
+import './index.css'
 import './intro.css'
 export default class Advertise extends Component {
     componentDidMount(){
-        let container = this.refs.container;
-        var map = new window.AMap.Map(container, {
+        let container1 = this.refs.container;
+        
+
+
+        var map = new window.AMap.Map(container1, {
    
           center: [113.0683,23.12897],
           zoom:9,
@@ -132,7 +140,22 @@ export default class Advertise extends Component {
     render() {
         return (
             <div className="map-ct">
-                <div style={{width:'100%',height:'100%'}} ref="container"></div>
+                <div id="analyse-graph">
+                  
+                  <div id="ana-btn-ct">
+                    <NavLink className="ana-btn" to="/advertise/history">历史<div></div></NavLink>
+                    <NavLink className="ana-btn" to="/advertise/predict">预测<div></div></NavLink>
+                    
+                  </div>
+                  <div id="graph-box">
+                    <Switch>
+                      <Route path="/advertise/history" component={History}/>
+                      <Route path="/advertise/predict" component={Predict}/>
+                      <Redirect to="/advertise/history"/>
+                    </Switch>
+                  </div>
+                </div>
+                <div style={{width:'75%',height:'100%'}} ref="container"></div>
             </div>
         )
     }

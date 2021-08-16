@@ -20,7 +20,7 @@ export default class App extends Component {
             <MyNavLink to="/requirearea" children="需求区域"/>
             <MyNavLink to="/path" children="行驶轨迹"/>
             <MyNavLink to="/abnormal" children="异常情况"/>
-            <MyNavLink to="/advertise" children="广告推荐"/>
+            <MyNavLink to="/advertise" children="预测分析"/>
           </div>  
         </div>  
         <div id="main">
