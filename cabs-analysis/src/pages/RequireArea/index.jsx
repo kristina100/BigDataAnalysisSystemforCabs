@@ -7,12 +7,12 @@ import { flushSync } from 'react-dom';
 import MyNavLink from '../../components/MyNavLink';
 
 import { Switch } from 'antd';
-import { DatePicker, Space } from 'antd';
+import { DatePicker, Space, message } from 'antd';
+
 
 function onChangeTime(date, dateString) {
     console.log(date, dateString);
 }
-
 
 export default class Rightcontent extends Component {
 
@@ -21,11 +21,19 @@ export default class Rightcontent extends Component {
         pointSimplifierIns: null
     })
 
+
+    warning = (msg) => {
+        message.warning(msg, 2);
+    };
+
+
+
+
     // 根据流向开关得状态控制是否显示时间输入框
     onChangeOpenFlow = (checked) => {
         const { chooseTime } = this.refs;
         checked ? chooseTime.style = 'visibility: visible' : chooseTime.style = 'visibility: hidden';
-        if (checked) alert('请在右侧选择流向图的时间')
+        if (checked) { this.warning('请您在右侧选择流向图的时间') }
     }
 
     // 根据state中的数据与开关的状态来展示载客热点
@@ -42,20 +50,15 @@ export default class Rightcontent extends Component {
         const { container } = this.refs;
         let that = this; // 记录此时this的指向，指向实例
 
-
-
         let circleData = { "113.33251027579787, 23.18078226037234": 0.06739003765353815, "113.26366795168248, 23.12606159253667": 0.01972460156745375, "113.35150718678906, 23.127885519656754": 0.054224334058739346, "113.31663236325612, 23.100489839285714": 0.061425534624412234, "113.25512111504024, 23.15770806789074": 0.029698650530671406, "113.3188032547713, 23.137238910137803": 0.032068104685359124, "113.26210390526316, 22.98865324280702": 0.6079383687257695, "113.29565079851209, 23.243590393676378": 0.1620389817229609, "113.28523172917875, 23.135583079721556": 0.029109928283315885, "113.27459894843335, 23.096938685001472": 0.027484304222060545, "113.21600596751792, 23.09754990703405": 0.32143720805177994, "113.23868799416866, 23.126108490206338": 0.02777502156042398, "113.25444839193972, 23.09823750165544": 0.053828559883554346, "113.25585206447613, 23.197351406488945": 0.07456918855095443, "113.298130127864, 23.387408906134517": 0.3245859606747358, "113.29337785976628, 23.063639925292154": 0.04915330049056535, "113.2185345497466, 23.160579520938917": 0.36518310919914015, "113.39562373304805, 23.12512665009875": 0.08272530066822477, "113.47265178340366, 23.130443991561183": 0.5705530564253625, "113.34151490643275, 22.9970165165692": 0.43309255795532225 }
-
-
-
-
-
-
 
 
         axios.get(`http://39.98.41.126:31100/getHotPoints`).then(
             response => {
+                console.log(6666);
+
                 initDataPrint = response.data.split('\n');
+                console.log(initDataPrint);
                 initDataPrint = initDataPrint.filter((item) => {
                     return item != ''
                 })
@@ -96,12 +99,12 @@ export default class Rightcontent extends Component {
             //     strokeWeight: 1
             // })
 
-            let marker = new window.AMap.Marker({
-                position: [parseFloat(k.split(',')[0]), parseFloat(k.split(',')[1])]
-            })
+            // let marker = new window.AMap.Marker({
+            //     position: [parseFloat(k.split(',')[0]), parseFloat(k.split(',')[1])]
+            // })
             // console.log(circle);
             // map.add(circle)
-            map.add(marker)
+            // map.add(marker)
 
         }
 
@@ -156,9 +159,6 @@ export default class Rightcontent extends Component {
         // });
 
 
-
-
-
         // ui组件初始化界面(海量点标记 + 行政区域划分)
         function initPage(PointSimplifier, DistrictExplorer, $) {
             let dataPrint;
@@ -187,7 +187,7 @@ export default class Rightcontent extends Component {
                     pointStyle: {
                         width: 6,
                         height: 6,
-                        fillStyle: 'black'
+                        fillStyle: 'green'
                     },
                     //鼠标hover时的title信息
                     hoverTitleStyle: {
@@ -238,6 +238,8 @@ export default class Rightcontent extends Component {
                     timeArr = [];
                     flagChange = 0;
                 } else {
+                    // http://39.98.41.126:31100/getHotPoints
+
                     axios.get(`http://39.98.41.126:31100/getHotPoints`).then(
                         response => {
                             dataPrint = response.data.split('\n').filter((item) => {
@@ -489,8 +491,6 @@ export default class Rightcontent extends Component {
                 </div>
 
             </div>
-
-
         );
     }
 }
