@@ -17,7 +17,6 @@ export default class Datepick extends Component {
 
     render() {
         return (
-            <div>
                 <Space direction="vertical">
                     <DatePicker
                      onChange={this.check} format="YYYY-MM-DD"
@@ -27,7 +26,7 @@ export default class Datepick extends Component {
                     //  defaultValue={moment("2017-02-01")}
                     />
                 </Space>
-            </div>
+
         )
     }
 }
