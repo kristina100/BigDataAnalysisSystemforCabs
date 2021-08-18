@@ -1,9 +1,9 @@
 #control {
     float: left;
-    width: 384px;
+    width: 20%;
     height: 100%;
     background-color: var(--deepBack);
-    padding: 50px 15px 0 38px;
+    padding: 50px 15px 0 30px;
 }
 
 #findCar {
@@ -54,7 +54,7 @@
     font-size: 16px;
     color: var(--themeColor);
     line-height: 32px;
-    margin-left: 21px;
+    margin-left: 18px;
     cursor: pointer;
     transition: .4s;
 }

@@ -124,7 +124,7 @@ export default class Rightcontent extends Component {
 
             that.setState({ dataPrint: data.initDataPrint, addressPrint: data.addressPrint })
             console.log(that.state);
-
+            let circleData = data
             // const map = new window.AMap.Map(container, {
             //     center: [113.364931, 23.275388],
             //     zoom: 8.8,
