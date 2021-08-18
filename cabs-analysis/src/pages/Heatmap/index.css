@@ -1,0 +1,74 @@
+#heat-section{
+    width: 20%;
+    height: 100%;
+    min-width: 308px;
+    background-color: #303030;
+  }
+  
+  #time-ct{
+    width: 84%;
+    height: 120px;
+    margin-left: 8%;
+  }
+  
+  #time-ct p:nth-child(4){
+    color: #03DAC5;
+    margin-top: 1em;
+    font-size: 18px;
+  }
+  #time-ct p:nth-child(4) span{
+    color: white;
+  
+    font-size: 14px;
+  }
+  #time-ct p:nth-child(2){
+    color: white;
+  }
+  #time-ct p:nth-child(1){
+    color: #03DAC5;
+    font-size: 20px;
+    
+    margin-top: 1em;
+  }
+  
+  #heat-btn-ct{
+    width: 100%;
+    position: relative;
+    height: 50px;
+  
+  }
+  .heat-btn{
+    width: 50%;
+    height: 100%;
+    font-size: 16px;
+    text-align: center;
+    line-height: 40px;
+    display: inline-block;
+    color: #999;
+    background-color: #1f1f1f;
+  }
+  .heat-btn:hover.heat-btn div{
+      width: 20px;
+  }
+  .heat-btn div{
+    height: 4px;
+    width: 0;
+    position:relative;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 6px;
+    border-radius: 2px;
+    transition: 0.2s all;
+    background-color: #03DAC5; 
+  }
+  
+  .heat-btn:hover{
+    color: #03DAC5;
+  }
+  .active{
+    color: #03DAC5;
+    background-color: #303030;
+  }
+  .active div{
+    width: 20px;
+  }

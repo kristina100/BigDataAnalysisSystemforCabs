@@ -28,14 +28,16 @@ export default class controller extends Component {
             message.warning('最多能够同时查看五辆出租车的路径');
             return;
         }
+        // console.log(this.refs.carName.value);
 
         PubSub.publish('setCar', { finding: true, delete: false, carName: this.refs.carName.value, pathDate: this.state.pathDate })
     }
 
     checkCar = (check) => {
+        let name = this.refs.carName.value
         if (check) {
             let newCarObj = {
-                carName: '粤A' + this.refs.carName.value,
+                carName: '粤A' + name,
                 pathDate: this.state.pathDate
             }
             const { carInfos } = this.state
@@ -49,17 +51,19 @@ export default class controller extends Component {
         }
     }
 
-    deleteCar = (carName) => {
+    deleteCar = (carName,pathDate) => {
         let { carInfos } = this.state
         let dIndex
         for (let i = 0; i < carInfos.length; i++) {
-            if (carName === carInfos[i].carName) {
+            if (carName === carInfos[i].carName && pathDate === carInfos[i].pathDate) {
                 dIndex = i;
+                break ;
             }
         }
-        // console.log(dIndex);
+        console.log(dIndex);
         carInfos.splice(dIndex, 1)
-        // console.log(carName);
+        console.log(carName);
+        console.log(pathDate);
         // console.log(dIndex);
         // console.log(carInfos);
         this.setState({ carInfos: carInfos })
@@ -75,6 +79,7 @@ export default class controller extends Component {
     componentWillUnmount() {
         PubSub.unsubscribe(this.token)
         PubSub.unsubscribe(this.token1)
+        PubSub.unsubscribe(this.token2)
     }
 
     render() {
@@ -88,12 +93,11 @@ export default class controller extends Component {
             <div id="control">
                 <div id="findInput">
                     <span id="firstName">粤A</span>
-                    <input type="text" id="findCar" ref="carName" placeholder="请输入车牌号" maxLength="5" onKeyUp={this.noWord} />
+                    <input type="text" id="findCar" ref="carName" placeholder="请输入车牌号" maxLength="5" onKeyUp={this.noWord} autoComplete="off" />
                 </div>
-                <div>查询日期</div>
                 {/* <input type="date" ref="pathDate"/> */}
                 <Datepick />
-                <button onClick={() => { this.findCar() }}>查询车辆</button>
+                <span id="findBtn" onClick={() => { this.findCar() }}>查询车辆</span>
                 {
                     carInfos.map((carInfos, index) => {
                         return <Car key={index} {...carInfos} deleteCar={this.deleteCar} color={colors[index]} />

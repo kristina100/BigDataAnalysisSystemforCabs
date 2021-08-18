@@ -5,16 +5,8 @@ import 'antd/dist/antd.css';
 import PubSub from 'pubsub-js';
 import './index.css'
 export default class Date extends Component {
-  range = (start, end) => {
-    const result = [];
-    for (let i = start; i < end; i++) {
-      result.push(i);
-    }
-    return result;
-  }
   disabledDate = (current) =>{
-  
-    return current<moment('2017-02-01') || current > moment('2017-03-01')
+    return current<moment('2017-02-01') || current > moment('2017-02-28')
   }
   
   onOk = (dates)=>{

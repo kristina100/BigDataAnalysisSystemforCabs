@@ -136,4 +136,20 @@ a{
 }
 .ant-picker-input > input{
     color: #f0f0f0;
+<<<<<<< HEAD
+=======
+}
+.anticon-check-circle svg{
+    fill:#03dac5;
+    background-color: white;
+    transition: 0.2s all;
+}
+.anticon-loading svg{
+    fill:#03dac5;
+    background-color: white;
+}
+.anticon-exclamation-circle svg{
+    background-color: white;
+    fill:#03dac5;
+>>>>>>> a33f9399539fea4e469f29fe45a8e30a48c002f5
 }
