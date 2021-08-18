@@ -1,11 +1,13 @@
 #control {
     float: left;
-    width: 20%;
+    width: 384px;
     height: 100%;
     background-color: rgba(0, 0, 0, .8) ;
     padding: 50px 15px 0 38px;
 }
-
+.amap-container{
+    width: calc(100% - 384px)!important;
+}
 #findCar {
     width: 285px;
     height: 40px;

@@ -1,3 +1,12 @@
+:root{
+  --themeColor:#03DAC5;/* 主题色 */
+  --text:white;    /* 正文 */
+  --hoverBtn:#6a6a6a;/* 按钮悬浮 */
+  --grayText: #999;/* 灰色文本 */
+  --deepBack:#292929;/* 与导航栏一样的深色背景 */
+  --ltBack:#303030;/* 侧栏稍微浅色的背景 */
+}
+
 *{
   margin: 0;
   padding:0;
@@ -128,25 +137,4 @@
   width: 100%;
   display: flex;
 
-}
-#heat-section{
-  width: 20%;
-  height: 100%;
-  min-width: 308px;
-  background-color: #303030;
-}
-
-#time-ct{
-  width: 84%;
-  height: 120px;
-  margin-left: 8%;
-}
-
-#time-ct p:nth-child(3){
-  font-size: 14px;
-}
-
-#time-ct p:nth-child(1){
-  font-size: 18px;
-  color: white;
 }

@@ -174,7 +174,7 @@ export default class Map3 extends Component {
     }
 
     deleteCar = (dIndex) => {
-        // console.log(dIndex);
+        console.log(dIndex);
         if(window.pathSimplifierIns._data !== undefined){
             let allPath = window.pathSimplifierIns._data.source;
             allPath.splice(dIndex, 1);

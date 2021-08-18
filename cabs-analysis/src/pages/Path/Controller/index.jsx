@@ -51,17 +51,19 @@ export default class controller extends Component {
         }
     }
 
-    deleteCar = (carName) => {
+    deleteCar = (carName,pathDate) => {
         let { carInfos } = this.state
         let dIndex
         for (let i = 0; i < carInfos.length; i++) {
-            if (carName === carInfos[i].carName) {
+            if (carName === carInfos[i].carName && pathDate === carInfos[i].pathDate) {
                 dIndex = i;
+                break ;
             }
         }
-        // console.log(dIndex);
+        console.log(dIndex);
         carInfos.splice(dIndex, 1)
-        // console.log(carName);
+        console.log(carName);
+        console.log(pathDate);
         // console.log(dIndex);
         // console.log(carInfos);
         this.setState({ carInfos: carInfos })
@@ -91,7 +93,7 @@ export default class controller extends Component {
             <div id="control">
                 <div id="findInput">
                     <span id="firstName">粤A</span>
-                    <input type="text" id="findCar" ref="carName" placeholder="请输入车牌号" maxLength="5" onKeyUp={this.noWord} autocomplete="off" />
+                    <input type="text" id="findCar" ref="carName" placeholder="请输入车牌号" maxLength="5" onKeyUp={this.noWord} autoComplete="off" />
                 </div>
                 {/* <input type="date" ref="pathDate"/> */}
                 <Datepick />

@@ -5,14 +5,35 @@ import PubSub from 'pubsub-js'
 import 'antd/dist/antd.css';
 
   function disabledDate(current) {
-    return current<moment('2017-02-01') || current > moment('2017-02-28')
+    return current<moment('2017-02-01') || current > moment('2017-02-27')
   }
+  
 
 export default class Datepick extends Component {
 
+  state = ({
+    clean:false
+  })
+
+  componentDidMount(){
+    this.token = PubSub.subscribe('cleanValue', (_, flag) => {
+      this.setState({clean:flag})
+      this.setState({clean:false})
+
+    })
+  }
+
     check = (date,dateString) => {
-        PubSub.publish('pathDate',{pathDate:dateString})
+        PubSub.publish('flowDate',{flowDate:dateString})
         // console.log(dateString);
+    }
+
+    cleanValue = () => {
+      if(this.state.clean){
+        return null
+      }else{
+        return 
+      }
     }
 
     render() {
@@ -24,6 +45,7 @@ export default class Datepick extends Component {
                     //  showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                      defaultPickerValue={moment("2017-02-01")}
                     //  defaultValue={moment("2017-02-01")}
+                    value={this.cleanValue()}
                     />
                 </Space>
 

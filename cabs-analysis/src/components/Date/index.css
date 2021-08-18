@@ -1,9 +1,7 @@
 .ant-picker-time-panel-column{
     color: #03dac5 !important;  
 }
-.ant-picker-input > input{
-    color: rgb(235, 233, 233);
-}
+
 .ant-picker-header-view{
     color: #03dac5!important;
 }
@@ -127,4 +125,28 @@ a{
 }
 .ant-picker-dropdown{
     border: 1px solid white;
+}
+.anticon svg{
+    fill:white;
+    background-color: #303030;
+    transition: 0.2s all;
+}
+.anticon svg:hover{
+    fill: #03dac5;
+}
+.ant-picker-input > input{
+    color: #f0f0f0;
+}
+.anticon-check-circle svg{
+    fill:#03dac5;
+    background-color: white;
+    transition: 0.2s all;
+}
+.anticon-loading svg{
+    fill:#03dac5;
+    background-color: white;
+}
+.anticon-exclamation-circle svg{
+    background-color: white;
+    fill:#03dac5;
 }
