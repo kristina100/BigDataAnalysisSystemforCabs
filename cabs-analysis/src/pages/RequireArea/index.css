@@ -26,24 +26,24 @@
     left: 0;
     height: 100%;
     width: 20%;
-    background-color: #303030;
+    background-color: var(--ltBack);
     z-index: 999;
 }
 
 .left_nav header {
     text-align: center;
-    color: #fff;
+    color: var(--text);
     margin: 15px;
     height: 50px;
     line-height: 50px;
-    border-bottom: 1px solid #FFF;
+    border-bottom: 1px solid var(--text);
     font-size: 16px;
 }
 
 .left_nav ul {
     list-style: none;
     margin: 15px;
-    color: #fff;
+    color: var(--text);
 }
 
 .left_nav ul li {
@@ -53,12 +53,12 @@
 }
 
 .tipMessage {
-    color: #999;
+    color: var(--grayText);
     font-size: 14px;
     width: 120px;
     text-align: center;
     font-weight: 400;
-    background-color: #fff;
+    background-color: var(--text);
     border-radius: 5px;
     cursor: pointer !important;
 }
@@ -77,8 +77,8 @@
     padding: 0 20px;
 
     margin-top: -15%;
-    background-color: #303030;
-    color: #fff;
+    background-color: var(--ltBack);
+    color: var(--text);
 
     z-index: 999;
 }
@@ -89,22 +89,98 @@
     height: 40px;
     line-height: 40px;
     list-style: none;
-    color: #FFFFFF;
+    color: var(--text);
 
 }
 
 /* 颜色块 */
+.levelBox {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.level {
+    width: 50%;
+    /* display: flex; */
+    height: 200px;
+    overflow: hidden;
+    font-size: 12px;
+    /* justify-content: space-between; */
+}
+
 .level .color {
     display: inline-block;
-    width: 40px;
-    height: 32px;
-    background-color: green;
-    margin-right: 40px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    /* background-color: green; */
+    margin-right: 15px;
+}
+
+.level li:nth-child(1) .color {
+    background-color: #E6556F;
+}
+
+.level li:nth-child(2) .color {
+    background-color: #E3843C;
+}
+
+.level li:nth-child(3) .color {
+    background-color: #EEC055;
+
+}
+
+.level li:nth-child(4) .color {
+    background-color: #1EC78A;
+}
+
+.level li:nth-child(5) .color {
+    background-color: #4E72E2;
+
+}
+
+.level2 {
+    width: 50%;
+    height: 200px;
+    overflow: hidden;
+    font-size: 12px;
+    margin-left: 30px;
+}
+
+.level2 .color {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.level2 li:nth-child(1) .color {
+    background-color: #E24ED7;
+}
+
+.level2 li:nth-child(2) .color {
+    background-color: #71E24E;
+}
+
+.level2 li:nth-child(3) .color {
+    background-color: #7F4EE2;
+}
+
+.level2 li:nth-child(4) .color {
+    background-color: #4ECEE2;
+}
+
+.level2 li:nth-child(5) .color {
+    background-color: #BB4EE2;
 }
 
 /* 顶部 */
 .ant-switch-checked {
-    background-color: #03DAC5 !important;
+    background-color: var(--themeColor) !important;
 }
 
 .right_levelnav div[class^="btn"] {

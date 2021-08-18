@@ -2,30 +2,34 @@
     width: 20%;
     height: 100%;
     min-width: 308px;
-    background-color: #303030;
+    min-height: 620px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--ltBack);
   }
   
   #time-ct{
     width: 84%;
-    height: 120px;
+    height: 260px;
     margin-left: 8%;
   }
   
   #time-ct p:nth-child(4){
-    color: #03DAC5;
+    color: var(--themeColor);
     margin-top: 1em;
     font-size: 18px;
   }
   #time-ct p:nth-child(4) span{
-    color: white;
+    color: var(--text);
   
     font-size: 14px;
   }
   #time-ct p:nth-child(2){
-    color: white;
+    color: var(--text);
   }
   #time-ct p:nth-child(1){
-    color: #03DAC5;
+    color: var(--themeColor);
     font-size: 20px;
     
     margin-top: 1em;
@@ -44,8 +48,8 @@
     text-align: center;
     line-height: 40px;
     display: inline-block;
-    color: #999;
-    background-color: #1f1f1f;
+    color: var(--grayText);
+    background-color: var(--deepBack);
   }
   .heat-btn:hover.heat-btn div{
       width: 20px;
@@ -59,16 +63,76 @@
     bottom: 6px;
     border-radius: 2px;
     transition: 0.2s all;
-    background-color: #03DAC5; 
+    background-color: var(--themeColor); 
   }
   
   .heat-btn:hover{
-    color: #03DAC5;
+    color: var(--themeColor);
   }
   .active{
-    color: #03DAC5;
-    background-color: #303030;
+    color: var(--themeColor);
+    background-color: var(--ltBack);
   }
   .active div{
     width: 20px;
   }
+#flow-selector{
+  width: 140px;
+  height: 446px;
+  background-color: var(--ltBack);
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#flow-selector p{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+  user-select: none;
+  color: var(--themeColor);
+}
+#flow-selector li{
+  cursor: pointer;
+  height: 40px;
+  margin: 0;
+  width: 100%;
+  line-height: 40px;
+  list-style: none;
+  color: var(--text);
+  user-select: none;
+}
+.flow-item span{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 24px;
+  margin-left: 24px;
+  border-radius: 50%; 
+}
+#flow-selector li:hover{
+  background-color: var(--hoverBtn);
+}
+#flow-graph-ct{
+  width: 100%;
+  height: 360px;
+
+}
+#flow-graph-ct p{
+  font-size: 20px;
+  margin-left: 8%;
+
+  color: var(--themeColor);
+} 
+
+@media screen and (min-height: 800px){
+  #time-ct{
+    height: 360px;
+  }
+  #flow-graph-ct{
+    height: 460px;
+  }
+}

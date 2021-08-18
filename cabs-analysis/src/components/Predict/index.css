@@ -1,21 +1,39 @@
 #ana-predict{
     padding-left: 16px;
     padding-top: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-#ana-predict p:nth-child(1){
-    font-size: 20px;
-    color: #03DAC5;
-}
+
 #ana-predict p{
     margin-bottom: 6px;
 }
-
-#ana-predict p:nth-child(2){
+#ana-predict div:nth-child(1) p:nth-child(1){
+    font-size: 20px;
+    color: var(--themeColor);
+}
+#ana-predict div:nth-child(1) p:nth-child(2){
     margin-top: 14px;
     font-size:  16px;
-    color: #03DAC5; 
+    color: var(--themeColor); 
 }
-#ana-predict p:nth-child(4){
+#ana-predict div:nth-child(2) p{
     font-size:  16px;
-    color: #03DAC5; 
+    color: var(--themeColor); 
+}
+@media screen and (min-height: 800px) {
+    #uli-pt{
+        height: 400px;
+    }
+    #salary-pt{
+        height: 400px;
+    }
+    #salary-pt p{
+        margin-bottom: 20px;
+    }
+    .ant-select{
+        top: 98px;
+    }
 }

@@ -1,28 +1,44 @@
 #ana-history{
-    
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     padding-left: 16px;
     padding-top: 10px;
-     overflow-y: auto;
-    overflow-x: hidden;
+
 }
 
-#ana-history p:nth-child(1){
+#ana-history div:nth-child(1) p:nth-child(1){
     font-size: 20px;
-    color: #03DAC5;
+    color: var(--themeColor);
 }
 #ana-history p{
     margin-bottom: 6px;
 }
-#ana-history p:nth-child(2){
+#ana-history div:nth-child(1) p:nth-child(2){
     font-size: 16px;
-    color: white;
+    color: var(--text);
+    margin-bottom: 10px;
 }
-#ana-history p:nth-child(4){
+#ana-history div:nth-child(2) p{
     margin-top: 14px;
     font-size:  16px;
-    color: #03DAC5; 
+    color: var(--themeColor); 
 }
-#ana-history p:nth-child(6){
+#ana-history div:nth-child(3) p{
     font-size:  16px;
-    color: #03DAC5; 
+    color: var(--themeColor); 
+}
+
+@media screen and (min-height: 800px) {
+    #box1{
+        height: 280px;
+    }
+    #box2{
+        height: 320px;
+    }
+    .ant-select{
+        top: 124px;
+    }
 }
