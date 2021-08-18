@@ -2,20 +2,18 @@
     float: left;
     width: 384px;
     height: 100%;
-    background-color: rgba(0, 0, 0, .8) ;
+    background-color: var(--deepBack);
     padding: 50px 15px 0 38px;
 }
-.amap-container{
-    width: calc(100% - 384px)!important;
-}
+
 #findCar {
     width: 285px;
     height: 40px;
     font-size: 18px;
     font-weight: 400;
     font-family: Microsoft YaHei;
-    color: #999999 !important;
-    background-color: #616161;
+    color: var(--grayText) !important;
+    background-color: var(--hoverBtn);
     padding-left: 50px;
     outline: none;
     border: none;
@@ -26,11 +24,11 @@
 }
 
 #findCar:focus {
-    background-color: #4d4c4c;
+    background-color: var(--deepGrey);
 }
 
 #findCar::placeholder {
-    color: #999999;
+    color: var(--ltBack);
 }
 
 #findInput{
@@ -43,18 +41,18 @@
     height: 40px;
     font-size: 18px;
     padding: 7px 0px 0px 15px;
-    color: #fff;
+    color: var(--text);
 }
 
 #findBtn {
     display: inline-block;
     width: 119px;
     height: 34px;
-    background-color: #616161;
+    background-color: var(--hoverBtn);
     border-radius: 6px;
     text-align: center;
     font-size: 16px;
-    color: #03DAC5;
+    color: var(--themeColor);
     line-height: 32px;
     margin-left: 21px;
     cursor: pointer;
@@ -62,5 +60,5 @@
 }
 
 #findBtn:hover {
-    background-color: #4d4c4c;
+    background-color: var(--deepGrey);
 }

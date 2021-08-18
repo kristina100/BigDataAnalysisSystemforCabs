@@ -191,14 +191,18 @@ PubSub.subscribe('timeUti',(_,data)=>{
     render() {
         return (
             <div id="ana-predict">
-                <p>数据预测</p>
-                <p>出租车利用率</p>
-                <div id="utilization" ref="utilization" style={{marginBottom:'30px'}}>
-                    <TimeList></TimeList>
-                </div>
                 
-                <p>出租车司机收入</p>
-                <div id="salary" ref="salary"></div>
+                <div id="uli-pt">
+                <p>数据预测</p>
+                  <p>出租车利用率</p>
+                  <div id="utilization" ref="utilization" style={{marginBottom:'30px'}}>
+                      <TimeList></TimeList>
+                  </div>
+                </div>                
+                <div id="salary-pt">
+                  <p>出租车司机收入</p>
+                  <div id="salary" ref="salary"></div>
+                </div>
             </div>
         )
     }

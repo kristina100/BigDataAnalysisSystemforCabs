@@ -13,7 +13,7 @@ export default class BasicMap extends Component {
 	}
 	render() {
 		return (
-			<div className="map-ct"></div>
+			<div className="map-ct" style={{width:'100%'}}></div>
 		)
 	}
 }

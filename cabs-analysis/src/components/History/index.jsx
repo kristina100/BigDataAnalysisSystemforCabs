@@ -197,16 +197,23 @@ PubSub.subscribe('timeUti',(_,data)=>{
     render() {
         return (
             <div id="ana-history">
-                <p>数据分析</p>
-                <p>请在下方选择您想查看的时间：</p>
-                <AnalyseDate onChange={this.onChange} />
-                <p>出租车利用率</p>
-                <div id="utilization" ref="utilization">
-                <TimeList></TimeList>
-                </div>
+              <div>
+                  <p>数据分析</p>
                 
+                  <p>请在下方选择您想查看的时间：</p>
+                  <AnalyseDate onChange={this.onChange} />
+                </div>
+                <div id="box1">
+                  <p>出租车利用率</p>
+                  <div id="utilization" ref="utilization">
+                  <TimeList></TimeList>
+                </div>
+                </div>
+                <div id="box2">
                 <p>出租车司机收入</p>
                 <div id="salary" ref="salary"></div>
+                </div>
+                
             </div>
         )
     }

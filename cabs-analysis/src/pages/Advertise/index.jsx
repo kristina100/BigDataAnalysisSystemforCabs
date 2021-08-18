@@ -53,7 +53,6 @@ export default class Advertise extends Component {
                position: markerList[i],
            })
            myList.push(marker);
-            console.log(window.AMap);
            window.AMap.Event.addListener(marker, 'click', function () {
                lngLatToaddres(marker.getPosition().lng, marker.getPosition().lat,function(titleData) {
                    makeInfoWindow(marker.getPosition().lng.toFixed(4), marker.getPosition().lat.toFixed(4), marker,titleData)
@@ -157,7 +156,7 @@ export default class Advertise extends Component {
                     </Switch>
                   </div>
                 </div>
-                <div style={{width:'75%',height:'100%'}} ref="container"></div>
+                <div style={{width:'80%',height:'100%'}} ref="container"></div>
             </div>
         )
     }

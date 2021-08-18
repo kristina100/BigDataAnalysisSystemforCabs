@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import axios from 'axios'
-
+import { Chart } from '@antv/g2';
 import Date from '../../components/Date';
 
 import './index.css'
@@ -12,7 +12,12 @@ export default class HeatMap extends Component {
         var heatmap;
         let heatflag = 0;
         const key = 'updatable';
+        const key2 = 'flow';
         let container = this.refs.container;
+        let style = []
+        
+        
+       
         var map = new window.AMap.Map(container, {
    
           center: [113.0683,23.12897],
@@ -45,23 +50,32 @@ export default class HeatMap extends Component {
             
             if(heatflag === 0){
                 heatflag = 1;
+                let isOk = 1;
                 (async () => {
                     const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
                     message.loading({ content: '正在渲染...', key});
           
                     for (let i = 1; i <= 10; i++) {
-                        axios.get('http://39.98.41.126:31106/selectByTimeSlot/'+data[0]+'/'+data[1]+'/'+ i +'/10000').then(
+                        axios.get('http://39.98.41.126:31106/selectByTimeSlot/'+data[0]+'/'+data[1]+'/'+ i +'/8000').then(
                             //eslint-disable-next-line no-loop-func    
                             response => {  
+                              
                                 heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
                             },
-                            error => {
-                                console.log(error.message);
+                            //eslint-disable-next-line no-loop-func
+                            error => {                           
+                                isOk = 0;                     
                             }
                         )
+                        if(!isOk){
+                            message.warning({content:'服务器出现问题，加载失败！',duration:2});   
+                            return; 
+                        }
                         await sleep(1500)
                     }
-                    message.success({ content: '渲染完成！', key, duration: 2 });
+                    if(isOk){
+                        message.success({ content: '渲染完成！', key, duration: 2 });
+                    }
                     heatflag = 0;
                 })()  
             }else{
@@ -72,86 +86,7 @@ export default class HeatMap extends Component {
         }) 
     
         
-  
-         
-  
-       //反高亮
-      /*  window.AMapUI.loadUI(['geo/DistrictExplorer'], function(DistrictExplorer) {
-  
-  
-  initPage(DistrictExplorer);
-  });
-  
-  function getAllRings(feature) {
-  
-  var coords = feature.geometry.coordinates,
-      rings = [];
-  
-  for (var i = 0, len = coords.length; i < len; i++) {
-      rings.push(coords[i][0]);
-  }
-  
-  return rings;
-  }
-  
-  function getLongestRing(feature) {
-  var rings = getAllRings(feature);
-  
-  rings.sort(function(a, b) {
-      return b.length - a.length;
-  });
-  
-  return rings[0];
-  }
-  
-  function initPage(DistrictExplorer) {
-  //创建一个实例
-  var districtExplorer = new DistrictExplorer({
-      map: map,
-      eventSupport:true
-  });
-  
-  var countryCode = 100000, //全国
-      cityCodes = [
-          440100
-      ];
-  
-  districtExplorer.loadMultiAreaNodes(
-      //只需加载全国和市，全国的节点包含省级
-      [countryCode].concat(cityCodes),
-      function(error, areaNodes) {
-  
-          var countryNode = areaNodes[0],
-              cityNodes = areaNodes.slice(1);
-  
-          var path = [];
-  
-          //首先放置背景区域，这里是大陆的边界
-          path.push(getLongestRing(countryNode.getParentFeature()));
-  
-  
-      
-  
-          for (var i = 0, len = cityNodes.length; i < len; i++) {
-              //逐个放置需要镂空的市级区域
-              path.push.apply(path, getAllRings(cityNodes[i].getParentFeature()));
-          }
-  
-          //绘制带环多边形
-          //https://lbs.amap.com/api/javascript-api/reference/overlay#Polygon
-          var polygon = new window.AMap.Polygon({
-              bubble: true,
-              lineJoin: 'round',
-              strokeColor: 'red', //线颜色
-              strokeOpacity: 1, //线透明度
-              strokeWeight: 1, //线宽
-              fillColor: 'black', //填充色
-              fillOpacity: 0.05, //填充透明度
-              map: map,
-              path: path
-          });
-      });
-  } */
+
   
   //just some colors
   var colors = [
@@ -165,76 +100,7 @@ export default class HeatMap extends Component {
         eventSupport: true,
         map: map
     });
-  
-    //创建一个辅助Marker，提示鼠标内容
-    var tipMarker = new window.AMap.Marker({
-        //启用冒泡，否则click事件会被marker自己拦截
-        bubble: true,
-   
-    });
-  
-  
-    //监听feature的hover事件
-    districtExplorer.on('featureMouseout featureMouseover', function(e, feature) {
-      var polys = districtExplorer.findFeaturePolygonsByAdcode(feature.properties.adcode);
-      let isHover = e.type === 'featureMouseover';
-        polys[0].setOptions({
-            fillOpacity: isHover ? 0.3 : (cilckFlag?0.3:0)
-        }); 
-      if (!isHover) {
-        tipMarker.setMap(null);
-        return;
-      }
-      tipMarker.setMap(map);
-      tipMarker.setPosition(e.originalEvent.lnglat);
-      tipMarker.setLabel({
-        offset: new window.AMap.Pixel(20, 20),
-        content: feature.properties.name
-      });
-    });
-  
-    //监听鼠标在feature上滑动
-    districtExplorer.on('featureMousemove', function(e, feature) {
-        //更新提示位置
-        tipMarker.setPosition(e.originalEvent.lnglat);
-    });
-  
-    //feature被点击
-    districtExplorer.on('featureClick', function(e, feature) {
-      var props = feature.properties;
-        //如果存在子节点
-        // if (props.childrenNum > 0) {
-            //切换聚焦区域
-            switch2AreaNode(props.adcode);
-        // }
-/*       PubSub.publish('area',feature.properties.name); */
-      var polys = districtExplorer.findFeaturePolygonsByAdcode(feature.properties.adcode);
-    
-        polys[0].setOptions({
-            fillOpacity: 0.3
-        });
-        cilckFlag = 1;
-    });
-  
-    //外部区域被点击
-    districtExplorer.on('outsideClick', function(e) {
-    
-      districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
-  
-        if (routeFeatures && routeFeatures.length > 1) {
-            //切换到省级区域
-            switch2AreaNode(440100);
-        } 
-  
-    }, {
-        levelLimit: 2
-    });
-    cilckFlag = 0;
-    });
-  
-  
-    
-  
+
      //绘制某个区域的边界
      function renderAreaPolygons(areaNode) {
       //更新地图视野
@@ -247,28 +113,27 @@ export default class HeatMap extends Component {
       districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
   
           var fillColor = colors[i % colors.length];
-          var strokeColor = colors[colors.length - 1 - i % colors.length];
   
           return {
               cursor: 'default',
               bubble: true,
-              strokeColor: strokeColor, //线颜色
+              strokeColor: '#03DAC5', //线颜色
               strokeOpacity: 1, //线透明度
               strokeWeight: 1, //线宽
-              fillColor: fillColor, //填充色
+        
               fillOpacity: 0, //填充透明度
           };
       });
   
       //绘制父区域
       districtExplorer.renderParentFeature(areaNode, {
-          cursor: 'default',
-          bubble: true,
-          strokeColor: 'gray', //线颜色
-          strokeOpacity: 1, //线透明度
-          strokeWeight: 1, //线宽
-          fillColor: areaNode.getSubFeatures().length ? null : colors[0], //填充色
-          fillOpacity: 0.35, //填充透明度
+        cursor: 'default',
+        bubble: true,
+        strokeColor: '#03DAC5', //线颜色
+        strokeOpacity: 1, //线透明度
+        strokeWeight: 1, //线宽
+        
+        fillOpacity: 0, //填充透明度
       });
   }
   
@@ -338,11 +203,248 @@ export default class HeatMap extends Component {
   }
   switch2AreaNode(440100);
   });
-  
-  
-  
-  
-      }
+  window.AMapUI.load(['ui/misc/PointSimplifier'], function(PointSimplifier) {
+    let isLoading = 0;
+    let colorType = 0;
+    if (!PointSimplifier.supportCanvas) {
+        alert('当前环境不支持 Canvas！');
+        return;
+    }
+    let color = ['#E6556F','#E3843C','#EEC055', '#1EC78A', '#4E72E2', '#E24ED7','#71E24E', '#7F4EE2',
+    '#4ECEE2','#BB4EE2'];
+    
+    var pointSimplifierIns = new PointSimplifier({
+        map: map, //所属的地图实例
+        autoSetFitView: false,
+        getPosition: function(item) {
+
+            if (!item) {
+                return null;
+            }
+
+            var parts = item.split(',');
+
+            //返回经纬度
+            return [parseFloat(parts[0]), parseFloat(parts[1])];
+        },
+        getHoverTitle: function(dataItem, idx) {
+            return '区域'+(colorType+1);
+        },
+        badBoundsAspectRatio:0,
+        renderConstructor: PointSimplifier.Render.Canvas.GroupStyleRender,
+        renderOptions: {
+            //点的样式
+            pointStyle: {
+                width: 6,
+                height: 6,
+                fillStyle:color[0]
+            },
+            //鼠标hover时的title信息
+            hoverTitleStyle: {
+                position: 'top'
+            },
+            getGroupId: function(item, idx) {
+                return colorType
+            },
+            groupStyleOptions: function(gid) {
+                return {
+                    pointStyle: {
+                        fillStyle: color[gid]
+                    }
+                };
+            },
+            topNAreaStyle:{
+                autoGlobalAlphaAlpha:[0.1,0.9]
+            }
+        },
+       
+    });
+    const flowPointShow = (num)=>{
+        let isOk = 1;
+        (async () => {
+            const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
+            message.loading({ content: '正在渲染...', key2,duration:0.7}); 
+            isLoading = 1;           
+            axios.get('http://39.98.41.126:31103/findFlowDiagram/0/150000/weekday/'+num).then(
+                //eslint-disable-next-line no-loop-func    
+                response => {  
+                    pointSimplifierIns.setData(response.data);                 
+                },
+                //eslint-disable-next-line no-loop-func
+                error => {                           
+                    isOk = 0;                     
+                }
+            )
+            if(!isOk){
+                message.warning({content:'服务器出现问题，加载失败！',duration:2});   
+                return; 
+            }
+            await sleep(1000);
+            isLoading = 0;
+            message.success({ content: '渲染完成！', key2,duration:1});        
+        })()  
+        
+    }
+    window.pointSimplifierIns = pointSimplifierIns;
+    const defTypeBtn = ()=>{
+        (async () => {
+            const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
+            let typeBtn = document.getElementsByClassName('flow-item');
+            for(let i = 0;i<10;i++){
+                //eslint-disable-next-line no-loop-func
+                typeBtn[i].onclick = ()=>{
+                    if(isLoading){
+                        message.warning({content:'正在加载，请稍后',duration:2});
+                        return;
+                    }else{
+                        colorType = i;
+                        pointSimplifierIns.setData(null);
+                        flowPointShow(i);
+                    }         
+                }
+            }    
+            await sleep(10);
+        })()  
+    }
+    defTypeBtn();
+ 
+
+
+});
+    let container2 = document.getElementById('flow-graph');
+    const chart = new Chart({
+        container: container2,
+        autoFit: true,
+        height: 500,
+        padding: [30, 20, 70, 30],
+    
+    });
+    let data2 = [
+        {
+          "time": "0",
+          "nlp": 8,
+          "blockchain": 2
+        },
+        {
+          "time": "1",
+          "nlp": 8,
+          "blockchain": 2
+        },
+        {
+          "time": "2",
+          "nlp": 8,
+          "blockchain": 3
+        },
+        {
+          "time": "3",
+          "nlp": 8,
+          "blockchain": 3
+        },
+        {
+          "time": "4",
+          "nlp": 8,
+          "blockchain": 2
+        },
+        {
+          "time": "5",
+          "nlp": 8,
+          "blockchain": 2
+        },
+        {
+          "time": "6",
+          "nlp": 8,
+          "blockchain": 3
+        },
+        {
+          "time": "7",
+          "nlp": 8,
+          "blockchain": 2
+        },
+        {
+          "time": "8",
+          "nlp": 8,
+          "blockchain": 2
+        },
+        {
+          "time": "9",
+          "nlp": 8,
+          "blockchain": 2
+        },
+        {
+          "time": "10",
+          "nlp": 8,
+          "blockchain": 2
+        },
+        {
+          "time": "11",
+          "nlp": 9,
+          "blockchain": 2
+        },
+        {
+          "time": "12",
+          "nlp": 8,
+          "blockchain": 2
+        },
+        ]
+    const flowGraphShow = ()=>{
+        let isOk = 1;
+        let isLoading = 0;
+        (async () => {
+            const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
+            message.loading({ content: '正在渲染...', key2,duration:0.7}); 
+            isLoading = 1;           
+            axios.get('https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json').then(
+                //eslint-disable-next-line no-loop-func    
+                response => {  
+                    chart.data(data2);
+                    chart.scale({
+                    nlp: {
+                        min: 0,
+                        max: 100
+                    },
+                    blockchain: {
+                        min: 0,
+                        max: 100
+                    }
+                    });
+    
+                    chart.axis('nlp', false);
+    
+                    chart.legend({
+                    custom: true,
+                    itemName: {
+                        style: {
+                            fill: '#fff',
+                        }
+                    },
+                    items: [
+                        { name: '工作日', value: '工作日', color:'red',marker: { symbol: 'bowtie', style: { stroke: '#1E6BFF', lineWidth: 2 } } },
+                        { name: '周末', value: '周末', marker: { symbol: 'bowtie', style: { stroke: '#03DAC5', lineWidth: 2 } } },
+                    ],
+                    });
+                    chart.line().position('time*blockchain').color('#1E6BFF');
+                    chart.line().position('time*nlp').color('#03DAC5');
+                    chart.removeInteraction('legend-filter'); // 自定义图例，移除默认的分类图例筛选交互
+                    chart.render();
+                    
+                },
+                //eslint-disable-next-line no-loop-func
+                error => {                           
+                    isOk = 0;                     
+                }
+            )
+            if(!isOk){
+                message.warning({content:'服务器出现问题，加载失败！',duration:2});   
+                return; 
+            }
+            await sleep(1000);
+            isLoading = 0;
+            message.success({ content: '渲染完成！', key2,duration:1});        
+        })()  
+    
+    }
+    flowGraphShow();
+    }
 
     search = (e) => {
         if(e.keyCode !== 13){
@@ -355,15 +457,35 @@ export default class HeatMap extends Component {
         return (
             <div className="map-ct">
                 <div id="heat-section">
-                
-                <div id="time-ct">
-                    <p>车流量热力图</p>         
-                    <p>请在下方选择您需要查询的起始时间，系统会展示半小时内的出租车流量图</p>
-                    <Date onOk={this.onOk}></Date>                       
-                    <p>Tips:<br/><span>目前只能查询2017年2.01~2.28的信息。</span></p>
-                </div>
+                    
+                    <div id="time-ct">
+                        <p>车流量热力图</p>         
+                        <p>请在下方选择您需要查询的起始时间，系统会展示半小时内的出租车流量图</p>
+                        <Date onOk={this.onOk}></Date>                       
+                        
+                        <p>Tips:<br/><span>目前只能查询2017年2.01~2.28的信息。</span></p>
+                    </div>
+                    <div id="flow-graph-ct">
+                        <p>车流量统计</p>
+                        <div id="flow-graph" ref="flow-graph" style={{width:'90%',height:'300px',marginLeft:'5%'}}></div>
+                    </div>
                 </div>
                 <div style={{width:'80%',height:'100%'}} ref="container"></div>
+
+                <div id="flow-selector">
+                    <p>车流量点类型</p>
+                    <li className="flow-item"><span style={{backgroundColor:'#E6556F'}}></span>类型1</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#E3843C'}}></span>类型2</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#EEC055'}}></span>类型3</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#1EC78A'}}></span>类型4</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#4E72E2'}}></span>类型5</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#E24ED7'}}></span>类型6</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#71E24E'}}></span>类型7</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#7F4EE2'}}></span>类型8</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#4ECEE2'}}></span>类型9</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#BB4EE2'}}></span>类型10</li>
+                    
+                </div>
             </div>
         )
     }

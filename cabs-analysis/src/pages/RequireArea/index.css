@@ -26,24 +26,24 @@
     left: 0;
     height: 100%;
     width: 20%;
-    background-color: #303030;
+    background-color: var(--ltBack);
     z-index: 999;
 }
 
 .left_nav header {
     text-align: center;
-    color: #fff;
+    color: var(--text);
     margin: 15px;
     height: 50px;
     line-height: 50px;
-    border-bottom: 1px solid #FFF;
+    border-bottom: 1px solid var(--text);
     font-size: 16px;
 }
 
 .left_nav ul {
     list-style: none;
     margin: 15px;
-    color: #fff;
+    color: var(--text);
 }
 
 .left_nav ul li {
@@ -53,12 +53,12 @@
 }
 
 .tipMessage {
-    color: #999;
+    color: var(--grayText);
     font-size: 14px;
     width: 120px;
     text-align: center;
     font-weight: 400;
-    background-color: #fff;
+    background-color: var(--text);
     border-radius: 5px;
     cursor: pointer !important;
 }
@@ -77,8 +77,8 @@
     padding: 0 20px;
 
     margin-top: -15%;
-    background-color: #303030;
-    color: #fff;
+    background-color: var(--ltBack);
+    color: var(--text);
 
     z-index: 999;
 }
@@ -89,7 +89,7 @@
     height: 40px;
     line-height: 40px;
     list-style: none;
-    color: #FFFFFF;
+    color: var(--text);
 
 }
 
@@ -104,7 +104,7 @@
 
 /* 顶部 */
 .ant-switch-checked {
-    background-color: #03DAC5 !important;
+    background-color: var(--themeColor) !important;
 }
 
 .right_levelnav div[class^="btn"] {

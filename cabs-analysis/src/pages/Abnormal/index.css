@@ -13,7 +13,7 @@
 .header {
     height: 80px;
     background-color: pink;
-    color: black;
+    color: var(--bodyColor);
 }
 
 .ant-table-pagination.ant-pagination {
@@ -30,13 +30,13 @@
 /* 底部页码样式 */
 .ant-pagination-item {
     border-radius: 50% !important;
-    background-color: #303030 !important;
-    color: #E3E3E3;
+    background-color: var(--ltBack) !important;
+    color: var(--tableText);
     border: none !important;
 }
 
 .ant-pagination-item a {
-    color: #E3E3E3 !important;
+    color: var(--tableText) !important;
 }
 
 .ant-pagination-item-ellipsis {
@@ -45,36 +45,36 @@
 
 
 .ant-pagination-item-link[type="button"] {
-    background-color: #303030 !important;
-    border: 1px solid #303030 !important;
-    color: #E3E3E3 !important;
+    background-color: var(--ltBack) !important;
+    border: 1px solid var(--ltBack) !important;
+    color: var(--tableText) !important;
 }
 
 .ant-pagination-item-link[type="button"]:hover {
-    border: 1px solid #E3E3E3 !important;
+    border: 1px solid var(--tableText) !important;
     transition: all .3;
 }
 
 
 .ant-select-selector {
-    background-color: #303030 !important;
-    color: #E3E3E3 !important;
+    background-color: var(--ltBack) !important;
+    color: var(--tableText) !important;
 }
 
 .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-    border: 1px solid #303030 !important;
+    border: 1px solid var(--ltBack) !important;
 }
 
 .ant-select:not(.ant-select-customize-input) .ant-select-selector:hover {
-    border: 1px solid #E3E3E3 !important;
+    border: 1px solid var(--tableText) !important;
 }
 
 .ant-select-dropdown {
-    background-color: #303030 !important;
+    background-color: var(--ltBack) !important;
 }
 
 .ant-select-item-option-selected {
-    background-color: #fff !important;
+    background-color: var(--text) !important;
 }
 
 .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
@@ -82,33 +82,33 @@
 }
 
 .rc-virtual-list-holder-inner {
-    color: #fff !important;
+    color: var(--text) !important;
 }
 
 .rc-virtual-list-holder-inner div:hover {
-    background-color: #f5f5f5 !important;
+    background-color: var(--tabHover) !important;
 }
 
 /* 选中的页码样式 */
 .ant-pagination-item-active {
     font-weight: 600;
-    border: 1px solid #f0e7e7 !important;
+    border: 1px solid var(--activeTabBtn) !important;
 }
 
 /* 表头的样式 */
 .ant-table-thead>tr>th {
-    color: #E3E3E3 !important;
+    color: var(--tableText) !important;
     text-align: center !important;
-    background: #303030 !important;
-    border-bottom: 1px solid #303030 !important;
+    background: var(--ltBack) !important;
+    border-bottom: 1px solid var(--ltBack) !important;
 }
 
 /* 数据表格样式 */
 .ant-table-tbody>tr>td {
     text-align: center !important;
-    color: #E3E3E3 !important;
-    background-color: #1F1F1F !important;
-    border-bottom: 1px solid #2b2929 !important;
+    color: var(--tableText) !important;
+    background-color: var(--tableBack) !important;
+    border-bottom: 1px solid var(--ltBack) !important;
 }
 
 
@@ -118,7 +118,7 @@
 
 /* 背景样式 */
 body {
-    background-color: #000 !important;
+    background-color: var(--bodyColor) !important;
 }
 
 /* 下拉框上面的样式*/
@@ -150,8 +150,8 @@ data-down {
     max-width: 220px;
     border-radius: 5px;
     list-style: none;
-    color: #fff;
-    background-color: #303030;
+    color: var(--text);
+    background-color: var(--ltBack);
     z-index: 999;
 }
 
@@ -161,13 +161,13 @@ data-down {
     text-indent: 1em;
     margin-bottom: 5px;
     border-radius: 8px;
-    color: #999999;
+    color: var(--grayText);
     text-align: center;
 }
 
 .wrongInform li:hover {
-    background-color: #616161;
-    color: #E3E3E3;
+    background-color: var(--hoverBtn);
+    color: var(--tableText);
     cursor: pointer;
 }
 

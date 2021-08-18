@@ -1,30 +1,49 @@
 *{
   margin: 0;
   padding:0;
+  
+}
+
+:root{
+  --themeColor:#03DAC5;/* 主题色 */
+  --text:white;    /* 正文 */
+  --hoverBtn:#6a6a6a;/* 按钮悬浮 */
+  --deepGrey:#4d4c4c;
+  --grayText: #999;/* 灰色文本 */
+  --deepBack:#292929;/* 与导航栏一样的深色背景 */
+  --ltBack:#303030;/* 侧栏稍微浅色的背景 */
+  --bodyColor:black;/* 黑色都改成这个 */
+  --tableText:#E3E3E3;/* 下面几个是表格的 */
+  --tableBack:#1f1f1f;
+  --activeTabBtn:#f0e7e7;
+  --tabHover:#f5f5f5;
 }
 #wrapper{
   width: 100vw;
   height: 100vh;
-  min-width: 1200px;
+ 
 }
 #header-ct{
   height: 50px;
   width: 100vw;
-  min-width: 1200px;
-  background-color: #292929;
+
+  background-color: var(--deepBack);
 }
 #header{
   height: 50px;
   width: 52%;
   margin-left: 22%;
   display: flex;
-  min-width: 800px;
+  transition: 0.2s all;
   justify-content: space-between;
+}
+#header a{
+  min-width: 110px;
 }
 #logo{
   width: 130px;
   height: 50px;
-  color: white;
+  color: var(--text);
   user-select: none;
   line-height: 50px;
   text-align: center;
@@ -35,7 +54,7 @@
   height: 50px;
   text-align: center;
   line-height: 50px;
-  color: #999;
+  color: var(--grayText);
   user-select: none;
   text-decoration: none;
 }
@@ -69,12 +88,12 @@
   background-image: url(./images/advertise1.svg);
 }
 .noActive:hover{
-  color: #03DAC5;
-  background-color: #6a6a6a;
+  color: var(--themeColor);
+  background-color: var(--hoverBtn);
 }
 .onActive{
-  color: #03DAC5;
-  background-color: #6a6a6a;
+  color: var(--themeColor);
+  background-color: var(--hoverBtn);
 }
 .onActive:nth-child(2):before{
   top: 8px;
@@ -127,5 +146,10 @@
   height: 100%;
   width: 100%;
   display: flex;
+}
+@media screen and (max-width:860px) {
+  #header{
 
+    margin-left: 0;
+  }
 }

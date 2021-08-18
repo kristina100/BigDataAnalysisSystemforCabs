@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Select } from 'antd';
 import PubSub from 'pubsub-js';
+import './index.css'
 const { Option } = Select;
 
 function handleChange(value) {
