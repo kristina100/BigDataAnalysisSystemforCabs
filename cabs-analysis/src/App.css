@@ -1,35 +1,46 @@
-*{
+* {
   margin: 0;
-  padding:0;
-  
+  padding: 0;
+
 }
 
-:root{
-  --themeColor:#03DAC5;/* 主题色 */
-  --text:white;    /* 正文 */
-  --hoverBtn:#6a6a6a;/* 按钮悬浮 */
-  --deepGrey:#4d4c4c;
-  --grayText: #999;/* 灰色文本 */
-  --deepBack:#292929;/* 与导航栏一样的深色背景 */
-  --ltBack:#303030;/* 侧栏稍微浅色的背景 */
-  --bodyColor:black;/* 黑色都改成这个 */
-  --tableText:#E3E3E3;/* 下面几个是表格的 */
-  --tableBack:#1f1f1f;
-  --activeTabBtn:#f0e7e7;
-  --tabHover:#f5f5f5;
+:root {
+  --themeColor: #03DAC5;
+  /* 主题色 */
+  --text: white;
+  /* 正文 */
+  --hoverBtn: #6a6a6a;
+  /* 按钮悬浮 */
+  --deepGrey: #4d4c4c;
+  --grayText: #999;
+  /* 灰色文本 */
+  --deepBack: #292929;
+  /* 与导航栏一样的深色背景 */
+  --ltBack: #303030;
+  /* 侧栏稍微浅色的背景 */
+  --bodyColor: black;
+  /* 黑色都改成这个 */
+  --tableText: #E3E3E3;
+  /* 下面几个是表格的 */
+  --tableBack: #1f1f1f;
+  --activeTabBtn: #f0e7e7;
+  --tabHover: #f5f5f5;
 }
-#wrapper{
+
+#wrapper {
   width: 100vw;
   height: 100vh;
- 
+
 }
-#header-ct{
+
+#header-ct {
   height: 50px;
   width: 100vw;
 
   background-color: var(--deepBack);
 }
-#header{
+
+#header {
   height: 50px;
   width: 52%;
   margin-left: 22%;
@@ -37,10 +48,12 @@
   transition: 0.2s all;
   justify-content: space-between;
 }
-#header a{
+
+#header a {
   min-width: 110px;
 }
-#logo{
+
+#logo {
   width: 130px;
   height: 50px;
   color: var(--text);
@@ -49,7 +62,7 @@
   text-align: center;
 }
 
-.noActive{
+.noActive {
   width: 130px;
   height: 50px;
   text-align: center;
@@ -58,7 +71,8 @@
   user-select: none;
   text-decoration: none;
 }
-.noActive::before{
+
+.noActive::before {
   content: '';
   display: inline-block;
   position: relative;
@@ -67,88 +81,108 @@
   height: 24px;
   background-size: 24px 24px;
 }
-.noActive:nth-child(2):before{
+
+.noActive:nth-child(2):before {
   top: 8px;
   background-image: url(./images/heatmap1.svg);
 }
-.noActive:nth-child(3):before{
+
+.noActive:nth-child(3):before {
   top: 6px;
   background-image: url(./images/require1.svg);
 }
-.noActive:nth-child(4):before{
+
+.noActive:nth-child(4):before {
   top: 6px;
   background-image: url(./images/path1.svg);
 }
-.noActive:nth-child(5):before{
+
+.noActive:nth-child(5):before {
   top: 6px;
   background-image: url(./images/abnormal1.svg);
 }
-.noActive:nth-child(6):before{
+
+.noActive:nth-child(6):before {
   top: 5px;
   background-image: url(./images/advertise1.svg);
 }
-.noActive:hover{
+
+.noActive:hover {
   color: var(--themeColor);
   background-color: var(--hoverBtn);
 }
-.onActive{
+
+.onActive {
   color: var(--themeColor);
   background-color: var(--hoverBtn);
 }
-.onActive:nth-child(2):before{
+
+.onActive:nth-child(2):before {
   top: 8px;
   background-image: url(./images/heatmap2.svg);
 }
-.onActive:nth-child(3):before{
+
+.onActive:nth-child(3):before {
   top: 6px;
   background-image: url(./images/require2.svg);
 }
-.onActive:nth-child(4):before{
+
+.onActive:nth-child(4):before {
   top: 6px;
   background-image: url(./images/path2.svg);
 }
-.onActive:nth-child(5):before{
+
+.onActive:nth-child(5):before {
   top: 6px;
   background-image: url(./images/abnormal2.svg);
 }
-.onActive:nth-child(6):before{
+
+.onActive:nth-child(6):before {
   top: 5px;
   background-image: url(./images/advertise2.svg);
 }
 
-.noActive:nth-child(2):hover.noActive:nth-child(2):before{
+.noActive:nth-child(2):hover.noActive:nth-child(2):before {
   background-image: url(./images/heatmap2.svg);
 }
-.noActive:nth-child(3):hover.noActive:nth-child(3):before{
+
+.noActive:nth-child(3):hover.noActive:nth-child(3):before {
   top: 6px;
   background-image: url(./images/require2.svg);
 }
-.noActive:nth-child(4):hover.noActive:nth-child(4):before{
+
+.noActive:nth-child(4):hover.noActive:nth-child(4):before {
   top: 6px;
   background-image: url(./images/path2.svg);
 }
-.noActive:nth-child(5):hover.noActive:nth-child(5):before{
+
+.noActive:nth-child(5):hover.noActive:nth-child(5):before {
   top: 6px;
   background-image: url(./images/abnormal2.svg);
 }
-.noActive:nth-child(6):hover.noActive:nth-child(6):before{
+
+.noActive:nth-child(6):hover.noActive:nth-child(6):before {
   top: 5px;
   background-image: url(./images/advertise2.svg);
 }
 
-#main{
+#main {
+  justify-content: center;
+  /* align-items: center; */
   min-height: calc(100% - 50px);
   height: 600px;
   width: 100%;
   display: flex;
 }
-.map-ct{
+
+.map-ct {
   height: 100%;
   width: 100%;
   display: flex;
 }
+
 @media screen and (max-width:860px) {
-  #header{
+  #header {
 
     margin-left: 0;
   }
