@@ -26,6 +26,7 @@
     left: 0;
     height: 100%;
     width: 20%;
+    min-width: 308px;
     background-color: var(--ltBack);
     z-index: 999;
 }
@@ -42,14 +43,16 @@
 
 .left_nav ul {
     list-style: none;
-    margin: 15px;
+    margin: 20px;
     color: var(--text);
 }
 
 .left_nav ul li {
+    font-size: 14px;
     cursor: pointer;
     height: 45px;
-    line-height: 45px;
+    line-height: 20px;
+    margin-bottom: 15px;
 }
 
 .tipMessage {
@@ -72,7 +75,7 @@
     position: absolute;
     top: 50%;
     right: 0;
-    width: 15%;
+    width: 240px;
     height: 60%;
     padding: 0 20px;
 

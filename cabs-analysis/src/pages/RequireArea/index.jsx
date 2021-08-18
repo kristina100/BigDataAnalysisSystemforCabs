@@ -23,6 +23,7 @@ let flowColor = [
 export default class Rightcontent extends Component {
 
     state = ({
+        loading: true,
         ableTurn: false,
         dataPrint: null,
         pointSimplifierIns: null,
@@ -36,16 +37,36 @@ export default class Rightcontent extends Component {
 
     // 根据流向开关得状态控制是否显示时间输入框
     onChangeOpenFlow = (checked) => {
+        let circleArr = [];
+
         const { chooseTime } = this.refs;
+
         checked ? chooseTime.style = 'visibility: visible' : chooseTime.style = 'visibility: hidden';
-        if (checked) alert('请在右侧选择流向图的时间')
+        if (checked) {
+            // 绘制需求区域
+            let requireColors = ['#E6556F', '#E3843C', '#EEC055', '#1EC78A', '#4E72E2', '#E24ED7', '#71E24E', '#7F4EE2', '#4ECEE2', '#BB4EE2']
+            for (let i = 0; i < this.state.radiusArr.length; ++i) {
+
+                var circle = new window.AMap.Circle({
+                    center: [parseFloat(this.state.latlngArr[i].split(',')[0]), parseFloat(this.state.latlngArr[i].split(',')[1])],
+                    radius: parseFloat(this.state.radiusArr[i]),
+                    fillColor: requireColors[i],   // 圆形填充颜色
+                    strokeColor: '#fff', // 描边颜色
+                    strokeWeight: 1, // 描边宽度
+                });;
+                circleArr.push(circle);
+                map.add(circle);
+            }
+            this.setState({ circleArr: circleArr });
+            this.warning('请在右侧选择流向图的时间')
+        }
         if (!checked) {
+            this.state.circleArr.map((item) => {
+                item.hide();
+            })
             PubSub.publish('cleanValue', true)
             window.pathSimplifierIns.setData([]);
-            // this.state.locaObj.destroy();
-            // this.allFlowShow('', true)
             window.loca.destroy();
-            console.log(window.loca);
         }
     }
 
@@ -55,12 +76,13 @@ export default class Rightcontent extends Component {
         checked ? pointSimplifierIns.setData(dataPrint) : pointSimplifierIns.setData(null);
     }
 
-    
+
 
     componentDidMount() {
 
-
-
+        let key = 'updateData';
+        // this.setState({ loading: true });
+        message.loading({ content: '正在渲染', key });
         let flagChange = 0;
         let timeArr = [];
         let flag = 0;
@@ -71,11 +93,6 @@ export default class Rightcontent extends Component {
         let that = this; // 记录此时this的指向，指向实例
         //订阅流向图时间
 
-        // initDataPrint = ["113.33085770273631, 23.14412365284972", "113.27855780013734, 23.128367111649794", "113.32146935484826, 23.106662663168706", "113.40117706518718, 23.123214006229343", "113.25019001320405, 23.15818645574991", "113.30712665579317, 22.996942543368675", "113.27777220955363, 23.21131444325503", "113.27348812437376, 23.09112787687527", "113.242374477253, 23.1154384664252", "113.30674584736516, 23.38053648285072"]
-        // this.setState({ dataPrint: initDataPrint })
-
-
-
         let initData = new Promise(function (resolve, reject) {
 
             map = new window.AMap.Map(container, {
@@ -83,22 +100,32 @@ export default class Rightcontent extends Component {
                 zoom: 8.8,
                 resizeEnable: true, // 是否监控地图容器尺寸变化
                 mapStyle: 'amap://styles/whitesmoke'
-    
+
             });
-           
+
+            // 拿到热点数据
             axios.get(`http://39.98.41.126:31100/getHotPoints`).then(
                 response => {
-                    console.log(response.data);
                     initDataPrint = response.data.data2.split('\n');
-                    console.log(initDataPrint);
                     initDataPrint = initDataPrint.filter((item) => {
                         return item != ''
                     })
                     addressPrint = response.data.data1;
-                    // this.setState({ dataPrint: initDataPrint, addressPrint: response.data.data1 })
-                    // console.log(this.state);
-                    console.log(addressPrint, initDataPrint);
-                    resolve({ addressPrint, initDataPrint });
+                    axios.get(` http://39.98.41.126:31100/getCenterRadiusForMobile`).then(
+                        response => {
+                            that.setState({ loading: false });
+                            message.success({ content: '渲染完成！', key })
+                            let radiusArr = [];
+                            let latlngArr = [];
+                            let dataArr = response.data.data;
+                            dataArr.map((item) => {
+                                radiusArr.push(item.radius)
+                                latlngArr.push(item.longitude + ',' + item.latitude);
+                            })
+                            resolve({ addressPrint, initDataPrint, radiusArr, latlngArr });
+
+                        }
+                    )
                 }
             )
         })
@@ -108,61 +135,39 @@ export default class Rightcontent extends Component {
 
             that.token = PubSub.subscribe('flowDate', (_, stateObj) => {
                 that.setState({ ableTurn: true })
-                // this.flowShow(stateObj.flowDate)
                 that.setFlowPath(stateObj.flowDate)
-                // console.log(window.loca);
-                // console.log(loca);
                 if (flag === 1) {
-                    console.log(window.loca);
                     if (window.loca.layers.length !== 0) {
-                        console.log(window.loca);
                         window.loca.destroy();
                     }
                 }
                 that.creatLoca()
                 flag = 1;
-                console.log(1);
                 that.allFlowShow('')
-    
-                // this.setState({ locaObj: this.allFlowShow() })
-                // console.log(this.allFlowShow());
+
             })
 
-            console.log(data);
+            that.setState({ dataPrint: data.initDataPrint, addressPrint: data.addressPrint, radiusArr: data.radiusArr, latlngArr: data.latlngArr })
 
-            that.setState({ dataPrint: data.initDataPrint, addressPrint: data.addressPrint })
-            console.log(that.state);
-            let circleData = data
-            // const map = new window.AMap.Map(container, {
-            //     center: [113.364931, 23.275388],
-            //     zoom: 8.8,
-            //     resizeEnable: true, // 是否监控地图容器尺寸变化
-            //     mapStyle: 'amap://styles/whitesmoke'
 
-            // });
-            // map.add(circle)
-
-            for (var k in circleData) {
-                console.log(k);
-                console.log([parseFloat(k.split(',')[0]), parseFloat(k.split(',')[1])]);
-                console.log(circleData[k]);
-
-                // 加载圆形自定义区域
-                let circle = new window.AMap.Circle({
-                    center: [parseFloat(k.split(',')[0]), parseFloat(k.split(',')[1])],
-                    radius: circleData[k],
-                    fillColor: 'red',
-                    strokeColor: '#fff',
-                    strokeWeight: 1
-                })
-
+            const { addressPrint } = that.refs;
+            for (let i = 0; i < that.state.addressPrint.length; ++i) {
+                let li = document.createElement('li');
+                li.innerHTML = that.state.addressPrint[i];
+                addressPrint.appendChild(li)
             }
-
 
             // 加载逆地址编码的插件
             window.AMap.plugin(["AMap.Geocoder"], function () {
                 geocoder = new window.AMap.Geocoder();
             })
+
+
+
+
+
+
+
 
             // 海量点标记 + （行政区域划分）/ （自定义区域划分）
             window.AMapUI.load(['ui/misc/PointSimplifier', 'ui/geo/DistrictExplorer', 'lib/$'], function (PointSimplifier, DistrictExplorer, $) {
@@ -171,9 +176,6 @@ export default class Rightcontent extends Component {
                     return;
                 }
                 initPage(PointSimplifier, DistrictExplorer, $);  // 初始化海量点标记 + (行政区划分)
-                // myAddPolygon(shanghai);  // 绘制边界数据到地图上，自定义区域划分
-                // myAddPolygon(suzhou);  // 
-
             });
 
             //主流向初始化
@@ -245,42 +247,10 @@ export default class Rightcontent extends Component {
 
 
 
-            // const scene = new window.L7.Scene({
-            //     id: 'map',
-            //     map: new window.L7.GaodeMap({
-            //         mapInstance: map,
-            //     }),
-            // });
-            // scene.on('loaded', () => {
-            //     fetch('https://gw.alipayobjects.com/os/rmsportal/UEXQMifxtkQlYfChpPwT.txt')
-            //         .then(res => res.text())
-            //         .then(data => {
-            //             const layer = new window.L7.LineLayer({ zIndex: 10 })
-            //                 .source(data, {
-            //                     parser: {
-            //                         type: 'csv',
-            //                         x: 'lng1',
-            //                         y: 'lat1',
-            //                         x1: 'lng2',
-            //                         y1: 'lat2'
-            //                     }
-            //                 })
-            //                 .size(1)
-            //                 .shape('arc')
-            //                 .color('#8C1EB2')
-            //                 .style({
-            //                     opacity: 0.8,
-            //                     blur: 0.99
-            //                 });
-            //             scene.addLayer(layer);
-            //         });
-            // });
-
-
 
             // ui组件初始化界面(海量点标记 + 行政区域划分)
             function initPage(PointSimplifier, DistrictExplorer, $) {
-                let dataPrint;
+
                 let currentAreaNode = null;
                 // 海量数据点
                 let pointSimplifierIns = new PointSimplifier({
@@ -297,15 +267,16 @@ export default class Rightcontent extends Component {
 
                         return [parseFloat(parts[0]), parseFloat(parts[1])];
                     },
+
                     getHoverTitle: function (dataItem, idx) {
                         return idx + ': ' + dataItem;
                     },
                     renderOptions: {
                         //点的样式
                         pointStyle: {
-                            width: 6,
-                            height: 6,
-                            fillStyle: 'green'
+                            width: 10,
+                            height: 10,
+                            fillStyle: 'red'
                         },
                         //鼠标hover时的title信息
                         hoverTitleStyle: {
@@ -465,7 +436,7 @@ export default class Rightcontent extends Component {
                     let polys = districtExplorer.findFeaturePolygonsByAdcode(adcode);
                     polys.map((item) => {
                         item.setOptions({
-                            fillOpacity: isHover ? 0.4 : 0.05
+                            fillOpacity: isHover ? 0.3 : 0
                         })
                     })
                 }
@@ -494,7 +465,7 @@ export default class Rightcontent extends Component {
                         strokeOpacity: 1, //线透明度
                         strokeWeight: 1, //线宽
                         fillColor: fillColor, //填充色
-                        fillOpacity: 0.05, //填充透明度
+                        fillOpacity: 0, //填充透明度
                     }
                 });
 
@@ -530,7 +501,7 @@ export default class Rightcontent extends Component {
             //             fillCOlor: '#00B2D5',
             //             fillOpacity: 0.5,
             //         })
-            //     })
+            //     }) 
 
             //     // 自定义区域中使用海量点标记
             //     // 点击对应的区域可以根据id值拿到该区域的热点位置
@@ -557,11 +528,10 @@ export default class Rightcontent extends Component {
 
         })
 
-        
+
     }
 
     creatLoca = () => {
-        console.log(map);
         var loca = new window.Loca.Container({
             map,
             zIndex: 120,
@@ -571,7 +541,6 @@ export default class Rightcontent extends Component {
     }
 
     allFlowShow = async (dateString) => {
-        // console.log(dateString);
         let finalLine = [],
             finalSpot = [],
             allLine = [];
@@ -601,7 +570,6 @@ export default class Rightcontent extends Component {
             finalLine.push(new MakeLineFnc(line))
             finalSpot.push(new MakeSpotFnc(line[0]))
             finalSpot.push(new MakeSpotFnc(line[1]))
-            // console.log(finalLine);
         }
 
         var LineSource = new window.Loca.GeoJSONSource({
@@ -655,7 +623,6 @@ export default class Rightcontent extends Component {
             duration: 2000,
             animate: true,
         });
-        // console.log(window.loca);
         window.loca.add(scatter)
         window.loca.add(Linelayer);
 
@@ -686,11 +653,11 @@ export default class Rightcontent extends Component {
             <div ref="container" className="container" id="map">
                 <div className="left_nav">
                     <header>载客热点</header>
-                    <ul ref="addressPrint">
+                    <ul ref="addressPrint" className="addressPrint">
+                        {/* <li>广东省广州市天河区xxx</li>
                         <li>广东省广州市天河区xxx</li>
                         <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li>
+                        <li>广东省广州市天河区xxx</li> */}
                     </ul>
                 </div>
 
@@ -699,8 +666,8 @@ export default class Rightcontent extends Component {
                         {/* <DatePicker onChange={this.onChangeTime} /> */}
                         <Datepick />
                     </div>
-                    <div className="btn_flowDirection"><span className="title">流向展示</span> <Switch disabled={this.state.ableTurn} onChange={this.onChangeOpenFlow} /></div>
-                    <div className="btn_hotGetIn"><span className="title">全部载客热点</span> <Switch onChange={this.onChangeOpenHot} /></div>
+                    <div className="btn_flowDirection"><span className="title">流向展示</span> <Switch disabled={this.state.ableTurn || this.state.loading} onChange={this.onChangeOpenFlow} /></div>
+                    <div className="btn_hotGetIn"><span className="title">全部载客热点</span> <Switch disabled={this.state.loading} onChange={this.onChangeOpenHot} /></div>
                     <div className="title">区域等级划分</div>
                     <div className="levelBox">
                         <ul className="level">
