@@ -3,18 +3,20 @@
     width: 20%;
     height: 100%;
     background-color: var(--deepBack);
-    padding: 50px 15px 0 30px;
+    padding-top: 50px;
+    min-width: 300px;
+    text-align: center;
 }
 
 #findCar {
-    width: 285px;
+    width: 100%;
     height: 40px;
     font-size: 18px;
     font-weight: 400;
     font-family: Microsoft YaHei;
-    color: var(--grayText) !important;
+    color: var(--text) !important;
     background-color: var(--hoverBtn);
-    padding-left: 50px;
+    padding-left: 90px;
     outline: none;
     border: none;
     border-radius: 6px;
@@ -25,10 +27,11 @@
 
 #findCar:focus {
     background-color: var(--deepGrey);
+    box-shadow: none;
 }
 
 #findCar::placeholder {
-    color: var(--ltBack);
+    color: var(--grayText);
 }
 
 #findInput {
@@ -40,20 +43,21 @@
     position: absolute;
     height: 40px;
     font-size: 18px;
-    padding: 7px 0px 0px 15px;
+    padding: 5px 0px 0px 52px;
     color: var(--text);
+    z-index: 2;
 }
 
 #findBtn {
     display: inline-block;
-    width: 119px;
+    width: 27%;
     height: 34px;
     background-color: var(--hoverBtn);
     border-radius: 6px;
     text-align: center;
-    font-size: 16px;
-    color: var(--themeColor);
-    line-height: 32px;
+    font-size: 15px;
+    color: var(--text);
+    line-height: 30px;
     margin-left: 18px;
     cursor: pointer;
     transition: .4s;
@@ -61,4 +65,21 @@
 
 #findBtn:hover {
     background-color: var(--deepGrey);
+}
+
+#controlBox {
+    width: 76%;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+#datePick .ant-space-item .ant-picker {
+    width: 100% !important;
+}
+
+#datePick .ant-space-item {
+    width: 100% !important;
+}
+#datePick {
+    width: 64% !important;
 }

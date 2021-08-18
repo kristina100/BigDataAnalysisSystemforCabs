@@ -12,7 +12,7 @@ import { Switch } from 'antd';
 import { DatePicker, Space, message } from 'antd';
 
 
-
+let flag = 0;
 var map
 let flowColor = [
     "#69c0ff", "#ff7875", "#a0d911", "#ffc53d", "#b37feb", "#0099c6", "#dd4477", "#66aa00",
@@ -34,8 +34,6 @@ export default class Rightcontent extends Component {
     };
 
 
-
-
     // 根据流向开关得状态控制是否显示时间输入框
     onChangeOpenFlow = (checked) => {
         const { chooseTime } = this.refs;
@@ -46,7 +44,13 @@ export default class Rightcontent extends Component {
             window.pathSimplifierIns.setData([]);
             // this.state.locaObj.destroy();
             // this.allFlowShow('', true)
-            window.loca.destroy();
+            if (flag === 1) {
+                console.log(window.loca);
+                if (window.loca.layers.length !== 0) {
+                    console.log(window.loca);
+                    window.loca.destroy();
+                }
+            }
             console.log(window.loca);
         }
     }
@@ -57,50 +61,36 @@ export default class Rightcontent extends Component {
         checked ? pointSimplifierIns.setData(dataPrint) : pointSimplifierIns.setData(null);
     }
 
+    
+
     componentDidMount() {
+
+
 
         let flagChange = 0;
         let timeArr = [];
-        let flag = 0;
         let initDataPrint;
         let addressPrint = [];
         let geocoder;
         const { container } = this.refs;
-        let map;
         let that = this; // 记录此时this的指向，指向实例
         //订阅流向图时间
-        this.token = PubSub.subscribe('flowDate', (_, stateObj) => {
-            this.setState({ ableTurn: true })
-            // this.flowShow(stateObj.flowDate)
-            this.setFlowPath(stateObj.flowDate)
-            // console.log(window.loca);
-            // console.log(loca);
-            if (flag === 1) {
-                console.log(window.loca);
-                if (window.loca.layers.length !== 0) {
-                    console.log(window.loca);
-                    window.loca.destroy();
-                }
-            }
-            this.creatLoca()
-            flag = 1;
-            console.log(1);
-            this.allFlowShow('')
 
-            // this.setState({ locaObj: this.allFlowShow() })
-            // console.log(this.allFlowShow());
-        })
         // initDataPrint = ["113.33085770273631, 23.14412365284972", "113.27855780013734, 23.128367111649794", "113.32146935484826, 23.106662663168706", "113.40117706518718, 23.123214006229343", "113.25019001320405, 23.15818645574991", "113.30712665579317, 22.996942543368675", "113.27777220955363, 23.21131444325503", "113.27348812437376, 23.09112787687527", "113.242374477253, 23.1154384664252", "113.30674584736516, 23.38053648285072"]
         // this.setState({ dataPrint: initDataPrint })
 
+
+
         let initData = new Promise(function (resolve, reject) {
+
             map = new window.AMap.Map(container, {
                 center: [113.364931, 23.275388],
                 zoom: 8.8,
                 resizeEnable: true, // 是否监控地图容器尺寸变化
                 mapStyle: 'amap://styles/whitesmoke'
-
+    
             });
+           
             axios.get(`http://39.98.41.126:31100/getHotPoints`).then(
                 response => {
                     console.log(response.data);
@@ -120,6 +110,29 @@ export default class Rightcontent extends Component {
 
         // 加载圆形自定义区域
         initData.then(function (data) {
+
+            that.token = PubSub.subscribe('flowDate', (_, stateObj) => {
+                that.setState({ ableTurn: true })
+                // this.flowShow(stateObj.flowDate)
+                that.setFlowPath(stateObj.flowDate)
+                // console.log(window.loca);
+                // console.log(loca);
+                if (flag === 1) {
+                    console.log(window.loca);
+                    if (window.loca.layers.length !== 0) {
+                        console.log(window.loca);
+                        window.loca.destroy();
+                    }
+                }
+                that.creatLoca()
+                flag = 1;
+                console.log(1);
+                that.allFlowShow('')
+    
+                // this.setState({ locaObj: this.allFlowShow() })
+                // console.log(this.allFlowShow());
+            })
+
             console.log(data);
 
             that.setState({ dataPrint: data.initDataPrint, addressPrint: data.addressPrint })
@@ -553,6 +566,7 @@ export default class Rightcontent extends Component {
     }
 
     creatLoca = () => {
+        console.log(map);
         var loca = new window.Loca.Container({
             map,
             zIndex: 120,

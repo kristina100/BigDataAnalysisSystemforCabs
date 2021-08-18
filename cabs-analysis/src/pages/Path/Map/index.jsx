@@ -4,7 +4,7 @@ import { message } from 'antd'
 
 const key = 'updatable';
 
-export default class Map3 extends Component {
+export default class Map extends Component {
 
 
     componentDidMount() {
@@ -13,7 +13,8 @@ export default class Map3 extends Component {
             if (stateObj.finding) {
                 // console.log('有人在查');
                 // console.log(this.state);
-                message.loading({content:'正在查询车辆路径',key})
+                message.loading({content:'正在查询车辆路径',key,duration:20})
+                PubSub.publish('inputAble',{isFinding:true})
                 this.setCar(stateObj.carName,stateObj.pathDate);
             }
             if (stateObj.delete) {
@@ -30,7 +31,7 @@ export default class Map3 extends Component {
         });
 
         var colors = [
-            "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00",
+            "#4e72e2", "#e6556f", "#e3843c", "#eec055", "#1ec78a", "#0099c6", "#dd4477", "#66aa00",
             "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707",
             "#651067", "#329262", "#5574a6", "#3b3eac"
         ];
@@ -130,11 +131,11 @@ export default class Map3 extends Component {
         const data = await response.json()
         if(data.path !== null){
             message.success({content:'查询成功！',key ,duration:1.5})
-            PubSub.publish('existCar',{exist:true})
+            PubSub.publish('existCar',{exist:true,isFinding:false})
         }else {
             console.log(2);
             message.warning({content:'未查询到该出租车',key ,duration:1.5});
-            PubSub.publish('existCar',{exist:false})
+            PubSub.publish('existCar',{exist:false,isFinding:false})
             return ;
         }
         // data.path = gaodeMap;
