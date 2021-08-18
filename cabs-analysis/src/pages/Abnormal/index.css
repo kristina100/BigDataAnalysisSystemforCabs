@@ -157,7 +157,7 @@ body {
 /* 下拉框样式 */
 .wrongInform {
     position: absolute;
-    top: 8%;
+    top: 67px;
     right: 2vw;
     padding: 10px;
     min-width: 210px;
@@ -168,6 +168,8 @@ body {
     background-color: #303030;
     z-index: 999;
 }
+
+
 
 .wrongInform li {
     height: 40px;

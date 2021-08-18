@@ -94,12 +94,88 @@
 }
 
 /* 颜色块 */
+.levelBox {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.level {
+    width: 50%;
+    /* display: flex; */
+    height: 200px;
+    overflow: hidden;
+    font-size: 12px;
+    /* justify-content: space-between; */
+}
+
 .level .color {
     display: inline-block;
-    width: 40px;
-    height: 32px;
-    background-color: green;
-    margin-right: 40px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    /* background-color: green; */
+    margin-right: 15px;
+}
+
+.level li:nth-child(1) .color {
+    background-color: #E6556F;
+}
+
+.level li:nth-child(2) .color {
+    background-color: #E3843C;
+}
+
+.level li:nth-child(3) .color {
+    background-color: #EEC055;
+
+}
+
+.level li:nth-child(4) .color {
+    background-color: #1EC78A;
+}
+
+.level li:nth-child(5) .color {
+    background-color: #4E72E2;
+
+}
+
+.level2 {
+    width: 50%;
+    height: 200px;
+    overflow: hidden;
+    font-size: 12px;
+    margin-left: 30px;
+}
+
+.level2 .color {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.level2 li:nth-child(1) .color {
+    background-color: #E24ED7;
+}
+
+.level2 li:nth-child(2) .color {
+    background-color: #71E24E;
+}
+
+.level2 li:nth-child(3) .color {
+    background-color: #7F4EE2;
+}
+
+.level2 li:nth-child(4) .color {
+    background-color: #4ECEE2;
+}
+
+.level2 li:nth-child(5) .color {
+    background-color: #BB4EE2;
 }
 
 /* 顶部 */

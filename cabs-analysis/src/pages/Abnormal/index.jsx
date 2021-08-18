@@ -54,9 +54,11 @@ export default class Abnormal extends React.Component {
         let flagDown = 0;  // 1 向下  0 向上
         // 增加下拉列表到dom中
         let theadTr = document.querySelector('.ant-table-thead').querySelector('tr');
+
+
         let Inform = document.createElement('ul');
         Inform.className = 'wrongInform noHover'
-        theadTr.appendChild(Inform);
+        theadTr.appendChild(Inform)
         // 给伪元素添加点击事件,并且修改伪元素的content
         let downTd = theadTr.children[4];
 
