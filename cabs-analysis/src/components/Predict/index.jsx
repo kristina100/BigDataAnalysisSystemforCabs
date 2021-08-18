@@ -18,7 +18,7 @@ export default class Predict extends Component {
             container:  container3,
             autoFit: true,
             height: 500,
-            padding: [20, 40],
+            padding: [20, 20,20, 20],
           });
           
         chart1.scale({

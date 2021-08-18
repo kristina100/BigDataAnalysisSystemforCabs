@@ -59,7 +59,6 @@ export default class HeatMap extends Component {
                         axios.get('http://39.98.41.126:31106/selectByTimeSlot/'+data[0]+'/'+data[1]+'/'+ i +'/8000').then(
                             //eslint-disable-next-line no-loop-func    
                             response => {  
-                              
                                 heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
                             },
                             //eslint-disable-next-line no-loop-func
@@ -71,7 +70,7 @@ export default class HeatMap extends Component {
                             message.warning({content:'服务器出现问题，加载失败！',duration:2});   
                             return; 
                         }
-                        await sleep(1500)
+                        await sleep(2000)
                     }
                     if(isOk){
                         message.success({ content: '渲染完成！', key, duration: 2 });
@@ -88,10 +87,7 @@ export default class HeatMap extends Component {
         
 
   
-  //just some colors
-  var colors = [
-    "#3366cc"
-  ];
+
   let cilckFlag = 0;
   window.AMapUI.loadUI(['geo/DistrictExplorer'], function(DistrictExplorer) {
     var currentAreaNode = null;
@@ -111,8 +107,6 @@ export default class HeatMap extends Component {
   
       //绘制子区域
       districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
-  
-          var fillColor = colors[i % colors.length];
   
           return {
               cursor: 'default',
@@ -254,7 +248,9 @@ export default class HeatMap extends Component {
                 };
             },
             topNAreaStyle:{
-                autoGlobalAlphaAlpha:[0.1,0.9]
+                autoGlobalAlphaAlpha:[0,0.1],
+                getAreaScore:1,
+                fillStyle:'#FF4500'
             }
         },
        
@@ -265,7 +261,7 @@ export default class HeatMap extends Component {
             const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
             message.loading({ content: '正在渲染...', key2,duration:0.7}); 
             isLoading = 1;           
-            axios.get('http://39.98.41.126:31103/findFlowDiagram/0/150000/weekday/'+num).then(
+            axios.get('http://39.98.41.126:31103/getFlowPoints/0/150000/'+num).then(
                 //eslint-disable-next-line no-loop-func    
                 response => {  
                     pointSimplifierIns.setData(response.data);                 
@@ -286,144 +282,61 @@ export default class HeatMap extends Component {
         
     }
     window.pointSimplifierIns = pointSimplifierIns;
-    const defTypeBtn = ()=>{
-        (async () => {
-            const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
-            let typeBtn = document.getElementsByClassName('flow-item');
-            for(let i = 0;i<10;i++){
-                //eslint-disable-next-line no-loop-func
-                typeBtn[i].onclick = ()=>{
-                    if(isLoading){
-                        message.warning({content:'正在加载，请稍后',duration:2});
-                        return;
-                    }else{
-                        colorType = i;
-                        pointSimplifierIns.setData(null);
-                        flowPointShow(i);
-                    }         
-                }
-            }    
-            await sleep(10);
-        })()  
-    }
-    defTypeBtn();
- 
-
-
-});
+   
     let container2 = document.getElementById('flow-graph');
     const chart = new Chart({
         container: container2,
         autoFit: true,
         height: 500,
-        padding: [30, 20, 70, 30],
+        padding: [30, 0, 70, 34],
     
     });
-    let data2 = [
-        {
-          "time": "0",
-          "nlp": 8,
-          "blockchain": 2
-        },
-        {
-          "time": "1",
-          "nlp": 8,
-          "blockchain": 2
-        },
-        {
-          "time": "2",
-          "nlp": 8,
-          "blockchain": 3
-        },
-        {
-          "time": "3",
-          "nlp": 8,
-          "blockchain": 3
-        },
-        {
-          "time": "4",
-          "nlp": 8,
-          "blockchain": 2
-        },
-        {
-          "time": "5",
-          "nlp": 8,
-          "blockchain": 2
-        },
-        {
-          "time": "6",
-          "nlp": 8,
-          "blockchain": 3
-        },
-        {
-          "time": "7",
-          "nlp": 8,
-          "blockchain": 2
-        },
-        {
-          "time": "8",
-          "nlp": 8,
-          "blockchain": 2
-        },
-        {
-          "time": "9",
-          "nlp": 8,
-          "blockchain": 2
-        },
-        {
-          "time": "10",
-          "nlp": 8,
-          "blockchain": 2
-        },
-        {
-          "time": "11",
-          "nlp": 9,
-          "blockchain": 2
-        },
-        {
-          "time": "12",
-          "nlp": 8,
-          "blockchain": 2
-        },
-        ]
-    const flowGraphShow = ()=>{
+    const flowGraphShow = (area)=>{
         let isOk = 1;
         let isLoading = 0;
         (async () => {
             const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
-            message.loading({ content: '正在渲染...', key2,duration:0.7}); 
+
             isLoading = 1;           
-            axios.get('https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json').then(
+            axios.get('http://39.98.41.126:31103/getFlowLines/'+area).then(
                 //eslint-disable-next-line no-loop-func    
                 response => {  
-                    chart.data(data2);
-                    chart.scale({
-                    nlp: {
-                        min: 0,
-                        max: 100
-                    },
-                    blockchain: {
-                        min: 0,
-                        max: 100
-                    }
-                    });
+                    chart.data(response.data);
+                   
     
-                    chart.axis('nlp', false);
+                    chart.axis('lineTime', true);
+                    chart.scale({
+                        weekend: {
+                            min: 0,
+                            max: 4000,
+                        },
+                        weekday: {
+                            min: 0,
+                            max: 4000,
+                        },
+                        predict: {
+                            min: 0,
+                            max: 4000,
+                        }
+                      });
     
                     chart.legend({
                     custom: true,
+                    
                     itemName: {
                         style: {
                             fill: '#fff',
                         }
                     },
                     items: [
-                        { name: '工作日', value: '工作日', color:'red',marker: { symbol: 'bowtie', style: { stroke: '#1E6BFF', lineWidth: 2 } } },
+                        { name: '工作日', value: '工作日',marker: { symbol: 'bowtie', style: { stroke: '#1E6BFF', lineWidth: 2 } } },
                         { name: '周末', value: '周末', marker: { symbol: 'bowtie', style: { stroke: '#03DAC5', lineWidth: 2 } } },
+                        { name: '预测', value: '预测', marker: { symbol: 'bowtie', style: { stroke: '#DB6BCF', lineWidth: 2 } } },
                     ],
                     });
-                    chart.line().position('time*blockchain').color('#1E6BFF');
-                    chart.line().position('time*nlp').color('#03DAC5');
+                    chart.line().position('lineTime*weekday').color('#1E6BFF');
+                    chart.line().position('lineTime*weekend').color('#03DAC5');
+                    chart.line().position('lineTime*predict').color('#DB6BCF');
                     chart.removeInteraction('legend-filter'); // 自定义图例，移除默认的分类图例筛选交互
                     chart.render();
                     
@@ -438,12 +351,41 @@ export default class HeatMap extends Component {
                 return; 
             }
             await sleep(1000);
-            isLoading = 0;
-            message.success({ content: '渲染完成！', key2,duration:1});        
+            isLoading = 0;    
         })()  
     
     }
-    flowGraphShow();
+ 
+    const defTypeBtn = ()=>{
+        (async () => {
+            const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
+            let typeBtn = document.getElementsByClassName('flow-item');
+            for(let i = 0;i<10;i++){
+                //eslint-disable-next-line no-loop-func
+                typeBtn[i].onclick = ()=>{
+                    if(isLoading){
+                        message.warning({content:'正在加载，请稍后',duration:2});
+                        return;
+                    }else{
+                        for(let x of typeBtn) {         
+                            x.classList.remove('btn-act');
+                        }
+                        typeBtn[i].classList.add('btn-act');      
+                        colorType = i;
+                        pointSimplifierIns.setData(null);
+                        flowPointShow(i);
+                        flowGraphShow(i);
+                    }         
+                }
+            }    
+            await sleep(500);
+            flowGraphShow(0)
+        })()  
+    }
+    defTypeBtn();
+
+});
+    
     }
 
     search = (e) => {

@@ -36,7 +36,7 @@ export default class Map3 extends Component {
         ];
 
         window.AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function (PathSimplifier, $) {
-
+            window.PathSimplifier = PathSimplifier;
             if (!PathSimplifier.supportCanvas) {
                 alert('当前环境不支持 Canvas！');
                 return;
@@ -168,6 +168,8 @@ export default class Map3 extends Component {
                 fillStyle: 'red',                                
                 width: 30,
                 height: 30,
+                content: window.PathSimplifier.Render.Canvas.getImageContent('../../car.png'),
+                autoRotate:false
             }
         });
         navg.start();

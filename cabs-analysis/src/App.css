@@ -109,12 +109,11 @@
 
 .noActive:hover {
   color: var(--themeColor);
-  background-color: var(--hoverBtn);
 }
 
 .onActive {
   color: var(--themeColor);
-  background-color: var(--hoverBtn);
+  background-color: var(--bodyColor);
 }
 
 .onActive:nth-child(2):before {

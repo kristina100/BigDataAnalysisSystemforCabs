@@ -19,7 +19,7 @@ export default class History extends Component {
             container:  container3,
             autoFit: true,
             height: 500,
-            padding: [20, 40],
+            padding:[20,20,20,20]
           });
           
           chart1.scale({
@@ -105,7 +105,8 @@ export default class History extends Component {
 const chart2 = new Chart({
   container: container2,
   autoFit: true,
-  height: 500
+  height: 500,
+
 });
 const showUti = (time)=>{
   chart2.data([time]);

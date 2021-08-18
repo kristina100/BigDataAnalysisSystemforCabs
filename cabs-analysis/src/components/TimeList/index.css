@@ -16,7 +16,7 @@
     color: var(--text);
     margin-left: 6px!important;
 }
-.ant-select{
+#utilization .ant-select{
     position: absolute;
 
     z-index: 100;
@@ -40,11 +40,11 @@
     background-color: var(--ltBack);
     box-shadow: 0 0 2px var(--text);
 }
-.ant-select-item-option-active{
+#utilization .ant-select-item-option-active{
     color: var(--ltBack)!important;
     background-color: var(--themeColor)!important;
 }
-.ant-select-item-option-selected:not(.ant-select-item-option-disabled){
+#utilization .ant-select-item-option-selected:not(.ant-select-item-option-disabled){
     background-color:var(--themeColor);
     color: var(--ltBack)!important;
 }

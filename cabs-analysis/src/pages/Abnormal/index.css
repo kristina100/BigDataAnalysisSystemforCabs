@@ -15,7 +15,9 @@
     background-color: pink;
     color: var(--bodyColor);
 }
-
+#abnormal-box{
+    
+}
 .ant-table-pagination.ant-pagination {
     margin: 16px 0;
     text-align: center;
@@ -64,41 +66,43 @@
 }
 
 
-.ant-select-selector {
+#abnormal-box.ant-select-selector {
     background-color: var(--ltBack) !important;
     color: var(--tableText) !important;
 }
 
-.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+#abnormal-box.ant-select:not(#abnormal-box.ant-select-customize-input) #abnormal-box.ant-select-selector {
     border: 1px solid var(--ltBack) !important;
 }
 
-.ant-select:not(.ant-select-customize-input) .ant-select-selector:hover {
+#abnormal-box.ant-select:not(#abnormal-box.ant-select-customize-input) #abnormal-box.ant-select-selector:hover {
     border: 1px solid var(--tableText) !important;
 }
 
-.ant-select-dropdown {
+#abnormal-box.ant-select-dropdown {
     background-color: var(--ltBack) !important;
 }
 
-.ant-select-item-option-selected {
+#abnormal-box.ant-select-item-option-selected {
     background-color: var(--text) !important;
 }
 
-.ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+#abnormal-box.ant-select-item-option-active:not(#abnormal-box.ant-select-item-option-disabled) {
     background-color: transparent !important;
 }
 
-.rc-virtual-list-holder-inner {
+#abnormal-box .rc-virtual-list-holder-inner {
     color: var(--text) !important;
 }
 
-.rc-virtual-list-holder-inner div:hover {
+#abnormal-box .rc-virtual-list-holder-inner div:hover {
     background-color: var(--tabHover) !important;
 }
-
+#abnormal-box .ant-select-item-option-selected:not(.ant-select-item-option-disabled){
+    background-color: #f5f5f5;
+}
 /* 选中的页码样式 */
-.ant-pagination-item-active {
+#abnormal-box .ant-pagination-item-active {
     font-weight: 600;
     border: 1px solid var(--activeTabBtn) !important;
 }

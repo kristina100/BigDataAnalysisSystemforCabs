@@ -2,15 +2,18 @@
     width: 20%;
     height: 100%;
     min-width: 300px;
+    min-height: 700px;
     background-color: var(--ltBack);
 }
 
 #graph-box {
-
-    min-height: 620px;
+    
+    min-height: 650px;
     height: calc(100% - 50px);
 }
-
+.amap-container{
+    min-height: 700px;
+}
 #graph-box::-webkit-scrollbar {
     width: 6px;
 

@@ -165,14 +165,17 @@ export default class Abnormal extends React.Component {
     render() {
         const { data, pagination, loading } = this.state;
         // rowKey 回调的第一个参数是每一条数据，可以用数据的id来作为唯一的key值
-        return (<Table className="place w"
-            columns={columns}
-            rowKey={record => record.id}
-            dataSource={data}
-            pagination={pagination}
-            loading={loading}
-            onChange={this.handleTableChange}
-        />
+        return (
+            <div id="abnormal-box">
+                <Table className="place w"
+                    columns={columns}
+                    rowKey={record => record.id}
+                    dataSource={data}
+                    pagination={pagination}
+                    loading={loading}
+                    onChange={this.handleTableChange}
+                />
+            </div>
         );
 
     }

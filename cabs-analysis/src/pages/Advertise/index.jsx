@@ -17,6 +17,116 @@ export default class Advertise extends Component {
           zoom:9,
           mapStyle: 'amap://styles/whitesmoke'
        });
+       window.AMapUI.loadUI(['geo/DistrictExplorer'], function(DistrictExplorer) {
+        var currentAreaNode = null;
+        //创建一个实例
+        var districtExplorer = new DistrictExplorer({
+            eventSupport: true,
+            map: map
+        });
+    
+         //绘制某个区域的边界
+         function renderAreaPolygons(areaNode) {
+          //更新地图视野
+          map.setBounds(areaNode.getBounds(), null, null, true);
+      
+          //清除已有的绘制内容
+          districtExplorer.clearFeaturePolygons();
+      
+          //绘制子区域
+          districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
+      
+  
+      
+              return {
+                  cursor: 'default',
+                  bubble: true,
+                  strokeColor: '#03DAC5', //线颜色
+                  strokeOpacity: 1, //线透明度
+                  strokeWeight: 1, //线宽
+            
+                  fillOpacity: 0, //填充透明度
+              };
+          });
+      
+          //绘制父区域
+          districtExplorer.renderParentFeature(areaNode, {
+            cursor: 'default',
+            bubble: true,
+            strokeColor: '#03DAC5', //线颜色
+            strokeOpacity: 1, //线透明度
+            strokeWeight: 1, //线宽
+            
+            fillOpacity: 0, //填充透明度
+          });
+      }
+      
+      //切换区域后刷新显示内容
+      function refreshAreaNode(areaNode) {
+      
+          districtExplorer.setHoverFeature(null);
+      
+          renderAreaPolygons(areaNode);
+      
+       
+      }
+      
+      //切换区域
+      function switch2AreaNode(adcode, callback) {
+      
+          if (currentAreaNode && ('' + currentAreaNode.getAdcode() === '' + adcode)) {
+              return;
+          }
+      
+          loadAreaNode(adcode, function(error, areaNode) {
+      
+              if (error) {
+      
+                  if (callback) {
+                      callback(error);
+                  }
+      
+                  return;
+              }
+      
+              currentAreaNode = window.currentAreaNode = areaNode;
+      
+              //设置当前使用的定位用节点
+              districtExplorer.setAreaNodesForLocating([currentAreaNode]);
+      
+              refreshAreaNode(areaNode);
+      
+              if (callback) {
+                  callback(null, areaNode);
+              }
+          });
+      }
+      
+      //加载区域
+      function loadAreaNode(adcode, callback) {
+      
+          districtExplorer.loadAreaNode(adcode, function(error, areaNode) {
+      
+              if (error) {
+      
+                  if (callback) {
+                      callback(error);
+                  }
+      
+                  console.error(error);
+      
+                  return;
+              }
+      
+            
+      
+              if (callback) {
+                  callback(null, areaNode);
+              }
+          });
+      }
+      switch2AreaNode(440100);
+      });
          //点标记
       let myList = [];
        let markerList = [[113.3883888 ,  23.04370157],
@@ -36,11 +146,11 @@ export default class Advertise extends Component {
    
            // 创建一个 icon
        let serveIcon = new window.AMap.Icon({
-         size: new window.AMap.Size(24, 25),
+         size: new window.AMap.Size(24, 24),
            // 图标的取图地址
-           image: 'images/marker.png',
+           image: '../marker.png',
            // 图标所用图片大小
-           imageSize: new window.AMap.Size(20, 25),
+           imageSize: new window.AMap.Size(25, 25),
    
        });
     // 将 icon 传入 marker
