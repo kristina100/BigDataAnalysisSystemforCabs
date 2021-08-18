@@ -44,49 +44,49 @@ def synthetic_trajs(n_grid: int, max_t_len: int, trip_distribution,
     # line 2-6
     with tqdm(total=nSyn) as bar:
         bar.set_description('生成轨迹1')
-    for i in range(nSyn):
-        bar.update(1)
-        # 从Rˆ中挑选一个样本S = (C_start, C_end)
-        index = np.random.choice(index_list, p=R.ravel())
-        # 起点
-        start_point = int(index / n_grid)
-        # 终点
-        end_point = index - start_point * n_grid
-        # tilde{l}
-        l_hat = L[index]
-        #从exp({ln_2}/{\tilde{l}})中随机挑选一个样本s
-        s = int(np.round(random.expovariate(np.log(2) / l_hat)))  # 指数分布取轨迹长
-        if s < 2:
-            s = 2
+        for i in range(nSyn):
+            bar.update(1)
+            # 从Rˆ中挑选一个样本S = (C_start, C_end)
+            index = np.random.choice(index_list, p=R.ravel())
+            # 起点
+            start_point = int(index / n_grid)
+            # 终点
+            end_point = index - start_point * n_grid
+            # tilde{l}
+            l_hat = L[index]
+            #从exp({ln_2}/{\tilde{l}})中随机挑选一个样本s
+            s = int(np.round(random.expovariate(np.log(2) / l_hat)))  # 指数分布取轨迹长
+            if s < 2:
+                s = 2
 
-        T = []
-        prev_point = start_point
-        T.append(prev_point)
+            T = []
+            prev_point = start_point
+            T.append(prev_point)
 
-        # 遍历
-        for j in range(1, s-1):
-            # 论文公式，X的s-j倍，寻找X_array下标，超过X_array长度则取最后一个
-            if s - 1 - j - 1 >= X_array_len:
-                X_now = X_array[-1]
-            else:
-                X_now = X_array[s - 1 - j - 1]
-            # 计算赋给C_samp的概率
-            sample_prob = []
-            for k in range(n_grid):
-                sample_prob.append(X_now[k][end_point] * X[prev_point][k])
+            # 遍历
+            for j in range(1, s-1):
+                # 论文公式，X的s-j倍，寻找X_array下标，超过X_array长度则取最后一个
+                if s - 1 - j - 1 >= X_array_len:
+                    X_now = X_array[-1]
+                else:
+                    X_now = X_array[s - 1 - j - 1]
+                # 计算赋给C_samp的概率
+                sample_prob = []
+                for k in range(n_grid):
+                    sample_prob.append(X_now[k][end_point] * X[prev_point][k])
 
-            sample_prob = np.array(sample_prob)
-            if np.sum(sample_prob) == 0:
-                continue
-            sample_prob /= np.sum(sample_prob)
-            now_point = np.random.choice([int(m) for m in range(n_grid)],
-                                         p=sample_prob.ravel())
-            prev_point = now_point
-            T.append(now_point)
+                sample_prob = np.array(sample_prob)
+                if np.sum(sample_prob) == 0:
+                    continue
+                sample_prob /= np.sum(sample_prob)
+                now_point = np.random.choice([int(m) for m in range(n_grid)],
+                                             p=sample_prob.ravel())
+                prev_point = now_point
+                T.append(now_point)
 
-        # 加入结束点
-        T.append(end_point)
-        SD.append(T)
+            # 加入结束点
+            T.append(end_point)
+            SD.append(T)
 
     return SD
 
