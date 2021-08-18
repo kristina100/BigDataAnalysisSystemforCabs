@@ -76,7 +76,7 @@ export default class Abnormal extends React.Component {
             }
         })
 
-        axios.get(`http://39.98.41.126:31103/getErrorType`).then(
+        axios.get(`http://39.98.41.126:31100/getErrorType`).then(
             response => {
                 // 根据请求类别接口生成li
                 for (let i = 0; i < response.data.length; ++i) {
@@ -139,7 +139,7 @@ export default class Abnormal extends React.Component {
         let { current } = params.pagination;
         let { pageSize } = params.pagination;
         let { keyWords } = params;
-        let myUrl = keyWords ? `http://39.98.41.126:31103/findErrorTaxis/${current}/${pageSize}/${keyWords}` : `http://39.98.41.126:31103/findErrorTaxis/${current}/${pageSize}/`
+        let myUrl = keyWords ? `http://39.98.41.126:31100/findErrorTaxis/${current}/${pageSize}/${keyWords}` : `http://39.98.41.126:31100/findErrorTaxis/${current}/${pageSize}/`
 
         reqwest({
             url: myUrl,
