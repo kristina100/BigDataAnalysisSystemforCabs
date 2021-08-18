@@ -12,7 +12,7 @@ import { Switch } from 'antd';
 import { DatePicker, Space, message } from 'antd';
 
 
-
+let flag = 0;
 var map
 let flowColor = [
     "#69c0ff", "#ff7875", "#a0d911", "#ffc53d", "#b37feb", "#0099c6", "#dd4477", "#66aa00",
@@ -44,7 +44,13 @@ export default class Rightcontent extends Component {
             window.pathSimplifierIns.setData([]);
             // this.state.locaObj.destroy();
             // this.allFlowShow('', true)
-            window.loca.destroy();
+            if (flag === 1) {
+                console.log(window.loca);
+                if (window.loca.layers.length !== 0) {
+                    console.log(window.loca);
+                    window.loca.destroy();
+                }
+            }
             console.log(window.loca);
         }
     }
@@ -63,7 +69,6 @@ export default class Rightcontent extends Component {
 
         let flagChange = 0;
         let timeArr = [];
-        let flag = 0;
         let initDataPrint;
         let addressPrint = [];
         let geocoder;
