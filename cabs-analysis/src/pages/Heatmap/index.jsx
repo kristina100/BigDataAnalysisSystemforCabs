@@ -44,7 +44,7 @@ export default class HeatMap extends Component {
 
       
               //promise链
-        PubSub.subscribe('date',(_,data)=>{
+        let token1 = PubSub.subscribe('date',(_,data)=>{
             data[0] = data[0].replace(' ','_');
             data[1] = data[1].replace(' ','_');
             
@@ -282,15 +282,16 @@ export default class HeatMap extends Component {
         
     }
     window.pointSimplifierIns = pointSimplifierIns;
-   
-    let container2 = document.getElementById('flow-graph');
-    const chart = new Chart({
-        container: container2,
-        autoFit: true,
-        height: 500,
-        padding: [30, 8, 70, 34],
-    
-    });
+    try {
+        let container2 = document.getElementById('flow-graph');
+        const chart = new Chart({
+            container: container2,
+            autoFit: true,
+            height: 500,
+            padding: [30, 8, 70, 34],
+        
+        });
+        window.chart = chart;
     chart.guide().text({
         top: true, // 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
         position: ['24', '0'], // 文本的起始位置，值为原始数据值，支持 callback
@@ -416,15 +417,23 @@ export default class HeatMap extends Component {
                         colorType = i;
                         pointSimplifierIns.setData(null);
                         flowPointShow(i);
-                        flowGraphShow(i);
+                 
                     }         
                 }
-            }    
+            }   
+             flowGraphShow(0) 
             await sleep(500);
-            flowGraphShow(0)
+           
         })()  
     }
-    defTypeBtn();
+
+        defTypeBtn(); 
+
+    } catch (error) {
+        console.log('err');
+    }
+    
+    
 
 });
     
@@ -436,7 +445,13 @@ export default class HeatMap extends Component {
         }
         console.log(e.target.value);
     }
-    
+    componentWillUnmount(){
+        PubSub.unsubscribe('token1');
+       
+        this.setState = (state,callback) => {
+            return;
+        }
+    }
     render() {
         return (
             <div className="map-ct">

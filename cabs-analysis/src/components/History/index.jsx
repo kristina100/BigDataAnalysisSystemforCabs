@@ -107,7 +107,7 @@ export default class History extends Component {
             getSalary('02-01');
             await sleep(0)
         })()  
-        PubSub.subscribe('dateAna',(_,data)=>{
+        let token1 = PubSub.subscribe('dateAna',(_,data)=>{
         (async () => {
             const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
             getSalary(data)
@@ -206,12 +206,18 @@ const getUti = (date)=>{
   getUti('02-01');
   await sleep(0)
 })()  
-PubSub.subscribe('timeUti',(_,data)=>{
+let token2 = PubSub.subscribe('timeUti',(_,data)=>{
   showUti(UseData[data])
   timeSelect = data;
 
 })
     }
+    componentWillUnmount(){
+      PubSub.unsubscribe('token1','token2');
+      this.setState = (state,callback) => {
+          return;
+      }
+  }
     render() {
         return (
             <div id="ana-history">

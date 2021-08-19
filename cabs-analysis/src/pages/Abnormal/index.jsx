@@ -161,7 +161,11 @@ export default class Abnormal extends React.Component {
             });
         });
     };
-
+    componentWillUnmount(){
+        this.setState = (state,callback) => {
+            return;
+        }
+    }
     render() {
         const { data, pagination, loading } = this.state;
         // rowKey 回调的第一个参数是每一条数据，可以用数据的id来作为唯一的key值

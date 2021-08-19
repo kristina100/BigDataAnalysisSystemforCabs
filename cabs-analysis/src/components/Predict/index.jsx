@@ -225,7 +225,7 @@ const getUti = ()=>{
   getUti();
   await sleep(0)
 })()  
-PubSub.subscribe('timeUti',(_,data)=>{
+let token1 = PubSub.subscribe('timeUti',(_,data)=>{
     (async () => {
       const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
       showUti(UseData[data])
@@ -234,6 +234,12 @@ PubSub.subscribe('timeUti',(_,data)=>{
     })()  
     })
     }
+    componentWillUnmount(){
+      PubSub.unsubscribe('token1');
+      this.setState = (state,callback) => {
+          return;
+      }
+  }
     render() {
         return (
             <div id="ana-predict">
