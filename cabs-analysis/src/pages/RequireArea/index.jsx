@@ -25,6 +25,7 @@ export default class Rightcontent extends Component {
     state = ({
         loading: true,
         ableTurn: false,
+        isClick: true,
         dataPrint: null,
         pointSimplifierIns: null,
         mainFlowBtn: false,
@@ -106,6 +107,7 @@ export default class Rightcontent extends Component {
 
     // 根据state中的数据与开关的状态来展示载客热点
     onChangeOpenHot = (checked) => {
+        this.setState({ isClick: !checked });
         const { dataPrint, pointSimplifierIns } = this.state;
         checked ? pointSimplifierIns.setData(dataPrint) : pointSimplifierIns.setData(null);
     }
@@ -375,7 +377,7 @@ export default class Rightcontent extends Component {
 
                 // 点击展示海量数据点
                 districtExplorer.on('featureClick', function (e, feature) {
-                    Switch.__ANT_SWITCH = false;
+                    that.setState({ isClick: true });
                     flagChange++;
                     let time1 = toRealTime(timeArr[timeArr.length - 1]);
                     let time2 = toRealTime(timeArr[timeArr.length - 2]);
@@ -721,7 +723,7 @@ export default class Rightcontent extends Component {
                     </div>
                     <div className="btn_flowDirection"><span className="title">主流向展示</span> <Switch disabled={this.state.ableTurn || this.state.loading} onChange={this.onChangeOpenFlow} /></div>
                     <div className="btn_flowDirection"><span className="title">全流向展示</span> <Switch disabled={this.state.ableTurn || this.state.loading} onChange={this.onChangeOpenAllFlow} /></div>
-                    <div className="btn_hotGetIn"><span className="title">全部载客热点</span> <Switch disabled={this.state.loading} onChange={this.onChangeOpenHot} /></div>
+                    <div className="btn_hotGetIn"><span className="title">全部载客热点</span> <Switch disabled={this.state.loading} onChange={this.onChangeOpenHot} checked={!this.state.isClick} /></div>
                     <div className="title">区域等级划分</div>
                     <div className="levelBox">
                         <ul className="level">
