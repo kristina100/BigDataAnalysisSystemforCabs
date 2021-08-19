@@ -50,11 +50,9 @@ for index, row in area_0.iterrows():
 
 # 去除不在广州市内的点
 for index, row in area_0.iterrows():
-    if 113.183467 > row['get_off_long'] > 113.988831 and 22.565976 > row[
-        'get_off_lat'] > 23.911726:
+    if 113.183467 > row['get_off_long'] > 113.988831 and 22.565976 > row['get_off_lat'] > 23.911726:
         area_0.drop(index=index, inplace=True)
-    if 113.183467 > row['get_on_long'] > 113.988831 and 22.565976 > row[
-        'get_on_lat'] > 23.911726:
+    if 113.183467 > row['get_on_long'] > 113.988831 and 22.565976 > row['get_on_lat'] > 23.911726:
         area_0.drop(index=index, inplace=True)
 print(len(area_0))
 
@@ -62,7 +60,7 @@ start_point = []
 sort_area = area_0.sort_values(by=['get_on_long'])
 print(sort_area)
 
-final_data = area_0.sample(n=15000)
+final_data = area_0.sample(n=50000)
 
 num = 0
 sum_on_long = round(0, 6)
@@ -72,7 +70,7 @@ sum_off_lat = round(0, 6)
 start_end_point = []
 
 for index, line in tqdm(sort_area.iterrows()):
-    if index == 150000:
+    if index == 50000:
         break
     num += 1
     sum_on_long += float(line[0])
@@ -84,18 +82,17 @@ for index, line in tqdm(sort_area.iterrows()):
         mean_get_on_lat = round(sum_on_lat / num, 6)
         mean_get_off_long = round(sum_off_long / num, 6)
         mean_get_off_lat = round(sum_off_lat / num, 6)
-        start_end_point.append([[mean_get_on_long, mean_get_on_lat], [mean_get_off_long,mean_get_off_lat]])
+        start_end_point.append([[mean_get_on_long, mean_get_on_lat], [mean_get_off_long, mean_get_off_lat]])
         sum_on_long = round(0, 6)
         sum_on_lat = round(0, 6)
         sum_off_long = round(0, 6)
         sum_off_lat = round(0, 6)
+        num = 0
     sleep(0.01)
 sleep(0.5)
-
 
 # 逐行存入csv
 with open('20170201.csv', "a", encoding='utf-8') as f:
     writer = csv.writer(f)
     for point in start_end_point:
         writer.writerow(point)
-
