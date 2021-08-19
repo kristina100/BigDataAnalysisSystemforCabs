@@ -146,7 +146,7 @@ export default class Advertise extends Component {
    
            // 创建一个 icon
        let serveIcon = new window.AMap.Icon({
-         size: new window.AMap.Size(24, 24),
+         size: new window.AMap.Size(25, 25),
            // 图标的取图地址
            image: '../marker.png',
            // 图标所用图片大小
@@ -160,7 +160,7 @@ export default class Advertise extends Component {
            let marker = new window.AMap.Marker({
              icon:serveIcon,
              offset: new window.AMap.Pixel(-13, -30),
-               position: markerList[i],
+              position: markerList[i],
            })
            myList.push(marker);
            window.AMap.Event.addListener(marker, 'click', function () {
@@ -266,6 +266,7 @@ export default class Advertise extends Component {
                     </Switch>
                   </div>
                 </div>
+                <div id="tips-box">广告牌位置推荐</div>
                 <div style={{width:'80%',height:'100%'}} ref="container"></div>
             </div>
         )

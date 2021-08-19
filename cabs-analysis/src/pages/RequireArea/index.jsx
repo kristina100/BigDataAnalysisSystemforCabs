@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import PubSub from 'pubsub-js'
 import axios from 'axios';
 import './index.css'
-import { isTSExpressionWithTypeArguments } from '@babel/types';
-import { func } from 'prop-types';
-import { flushSync } from 'react-dom';
-import MyNavLink from '../../components/MyNavLink';
+
 import Datepick from './Datepick'
 
 import { Switch } from 'antd';
-import { DatePicker, Space, message } from 'antd';
+import {  message } from 'antd';
 
 
 let flag = 0;
@@ -136,33 +133,30 @@ export default class Rightcontent extends Component {
             // 拿到热点数据
             axios.get(`http://39.98.41.126:31100/getHotPoints`).then(
                 response => {
-                    initDataPrint = response.data.data2.split('\n');
-                    initDataPrint = initDataPrint.filter((item) => {
-                        return item !== ''
-                    })
-                    addressPrint = response.data.data1;
-                    axios.get(` http://39.98.41.126:31100/getCenterRadiusForMobile`).then(
-                        response => {
-                            that.setState({ loading: false });
-                            message.success({ content: '渲染完成！', key })
-                            let radiusArr = [];
-                            let latlngArr = [];
-                            let dataArr = response.data.data;
-                            dataArr.map((item) => {
-                                radiusArr.push(item.radius)
-                                latlngArr.push(item.longitude + ',' + item.latitude);
-                            })
-                            resolve({ addressPrint, initDataPrint, radiusArr, latlngArr });
-                        },
-                        error => {
-                            reject(error);
-                            message.warning({ content: '服务器出现问题，加载失败！', duration: 2 });
-                        }
-                    )
-                },
-                error => {
-                    reject(error);
-                    message.warning({ content: '服务器出现问题，加载失败！', duration: 2 });
+                    if(response.data.data2){
+                        initDataPrint = response.data.data2.split('\n');
+                        initDataPrint = initDataPrint.filter((item) => {
+                            return item != ''
+                        })
+                        addressPrint = response.data.data1;
+                        axios.get(` http://39.98.41.126:31100/getCenterRadiusForMobile`).then(
+                            response => {
+                                console.log(response.data);
+                                that.setState({ loading: false });
+                                message.success({ content: '渲染完成！', key, duration: 1.5 })
+                                let radiusArr = [];
+                                let latlngArr = [];
+                                let dataArr = response.data.data;
+                                dataArr.map((item) => {
+                                    radiusArr.push(item.radius)
+                                    latlngArr.push(item.longitude + ',' + item.latitude);
+                                })
+                                resolve({ addressPrint, initDataPrint, radiusArr, latlngArr });
+    
+                            }
+                        )
+                    }
+                    
                 }
             )
         })
@@ -197,11 +191,14 @@ export default class Rightcontent extends Component {
 
 
             const { addressPrint } = that.refs;
-            for (let i = 0; i < that.state.addressPrint.length; ++i) {
-                let li = document.createElement('li');
-                li.innerHTML = that.state.addressPrint[i];
-                addressPrint.appendChild(li)
+            if(that.state.addressPrint){
+                for (let i = 0; i < that.state.addressPrint.length; ++i) {
+                    let li = document.createElement('li');
+                    li.innerHTML = that.state.addressPrint[i];
+                    addressPrint.appendChild(li)
+                }
             }
+            
 
             // 加载逆地址编码的插件
             window.AMap.plugin(["AMap.Geocoder"], function () {
@@ -699,7 +696,10 @@ export default class Rightcontent extends Component {
     }
 
     componentWillUnmount() {
-        PubSub.unsubscribe(this.token)
+        PubSub.unsubscribe(this.token);
+        this.setState = (state,callback) => {
+            return;
+        }
     }
 
     render() {

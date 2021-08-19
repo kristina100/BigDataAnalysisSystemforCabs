@@ -4,6 +4,7 @@ import AnalyseDate from '../../components/AnalyseDate'
 import PubSub from 'pubsub-js'
 import { Chart} from '@antv/g2'
 import axios from 'axios'
+import { registerShape } from '@antv/g2'
 import DataSet from '@antv/data-set';
 import './index.css'
 import { message } from 'antd'
@@ -36,7 +37,50 @@ export default class History extends Component {
           chart1.axis('Time', {
             tickLine: null
           });
+          chart1.axis('Value',{
+            grid:{
+                line:{
+                    style:{
+                        stroke:'#676767'
+                    }
+                }
+            }
+          })
+          chart1.guide().text({
+            top: true, // 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+            position: ['100', '0'], // 文本的起始位置，值为原始数据值，支持 callback
+            content: '(元)', // 显示的文本内容
+            style: {  // 文本的图形样式属性
+                fill: '#6d6d6d', // 文本颜色
+                fontSize: '12', // 文本大小
+            }, // 文本的图形样式属性
+            offsetX: -6, // x 方向的偏移量
+            offsetY: -200, // y 方向偏移量
+        })
+        registerShape('interval', 'borderRadius', {
+          draw: function draw(cfg, container) {
+            var points = cfg.points;
+           
+            var path = [];
           
+            path.push(['M', points[0].x, points[0].y]);
+            path.push(['L', points[1].x, points[1].y]);
+            path.push(['L', points[2].x, points[2].y]);
+            console.log(path);
+         
+            path = this.parsePath(path); // 将 0 - 1 转化为画布坐标
+            return container.addShape('rect', {
+              attrs: {
+                x: path[1][1], // 矩形起始点为左上角
+                y: path[1][2],
+                width: path[2][1] - path[1][1],
+                height: path[0][2] - path[1][2],
+                fill: '#03dac5',
+                radius: 4
+              }
+            });
+          }
+        });
         const view1 = chart1.createView();
         const key = 'updatable1';
         
@@ -72,7 +116,7 @@ export default class History extends Component {
                       .style({
                         fillOpacity: 1,
                         fill:'#03DAC5'
-                      });
+                      }).shape('borderRadius');
                       chart1.render();
                               
                     
@@ -88,7 +132,7 @@ export default class History extends Component {
             getSalary('02-01');
             await sleep(0)
         })()  
-        PubSub.subscribe('dateAna',(_,data)=>{
+        let token1 = PubSub.subscribe('dateAna',(_,data)=>{
         (async () => {
             const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
             getSalary(data)
@@ -114,6 +158,7 @@ const showUti = (time)=>{
       chart2.tooltip({
         showMarkers: false
       });
+    
       chart2.facet('rect', {
         fields: ['Time'],
         padding: 20,
@@ -133,9 +178,9 @@ const showUti = (time)=>{
             .interval()
             .adjust('stack')
             .position('Value')
-            .color('Time', [color, '#eceef1'])
+            .color('Time', [color, '#1A6C64'])
             .style({
-              opacity: 1,
+              opacity: 0.6,
             });
           view.annotation().text({
             position: [ '50%', '50%' ],
@@ -186,15 +231,18 @@ const getUti = (date)=>{
   getUti('02-01');
   await sleep(0)
 })()  
-PubSub.subscribe('timeUti',(_,data)=>{
-(async () => {
-  const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
+let token2 = PubSub.subscribe('timeUti',(_,data)=>{
   showUti(UseData[data])
   timeSelect = data;
-  await sleep(0)
-})()  
+
 })
     }
+    componentWillUnmount(){
+      PubSub.unsubscribe('token1','token2');
+      this.setState = (state,callback) => {
+          return;
+      }
+  }
     render() {
         return (
             <div id="ana-history">

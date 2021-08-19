@@ -15,9 +15,7 @@
     background-color: pink;
     color: var(--bodyColor);
 }
-#abnormal-box{
-    
-}
+
 .ant-table-pagination.ant-pagination {
     margin: 16px 0;
     text-align: center;

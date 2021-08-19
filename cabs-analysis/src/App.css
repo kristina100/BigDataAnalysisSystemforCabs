@@ -3,7 +3,9 @@
   padding: 0;
 
 }
-
+html {
+  overflow-y: overlay;
+}
 :root {
   --themeColor: #03DAC5;
   /* 主题色 */

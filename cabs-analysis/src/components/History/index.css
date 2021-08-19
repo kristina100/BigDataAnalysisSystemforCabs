@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-min-height: 640px;
+    min-height: 610px;
     padding-left: 16px;
     padding-top: 10px;
 
@@ -33,12 +33,10 @@ min-height: 640px;
 
 @media screen and (min-height: 800px) {
     #box1{
-        height: 280px;
+        height: 240px;
     }
     #box2{
         height: 320px;
     }
-    .ant-select{
-        top: 124px;
-    }
+
 }
