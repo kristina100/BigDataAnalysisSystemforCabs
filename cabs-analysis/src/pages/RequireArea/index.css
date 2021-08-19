@@ -203,7 +203,7 @@
 
 .right_levelnav .chooseTime {
 
-    visibility: hidden;
+    /* visibility: hidden; */
     height: 35px;
     text-align: center;
     margin-top: 10px;
