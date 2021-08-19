@@ -43,8 +43,10 @@ export default class controller extends Component {
         for(let i = 0; i < this.state.carInfos.length; i++){
             if('粤A'+this.state.carId === this.state.carInfos[i].carName){
                 if(this.state.pathDate === this.state.carInfos[i].pathDate)
-                message.warning('请勿重复查询该车同一天行驶轨迹');
-                return;
+                {
+                    message.warning('请勿重复查询该车同一天行驶轨迹');
+                    return;
+                }
 
             }
         }
