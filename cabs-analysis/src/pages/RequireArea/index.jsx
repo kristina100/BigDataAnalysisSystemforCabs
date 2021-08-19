@@ -47,9 +47,9 @@ export default class Rightcontent extends Component {
         // checked ? chooseTime.style = 'visibility: visible' : chooseTime.style = 'visibility: hidden';
         if (checked) {
             this.setState({ mainFlowBtn: true })
-            if(this.state.flowDate === ''){
+            if (this.state.flowDate === '') {
                 this.warning('时间不能为空,请在右侧选择流向图的时间')
-            }else {
+            } else {
                 this.setFlowPath(this.state.flowDate)
             }
             // 绘制需求区域
@@ -73,24 +73,20 @@ export default class Rightcontent extends Component {
             this.state.circleArr.map((item) => {
                 item.hide();
             })
-            // PubSub.publish('cleanValue', true)
             window.pathSimplifierIns.setData([]);
-
         }
     }
 
     onChangeOpenAllFlow = (checked) => {
-
         if (checked) {
             this.setState({ allFlowBtn: true })
-            if(this.state.flowDate === ''){
+            if (this.state.flowDate === '') {
                 this.warning('时间不能为空,请在右侧选择流向图的时间')
-                return ;
+                return;
             }
             this.creatLoca()
             flag = 1
             this.allFlowShow(this.state.flowDate)
-
         }
 
         if (!checked) {
@@ -140,7 +136,7 @@ export default class Rightcontent extends Component {
                 response => {
                     initDataPrint = response.data.data2.split('\n');
                     initDataPrint = initDataPrint.filter((item) => {
-                        return item != ''
+                        return item !== ''
                     })
                     addressPrint = response.data.data1;
                     axios.get(` http://39.98.41.126:31100/getCenterRadiusForMobile`).then(
@@ -155,9 +151,16 @@ export default class Rightcontent extends Component {
                                 latlngArr.push(item.longitude + ',' + item.latitude);
                             })
                             resolve({ addressPrint, initDataPrint, radiusArr, latlngArr });
-
+                        },
+                        error => {
+                            reject(error);
+                            message.warning({ content: '服务器出现问题，加载失败！', duration: 2 });
                         }
                     )
+                },
+                error => {
+                    reject(error);
+                    message.warning({ content: '服务器出现问题，加载失败！', duration: 2 });
                 }
             )
         })
@@ -285,40 +288,61 @@ export default class Rightcontent extends Component {
 
             // ui组件初始化界面(海量点标记 + 行政区域划分)
             function initPage(PointSimplifier, DistrictExplorer, $) {
-
+                var pointSimplifierIns;
+                var pointsColor = [
+                    '#E6556F', '#E3843C', '#EEC055', '#1EC78A', '#4E72E2', '#E24ED7', '#71E24E', '#7F4EE2', '#4ECEE2', '#BB4EE2'
+                ]
                 let currentAreaNode = null;
                 // 海量数据点
-                let pointSimplifierIns = new PointSimplifier({
-                    autoSetFitView: false, //禁止自动更新地图视野
-                    map: map, //所属的地图实例
+                for (let i = 0; i < 10; ++i) {
+                    pointSimplifierIns = new PointSimplifier({
+                        autoSetFitView: false, //禁止自动更新地图视野
+                        map: map, //所属的地图实例
 
-                    // 返回点标记的经纬度
-                    getPosition: function (item) {
-                        if (!item) {
-                            return null;
-                        }
-                        // 数组字符串形式，便于渲染整个数据
-                        let parts = item.split(",");
 
-                        return [parseFloat(parts[0]), parseFloat(parts[1])];
-                    },
 
-                    getHoverTitle: function (dataItem, idx) {
-                        return idx + ': ' + dataItem;
-                    },
-                    renderOptions: {
-                        //点的样式
-                        pointStyle: {
-                            width: 10,
-                            height: 10,
-                            fillStyle: 'red'
+                        // 返回点标记的经纬度
+                        getPosition: function (item) {
+                            if (!item) {
+                                return null;
+                            }
+                            // 数组字符串形式，便于渲染整个数据
+                            let parts = item.split(",");
+
+                            return [parseFloat(parts[0]), parseFloat(parts[1])];
                         },
-                        //鼠标hover时的title信息
-                        hoverTitleStyle: {
-                            position: 'top'
+
+                        getHoverTitle: function (dataItem, idx) {
+                            return idx + ': ' + dataItem;
+                        },
+
+                        renderOptions: {
+                            //点的样式
+                            pointStyle: {
+                                content: PointSimplifier.Render.Canvas.getImageContent(
+                                    '../../../hotpoints.png',
+                                    function onload() {
+                                        pointSimplifierIns.renderLater();
+                                    },
+                                    function onerror(e) {
+                                        message.warning('图片加载失败！');
+                                    }
+                                ),
+                                // unit: 'meter',// 默认px，可不填
+                                width: 20,
+                                height: 20,
+                                // offset: ['-50%', '100%'],
+                                fillStyle: null,
+                                strokeStyle: null
+                                // fillStyle: pointsColor[i]
+                            },
+                            //鼠标hover时的title信息
+                            hoverTitleStyle: {
+                                position: 'top'
+                            }
                         }
-                    }
-                });
+                    })
+                };
                 window.pointSimplifierIns = pointSimplifierIns;
 
                 // 将海量数据点保存在state中
@@ -356,7 +380,7 @@ export default class Rightcontent extends Component {
                     let data = [];
                     timeArr.push(Date.now());
 
-                    if (time1[0] == time2[0] && time1[1] == time2[1] && time1[2] - time2[2] <= 0.5 && time1[0] != NaN && time2[0] != NaN) {
+                    if (time1[0] === time2[0] && time1[1] === time2[1] && time1[2] - time2[2] <= 0.5 && time1[0] !== NaN && time2[0] !== NaN) {
                         that.warning('请您勿频繁的点击！')  // 注意此时的this指向不是实例
                         pointSimplifierIns.setData(null);
                         timeArr = [];
@@ -438,11 +462,11 @@ export default class Rightcontent extends Component {
                     let newDataPrint = [];
                     dataPrint.filter((item) => {
                         geocoder.getAddress([parseFloat(item.split(',')[0]), parseFloat(item.split(',')[1])], function (status, result) {
-                            if (status == 'complete' && result.info == 'OK') {
+                            if (status === 'complete' && result.info === 'OK') {
                                 if (Number(result.regeocode.addressComponent.adcode) === adcode) {
                                     newDataPrint.push(item);
                                     callback(newDataPrint);
-                                } else if (newDataPrint.length == 0) (
+                                } else if (newDataPrint.length === 0) (
                                     callback(null)
                                 )
                             }
@@ -546,7 +570,7 @@ export default class Rightcontent extends Component {
 
             //                 dataPrint = response.data.split('\n');
             //                 dataPrint = dataPrint.filter((item) => {
-            //                     return item != ''
+            //                     return item !== ''
             //                 })
             //                 pointSimplifierIns.setData(dataPrint);
             //             },
@@ -576,8 +600,7 @@ export default class Rightcontent extends Component {
         let finalLine = [],
             finalSpot = [],
             allLine = [];
-        console.log(dateString);
-        const response = await fetch(`http://39.98.41.126:31106/getFlow/2017-02-16`)
+        const response = await fetch(`http://39.98.41.126:31100/getFlow/2017-02-01`)
         // const response = await fetch(`http://39.98.41.126:31100/getFlow/${dateString}`)
         const data = await response.json()
         console.log(data);
@@ -677,10 +700,10 @@ export default class Rightcontent extends Component {
         PubSub.unsubscribe(this.token)
     }
 
-
     render() {
         return (
             <div ref="container" className="container" id="map">
+                <div id="tips-boxs">点击行政区可显示该区域内部载客热点</div>
                 <div className="left_nav">
                     <header>载客热点</header>
                     <ul ref="addressPrint" className="addressPrint">
