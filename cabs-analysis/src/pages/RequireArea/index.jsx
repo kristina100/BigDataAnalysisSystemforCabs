@@ -47,9 +47,9 @@ export default class Rightcontent extends Component {
         // checked ? chooseTime.style = 'visibility: visible' : chooseTime.style = 'visibility: hidden';
         if (checked) {
             this.setState({ mainFlowBtn: true })
-            if(this.state.flowDate === ''){
+            if (this.state.flowDate === '') {
                 this.warning('时间不能为空,请在右侧选择流向图的时间')
-            }else {
+            } else {
                 this.setFlowPath(this.state.flowDate)
             }
             // 绘制需求区域
@@ -58,8 +58,9 @@ export default class Rightcontent extends Component {
 
                 var circle = new window.AMap.Circle({
                     center: [parseFloat(this.state.latlngArr[i].split(',')[0]), parseFloat(this.state.latlngArr[i].split(',')[1])],
-                    radius: parseFloat(this.state.radiusArr[i]),
+                    radius: parseFloat(this.state.radiusArr[i]) / 8,
                     fillColor: requireColors[i],   // 圆形填充颜色
+                    fillOpacity: 0.4,
                     strokeColor: '#fff', // 描边颜色
                     strokeWeight: 1, // 描边宽度
                 });;
@@ -83,9 +84,9 @@ export default class Rightcontent extends Component {
 
         if (checked) {
             this.setState({ allFlowBtn: true })
-            if(this.state.flowDate === ''){
+            if (this.state.flowDate === '') {
                 this.warning('时间不能为空,请在右侧选择流向图的时间')
-                return ;
+                return;
             }
             this.creatLoca()
             flag = 1
@@ -115,7 +116,7 @@ export default class Rightcontent extends Component {
 
         let key = 'updateData';
         // this.setState({ loading: true });
-        message.loading({ content: '正在渲染', key });
+        message.loading({ content: '正在渲染', key, duration: 1000 });
         let flagChange = 0;
         let timeArr = [];
         let initDataPrint;
@@ -138,6 +139,7 @@ export default class Rightcontent extends Component {
             // 拿到热点数据
             axios.get(`http://39.98.41.126:31100/getHotPoints`).then(
                 response => {
+                    console.log(response.data);
                     initDataPrint = response.data.data2.split('\n');
                     initDataPrint = initDataPrint.filter((item) => {
                         return item != ''
@@ -145,8 +147,9 @@ export default class Rightcontent extends Component {
                     addressPrint = response.data.data1;
                     axios.get(` http://39.98.41.126:31100/getCenterRadiusForMobile`).then(
                         response => {
+                            console.log(response.data);
                             that.setState({ loading: false });
-                            message.success({ content: '渲染完成！', key })
+                            message.success({ content: '渲染完成！', key, duration: 1.5 })
                             let radiusArr = [];
                             let latlngArr = [];
                             let dataArr = response.data.data;
@@ -202,6 +205,9 @@ export default class Rightcontent extends Component {
             window.AMap.plugin(["AMap.Geocoder"], function () {
                 geocoder = new window.AMap.Geocoder();
             })
+
+
+
 
 
 
@@ -285,40 +291,61 @@ export default class Rightcontent extends Component {
 
             // ui组件初始化界面(海量点标记 + 行政区域划分)
             function initPage(PointSimplifier, DistrictExplorer, $) {
-
+                var pointSimplifierIns;
+                var pointsColor = [
+                    '#E6556F', '#E3843C', '#EEC055', '#1EC78A', '#4E72E2', '#E24ED7', '#71E24E', '#7F4EE2', '#4ECEE2', '#BB4EE2'
+                ]
+                console.log(11, pointsColor.map((item) => { return item }));
                 let currentAreaNode = null;
                 // 海量数据点
-                let pointSimplifierIns = new PointSimplifier({
-                    autoSetFitView: false, //禁止自动更新地图视野
-                    map: map, //所属的地图实例
+                for (let i = 0; i < 10; ++i) {
+                    console.log(PointSimplifier);
+                    pointSimplifierIns = new PointSimplifier({
+                        autoSetFitView: false, //禁止自动更新地图视野
+                        map: map, //所属的地图实例
 
-                    // 返回点标记的经纬度
-                    getPosition: function (item) {
-                        if (!item) {
-                            return null;
-                        }
-                        // 数组字符串形式，便于渲染整个数据
-                        let parts = item.split(",");
+                        // 返回点标记的经纬度
+                        getPosition: function (item) {
+                            if (!item) {
+                                return null;
+                            }
+                            // 数组字符串形式，便于渲染整个数据
+                            let parts = item.split(",");
 
-                        return [parseFloat(parts[0]), parseFloat(parts[1])];
-                    },
-
-                    getHoverTitle: function (dataItem, idx) {
-                        return idx + ': ' + dataItem;
-                    },
-                    renderOptions: {
-                        //点的样式
-                        pointStyle: {
-                            width: 10,
-                            height: 10,
-                            fillStyle: 'red'
+                            return [parseFloat(parts[0]), parseFloat(parts[1])];
                         },
-                        //鼠标hover时的title信息
-                        hoverTitleStyle: {
-                            position: 'top'
+
+                        getHoverTitle: function (dataItem, idx) {
+                            return idx + ': ' + dataItem;
+                        },
+                        renderOptions: {
+                            //点的样式
+                            pointStyle: {
+                                content: PointSimplifier.Render.Canvas.getImageContent(
+                                    '../../../hotpoints.png',
+                                    function onload() {
+                                        pointSimplifierIns.renderLater();
+                                    },
+                                    function onerror(e) {
+                                        console.log(e);
+                                        message.warning('图片加载失败！');
+                                    }
+                                ),
+                                // unit: 'meter',// 默认px，可不填
+                                width: 20,
+                                height: 20,
+                                // offset: ['-50%', '100%'],
+                                fillStyle: null,
+                                strokeStyle: null
+                                // fillStyle: pointsColor[i]
+                            },
+                            //鼠标hover时的title信息
+                            hoverTitleStyle: {
+                                position: 'top'
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 window.pointSimplifierIns = pointSimplifierIns;
 
                 // 将海量数据点保存在state中
@@ -683,10 +710,7 @@ export default class Rightcontent extends Component {
                 <div className="left_nav">
                     <header>载客热点</header>
                     <ul ref="addressPrint" className="addressPrint">
-                        {/* <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li> */}
+
                     </ul>
                 </div>
 
