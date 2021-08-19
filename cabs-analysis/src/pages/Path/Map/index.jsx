@@ -224,14 +224,17 @@ export default class Map extends Component {
         //获取到车牌号，将车牌号传入后台，获取数据将路径存入路径总数组种
         if(carName === undefined || carName === ''){
             message.warning({content:'请输入车牌号！',key ,duration:1.5})
+            PubSub.publish('existCar',{isFinding:false})
             return ;
         }else if(carName.length < 5){
             message.warning({content:'请输入正确的车牌号！',key ,duration:1.5})
+            PubSub.publish('existCar',{isFinding:false})
             return ;
         }
         let sendCarName = '粤A' + carName
         if(pathDate === undefined || pathDate === ''){
             message.warning({content:'请输入查询时间！',key ,duration:1.5})
+            PubSub.publish('existCar',{isFinding:false})
             return ;
         }
         let sendDate = pathDate.slice(5,7)+pathDate.slice(8,10);

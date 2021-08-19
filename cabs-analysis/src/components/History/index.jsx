@@ -4,6 +4,7 @@ import AnalyseDate from '../../components/AnalyseDate'
 import PubSub from 'pubsub-js'
 import { Chart} from '@antv/g2'
 import axios from 'axios'
+import { registerShape } from '@antv/g2'
 import DataSet from '@antv/data-set';
 import './index.css'
 import { message } from 'antd'
@@ -56,6 +57,30 @@ export default class History extends Component {
             offsetX: -6, // x 方向的偏移量
             offsetY: -200, // y 方向偏移量
         })
+        registerShape('interval', 'borderRadius', {
+          draw: function draw(cfg, container) {
+            var points = cfg.points;
+           
+            var path = [];
+          
+            path.push(['M', points[0].x, points[0].y]);
+            path.push(['L', points[1].x, points[1].y]);
+            path.push(['L', points[2].x, points[2].y]);
+            console.log(path);
+         
+            path = this.parsePath(path); // 将 0 - 1 转化为画布坐标
+            return container.addShape('rect', {
+              attrs: {
+                x: path[1][1], // 矩形起始点为左上角
+                y: path[1][2],
+                width: path[2][1] - path[1][1],
+                height: path[0][2] - path[1][2],
+                fill: '#03dac5',
+                radius: 4
+              }
+            });
+          }
+        });
         const view1 = chart1.createView();
         const key = 'updatable1';
         
@@ -91,7 +116,7 @@ export default class History extends Component {
                       .style({
                         fillOpacity: 1,
                         fill:'#03DAC5'
-                      });
+                      }).shape('borderRadius');
                       chart1.render();
                               
                     
