@@ -15,7 +15,7 @@ export default class App extends Component {
       <div id="wrapper">
         <div id="header-ct">
           <div id="header">
-            <NavLink to="/index" id="logo" children="logo"/>          
+            <NavLink to="/index" id="logo"/>          
             <MyNavLink to="/heatmap" children="热力图示"/>
             <MyNavLink to="/requirearea" children="需求区域"/>
             <MyNavLink to="/path" children="行驶轨迹"/>
@@ -31,7 +31,7 @@ export default class App extends Component {
             <Route path="/path" component={Path}/>
             <Route path="/abnormal" component={Abnormal}/>
             <Route path="/advertise" component={Advertise}/>
-            <Redirect to="/heatmap"/>
+            <Redirect to="/index"/>
           </Switch>
         </div>
       </div>

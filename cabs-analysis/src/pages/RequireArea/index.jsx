@@ -6,7 +6,7 @@ import './index.css'
 import Datepick from './Datepick'
 
 import { Switch } from 'antd';
-import {  message } from 'antd';
+import { message } from 'antd';
 
 
 let flag = 0;
@@ -60,6 +60,7 @@ export default class Rightcontent extends Component {
                     fillColor: requireColors[i],   // 圆形填充颜色
                     strokeColor: '#fff', // 描边颜色
                     strokeWeight: 1, // 描边宽度
+                    fillOpacity: 0.4
                 });;
                 circleArr.push(circle);
                 map.add(circle);
@@ -133,7 +134,7 @@ export default class Rightcontent extends Component {
             // 拿到热点数据
             axios.get(`http://39.98.41.126:31100/getHotPoints`).then(
                 response => {
-                    if(response.data.data2){
+                    if (response.data.data2) {
                         initDataPrint = response.data.data2.split('\n');
                         initDataPrint = initDataPrint.filter((item) => {
                             return item !== ''
@@ -151,11 +152,11 @@ export default class Rightcontent extends Component {
                                     latlngArr.push(item.longitude + ',' + item.latitude);
                                 })
                                 resolve({ addressPrint, initDataPrint, radiusArr, latlngArr });
-    
+
                             }
                         )
                     }
-                    
+
                 }
             )
         })
@@ -190,14 +191,14 @@ export default class Rightcontent extends Component {
 
 
             const { addressPrint } = that.refs;
-            if(that.state.addressPrint){
+            if (that.state.addressPrint) {
                 for (let i = 0; i < that.state.addressPrint.length; ++i) {
                     let li = document.createElement('li');
                     li.innerHTML = that.state.addressPrint[i];
                     addressPrint.appendChild(li)
                 }
             }
-            
+
 
             // 加载逆地址编码的插件
             window.AMap.plugin(["AMap.Geocoder"], function () {
@@ -696,7 +697,7 @@ export default class Rightcontent extends Component {
 
     componentWillUnmount() {
         PubSub.unsubscribe(this.token);
-        this.setState = (state,callback) => {
+        this.setState = (state, callback) => {
             return;
         }
     }
@@ -704,11 +705,15 @@ export default class Rightcontent extends Component {
     render() {
         return (
             <div ref="container" className="container" id="map">
-                <div id="tips-boxs">点击行政区可显示该区域内部载客热点</div>
+                <div id="tips-boxs">点击展示区域内部载客热点</div>
                 <div className="left_nav">
                     <header>载客热点</header>
                     <ul ref="addressPrint" className="addressPrint">
                         {/* <li>广东省广州市天河区xxx</li>
+                        <li>广东省广州市天河区xxx</li>
+                        <li>广东省广州市天河区xxx</li>
+                        <li>广东省广州市天河区xxx</li>
+                        <li>广东省广州市天河区xxx</li>
                         <li>广东省广州市天河区xxx</li>
                         <li>广东省广州市天河区xxx</li>
                         <li>广东省广州市天河区xxx</li> */}

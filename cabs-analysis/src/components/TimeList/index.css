@@ -25,7 +25,7 @@
 }
 .ant-select:not(.ant-select-customize-input) .ant-select-selector{
     background-color: var(--ltBack);
-    
+    border: none;
 }
 .ant-select:not(.ant-select-customize-input) .ant-select-selector:hover{
     border: none;

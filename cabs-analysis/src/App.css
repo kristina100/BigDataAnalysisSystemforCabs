@@ -57,13 +57,18 @@ html {
   font-size: 16px;
 }
 
-#logo {
+#logo{
+  display: block;
   width: 130px;
   height: 50px;
   color: var(--text);
   user-select: none;
   line-height: 50px;
   text-align: center;
+  background-size: 32px 32px;
+  background-repeat: no-repeat;
+  background-image: url(./images/logo.png);
+  background-position: center;
 }
 
 .noActive {

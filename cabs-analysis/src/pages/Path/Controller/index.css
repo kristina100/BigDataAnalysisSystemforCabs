@@ -43,11 +43,15 @@
     position: absolute;
     height: 40px;
     font-size: 18px;
-    padding: 5px 0px 0px 33px;
+    align-items: center;
+    padding: 5px 0px 0px 10px;
     color: var(--text);
     z-index: 2;
 }
-
+#firstName img{
+    margin-top: -2px;
+    margin-right: 2px;
+}
 #findBtn {
     display: inline-block;
     width: 27%;

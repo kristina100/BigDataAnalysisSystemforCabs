@@ -161,8 +161,8 @@ export default class Abnormal extends React.Component {
             });
         });
     };
-    componentWillUnmount(){
-        this.setState = (state,callback) => {
+    componentWillUnmount() {
+        this.setState = (state, callback) => {
             return;
         }
     }

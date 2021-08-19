@@ -36,12 +36,15 @@
 }
 
 /* 底部页码样式 */
+
 .ant-pagination-item {
     border-radius: 50% !important;
     background-color: var(--ltBack) !important;
     color: var(--tableText);
+    background-color: black !important;
     border: none !important;
 }
+
 
 .ant-pagination-item a {
     color: var(--tableText) !important;
@@ -115,10 +118,12 @@
     background-color: #141414;
     color: var(--text);
 }
+
 /* 选中的页码样式 */
 #abnormal-box .ant-pagination-item-active {
     font-weight: 600;
-    border: 1px solid var(--activeTabBtn) !important;
+    background-color: var(--ltBack) !important;
+    /* border: 1px solid var(--activeTabBtn) !important; */
 }
 
 /* 表头的样式 */
@@ -151,21 +156,29 @@ body {
 }
 
 /* 下拉框上面的样式*/
-.ant-table-thead tr th:nth-child(5) {
+.ant-table-thead tr {
     position: relative !important;
+}
+
+.ant-table-thead tr th:nth-child(5) {
+    /* display: flex;
+    align-items: center; */
     /* 禁用父元素的点击事件 */
     pointer-events: none;
     padding-left: 60px;
+    line-height: calc(170%);
 }
 
 
 /* 控制伪元素的内容 */
 .ant-table-thead tr th:nth-child(5)::after {
+    position: relative;
     display: inline-block;
     font-family: 'icomoon';
     content: attr(data-down);
     width: 30px;
     height: 30px;
+    top: 3px;
     margin-left: 20px;
     font-size: 20px;
     cursor: pointer;
@@ -178,7 +191,7 @@ body {
 /* 下拉框样式 */
 .wrongInform {
     position: absolute;
-    top: 67px;
+    top: 65px;
     right: 2vw;
     padding: 10px;
     min-width: 210px;
