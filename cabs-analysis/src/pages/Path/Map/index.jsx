@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import { message } from 'antd'
+import { withRouter } from 'react-router-dom';
 
 const key = 'updatable';
 
@@ -140,9 +141,8 @@ export default class Map extends Component {
           switch2AreaNode(440100);
           });
         var colors = [
-            "#4e72e2", "#e6556f", "#e3843c", "#eec055", "#1ec78a", "#0099c6", "#dd4477", "#66aa00",
-            "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707",
-            "#651067", "#329262", "#5574a6", "#3b3eac"
+            "#4e72e2", "#1ec78a", "#eec055", "#e3843c", "#e6556f", "#0099c6", "#dd4477", "#66aa00",
+            "#b82e2e", "#316395", "#994499", "#22aa99",
         ];
 
         window.AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function (PathSimplifier, $) {
@@ -185,7 +185,7 @@ export default class Map extends Component {
                             },
                             pathLineStyle: { //轨迹线的样式
                                 strokeStyle: color,
-                                lineWidth: 8
+                                lineWidth: 8,
                             },
                             pathLineSelectedStyle: {    //轨迹线处于选中状态的样式
                                 strokeStyle: color,
@@ -205,7 +205,7 @@ export default class Map extends Component {
                                 fillStyle: '#03dac5',
                                 radius: 7,
                                 strokeStyle:'white'
-                            }
+                            },
                         };
                     }
                 }

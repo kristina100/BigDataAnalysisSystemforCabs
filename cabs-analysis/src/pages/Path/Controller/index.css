@@ -2,21 +2,21 @@
     float: left;
     width: 20%;
     height: 100%;
-    background-color: var(--deepBack);
+    background-color: var(--ltBack);
     padding-top: 50px;
     min-width: 300px;
     text-align: center;
 }
 
 #findCar {
-    width: 100%;
+    width: 98%;
     height: 40px;
     font-size: 18px;
     font-weight: 400;
     font-family: Microsoft YaHei;
     color: var(--text) !important;
     background-color: var(--hoverBtn);
-    padding-left: 90px;
+    padding-left: 70px;
     outline: none;
     border: none;
     border-radius: 6px;
@@ -43,7 +43,7 @@
     position: absolute;
     height: 40px;
     font-size: 18px;
-    padding: 5px 0px 0px 52px;
+    padding: 5px 0px 0px 33px;
     color: var(--text);
     z-index: 2;
 }
@@ -58,9 +58,11 @@
     font-size: 15px;
     color: var(--text);
     line-height: 30px;
-    margin-left: 18px;
+    margin-left: 17px;
     cursor: pointer;
     transition: .4s;
+    position: relative;
+    bottom: 1px;
 }
 
 #findBtn:hover {
@@ -81,5 +83,5 @@
     width: 100% !important;
 }
 #datePick {
-    width: 64% !important;
+    width: 65% !important;
 }
