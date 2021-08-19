@@ -53,7 +53,7 @@ export default class HeatMap extends Component {
                 let isOk = 1;
                 (async () => {
                     const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
-                    message.loading({ content: '正在渲染...', key});
+                    message.loading({ content: '正在渲染...', key,duration:1000});
           
                     for (let i = 1; i <= 10; i++) {
                         axios.get('http://39.98.41.126:31106/selectByTimeSlot/'+data[0]+'/'+data[1]+'/'+ i +'/8000').then(
@@ -288,9 +288,32 @@ export default class HeatMap extends Component {
         container: container2,
         autoFit: true,
         height: 500,
-        padding: [30, 0, 70, 34],
+        padding: [30, 8, 70, 34],
     
     });
+    chart.guide().text({
+        top: true, // 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+        position: ['24', '0'], // 文本的起始位置，值为原始数据值，支持 callback
+        content: '时间(h)', // 显示的文本内容
+        style: {  // 文本的图形样式属性
+            fill: '#6d6d6d', // 文本颜色
+            fontSize: '12', // 文本大小
+        }, // 文本的图形样式属性
+        offsetX: -30, // x 方向的偏移量
+        offsetY:14, // y 方向偏移量
+    })
+    chart.guide().text({
+        top: true, // 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+        position: ['0', '4000'], // 文本的起始位置，值为原始数据值，支持 callback
+        content: '流量', // 显示的文本内容
+        style: {  // 文本的图形样式属性
+            fill: '#6d6d6d', // 文本颜色
+            fontSize: '12', // 文本大小
+        }, // 文本的图形样式属性
+        offsetX: -20, // x 方向的偏移量
+        offsetY: -20, // y 方向偏移量
+    })
+   
     const flowGraphShow = (area)=>{
         let isOk = 1;
         let isLoading = 0;
@@ -319,7 +342,24 @@ export default class HeatMap extends Component {
                             max: 4000,
                         }
                       });
-    
+                      chart.axis('weekend',{
+                        grid:null
+                      })
+                      chart.axis('weekday',{
+                        grid:{
+                            line:{
+                                style:{
+                                    stroke:'#676767'
+                                }
+                            }
+                        }
+                      })
+                      chart.axis('predict',{
+                        grid:null
+                      })
+                      chart.tooltip({
+                        title: (title) => title + '时',
+                      });
                     chart.legend({
                     custom: true,
                     
@@ -334,6 +374,8 @@ export default class HeatMap extends Component {
                         { name: '预测', value: '预测', marker: { symbol: 'bowtie', style: { stroke: '#DB6BCF', lineWidth: 2 } } },
                     ],
                     });
+                    
+                    
                     chart.line().position('lineTime*weekday').color('#1E6BFF');
                     chart.line().position('lineTime*weekend').color('#03DAC5');
                     chart.line().position('lineTime*predict').color('#DB6BCF');

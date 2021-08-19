@@ -36,7 +36,26 @@ export default class History extends Component {
           chart1.axis('Time', {
             tickLine: null
           });
-          
+          chart1.axis('Value',{
+            grid:{
+                line:{
+                    style:{
+                        stroke:'#676767'
+                    }
+                }
+            }
+          })
+          chart1.guide().text({
+            top: true, // 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+            position: ['100', '0'], // 文本的起始位置，值为原始数据值，支持 callback
+            content: '(元)', // 显示的文本内容
+            style: {  // 文本的图形样式属性
+                fill: '#6d6d6d', // 文本颜色
+                fontSize: '12', // 文本大小
+            }, // 文本的图形样式属性
+            offsetX: -6, // x 方向的偏移量
+            offsetY: -200, // y 方向偏移量
+        })
         const view1 = chart1.createView();
         const key = 'updatable1';
         
@@ -114,6 +133,7 @@ const showUti = (time)=>{
       chart2.tooltip({
         showMarkers: false
       });
+    
       chart2.facet('rect', {
         fields: ['Time'],
         padding: 20,
@@ -133,9 +153,9 @@ const showUti = (time)=>{
             .interval()
             .adjust('stack')
             .position('Value')
-            .color('Time', [color, '#eceef1'])
+            .color('Time', [color, '#1A6C64'])
             .style({
-              opacity: 1,
+              opacity: 0.6,
             });
           view.annotation().text({
             position: [ '50%', '50%' ],
@@ -187,12 +207,9 @@ const getUti = (date)=>{
   await sleep(0)
 })()  
 PubSub.subscribe('timeUti',(_,data)=>{
-(async () => {
-  const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
   showUti(UseData[data])
   timeSelect = data;
-  await sleep(0)
-})()  
+
 })
     }
     render() {
