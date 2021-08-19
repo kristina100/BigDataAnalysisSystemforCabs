@@ -75,14 +75,11 @@ export default class Rightcontent extends Component {
             this.state.circleArr.map((item) => {
                 item.hide();
             })
-            // PubSub.publish('cleanValue', true)
             window.pathSimplifierIns.setData([]);
-
         }
     }
 
     onChangeOpenAllFlow = (checked) => {
-
         if (checked) {
             this.setState({ allFlowBtn: true })
             if (this.state.flowDate === '') {
@@ -92,7 +89,6 @@ export default class Rightcontent extends Component {
             this.creatLoca()
             flag = 1
             this.allFlowShow(this.state.flowDate)
-
         }
 
         if (!checked) {
@@ -141,15 +137,13 @@ export default class Rightcontent extends Component {
             // 拿到热点数据
             axios.get(`http://39.98.41.126:31100/getHotPoints`).then(
                 response => {
-                    console.log(response.data);
                     initDataPrint = response.data.data2.split('\n');
                     initDataPrint = initDataPrint.filter((item) => {
-                        return item != ''
+                        return item !== ''
                     })
                     addressPrint = response.data.data1;
                     axios.get(` http://39.98.41.126:31100/getCenterRadiusForMobile`).then(
                         response => {
-                            console.log(response.data);
                             that.setState({ loading: false });
                             message.success({ content: '渲染完成！', key, duration: 1.5 })
                             let radiusArr = [];
@@ -160,9 +154,16 @@ export default class Rightcontent extends Component {
                                 latlngArr.push(item.longitude + ',' + item.latitude);
                             })
                             resolve({ addressPrint, initDataPrint, radiusArr, latlngArr });
-
+                        },
+                        error => {
+                            reject(error);
+                            message.warning({ content: '服务器出现问题，加载失败！', duration: 2 });
                         }
                     )
+                },
+                error => {
+                    reject(error);
+                    message.warning({ content: '服务器出现问题，加载失败！', duration: 2 });
                 }
             )
         })
@@ -297,11 +298,9 @@ export default class Rightcontent extends Component {
                 var pointsColor = [
                     '#E6556F', '#E3843C', '#EEC055', '#1EC78A', '#4E72E2', '#E24ED7', '#71E24E', '#7F4EE2', '#4ECEE2', '#BB4EE2'
                 ]
-                console.log(11, pointsColor.map((item) => { return item }));
                 let currentAreaNode = null;
                 // 海量数据点
                 for (let i = 0; i < 10; ++i) {
-                    console.log(PointSimplifier);
                     pointSimplifierIns = new PointSimplifier({
                         autoSetFitView: false, //禁止自动更新地图视野
                         map: map, //所属的地图实例
@@ -329,7 +328,6 @@ export default class Rightcontent extends Component {
                                         pointSimplifierIns.renderLater();
                                     },
                                     function onerror(e) {
-                                        console.log(e);
                                         message.warning('图片加载失败！');
                                     }
                                 ),
@@ -385,7 +383,7 @@ export default class Rightcontent extends Component {
                     let data = [];
                     timeArr.push(Date.now());
 
-                    if (time1[0] == time2[0] && time1[1] == time2[1] && time1[2] - time2[2] <= 0.5 && time1[0] != NaN && time2[0] != NaN) {
+                    if (time1[0] === time2[0] && time1[1] === time2[1] && time1[2] - time2[2] <= 0.5 && time1[0] !== NaN && time2[0] !== NaN) {
                         that.warning('请您勿频繁的点击！')  // 注意此时的this指向不是实例
                         pointSimplifierIns.setData(null);
                         timeArr = [];
@@ -467,11 +465,11 @@ export default class Rightcontent extends Component {
                     let newDataPrint = [];
                     dataPrint.filter((item) => {
                         geocoder.getAddress([parseFloat(item.split(',')[0]), parseFloat(item.split(',')[1])], function (status, result) {
-                            if (status == 'complete' && result.info == 'OK') {
+                            if (status === 'complete' && result.info === 'OK') {
                                 if (Number(result.regeocode.addressComponent.adcode) === adcode) {
                                     newDataPrint.push(item);
                                     callback(newDataPrint);
-                                } else if (newDataPrint.length == 0) (
+                                } else if (newDataPrint.length === 0) (
                                     callback(null)
                                 )
                             }
@@ -575,7 +573,7 @@ export default class Rightcontent extends Component {
 
             //                 dataPrint = response.data.split('\n');
             //                 dataPrint = dataPrint.filter((item) => {
-            //                     return item != ''
+            //                     return item !== ''
             //                 })
             //                 pointSimplifierIns.setData(dataPrint);
             //             },
@@ -605,7 +603,6 @@ export default class Rightcontent extends Component {
         let finalLine = [],
             finalSpot = [],
             allLine = [];
-        console.log(dateString);
         const response = await fetch(`http://39.98.41.126:31100/getFlow/2017-02-01`)
         // const response = await fetch(`http://39.98.41.126:31100/getFlow/${dateString}`)
         const data = await response.json()
@@ -705,10 +702,10 @@ export default class Rightcontent extends Component {
         PubSub.unsubscribe(this.token)
     }
 
-
     render() {
         return (
             <div ref="container" className="container" id="map">
+                <div id="tips-boxs">点击行政区可显示该区域内部载客热点</div>
                 <div className="left_nav">
                     <header>载客热点</header>
                     <ul ref="addressPrint" className="addressPrint">
