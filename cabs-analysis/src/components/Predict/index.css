@@ -12,16 +12,16 @@
 }
 #ana-predict div:nth-child(1) p:nth-child(1){
     font-size: 20px;
-    color: var(--themeColor);
+    color: var(--text);
 }
 #ana-predict div:nth-child(1) p:nth-child(2){
     margin-top: 14px;
     font-size:  16px;
-    color: var(--themeColor); 
+    color: var(--text); 
 }
 #ana-predict div:nth-child(2) p{
     font-size:  16px;
-    color: var(--themeColor); 
+    color: var(--text); 
 }
 @media screen and (min-height: 800px) {
     #uli-pt{

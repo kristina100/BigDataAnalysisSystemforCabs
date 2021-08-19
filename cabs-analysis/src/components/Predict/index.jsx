@@ -4,7 +4,7 @@ import PubSub from 'pubsub-js'
 import { Chart} from '@antv/g2'
 import axios from 'axios'
 import DataSet from '@antv/data-set';
-import { registerShape } from '@antv/g2'
+/* import { registerShape } from '@antv/g2' */
 import './index.css'
 import { message } from 'antd'
 export default class Predict extends Component {
@@ -19,7 +19,7 @@ export default class Predict extends Component {
             container:  container3,
             autoFit: true,
             height: 500,
-            padding: [20, 20,20, 20],
+            padding:[20,20,20,14]
           });
           
         chart1.scale({
@@ -56,7 +56,7 @@ export default class Predict extends Component {
           offsetX: -6, // x 方向的偏移量
           offsetY: -200, // y 方向偏移量
         })
-        registerShape('interval', 'borderRadius', {
+        /* registerShape('interval', 'borderRadius', {
           draw: function draw(cfg, container) {
             var points = cfg.points;
            
@@ -79,7 +79,7 @@ export default class Predict extends Component {
               }
             });
           }
-        });
+        }); */
         const view1 = chart1.createView();
         const key = 'updatable1';
         
@@ -116,7 +116,7 @@ export default class Predict extends Component {
                       .style({
                         fillOpacity: 1,
                         fill:'#03DAC5'
-                      }).shape('borderRadius');
+                      })/* .shape('borderRadius') */;
                       chart1.render();
                               
                     
@@ -176,30 +176,30 @@ const showUti = (time)=>{
             .style({
               opacity: 0.6,
             });
-          view.annotation().text({
-            position: [ '50%', '50%' ],
-            content: data[0].Time,
-            style: {
-              fontSize: 12,
-              fill: 'white',
-              fontWeight: 300,
-              textBaseline: 'bottom',
-              textAlign: 'center'
-            },
-            offsetY: -12,
-          });
-      
-          view.annotation().text({
-            position: ['50%', '50%'],
-            content: data[0].Value,
-            style: {
-              fontSize: 18,
-              fill: '#03DAC5',
-              fontWeight: 500,
-              textAlign: 'center'
-            },
-            offsetY: 10,
-          });
+            view.annotation().text({
+              position: [ '50%', '50%' ],
+              content: data[0].Time,
+              style: {
+                fontSize: 12,
+                fill: 'rgba(255,255,255,0.87)',
+                fontWeight: 300,
+                textBaseline: 'bottom',
+                textAlign: 'center'
+              },
+              offsetY: -6,
+            });
+        
+            view.annotation().text({
+              position: ['50%', '50%'],
+              content: data[0].Value,
+              style: {
+                fontSize: 18,
+                fill: '#03DAC5',
+                fontWeight: 500,
+                textAlign: 'center'
+              },
+              offsetY: 10,
+            });
       
           view.interaction('element-active');
         }

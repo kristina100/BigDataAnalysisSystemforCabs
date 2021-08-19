@@ -9,7 +9,8 @@ html {
 :root {
   --themeColor: #03DAC5;
   /* 主题色 */
-  --text: white;
+  --text: rgba(255,255,255,0.87);
+  --ltText:rgba(255,255,255,0.38);
   /* 正文 */
   --hoverBtn: #6a6a6a;
   /* 按钮悬浮 */
@@ -22,7 +23,7 @@ html {
   /* 侧栏稍微浅色的背景 */
   --bodyColor: black;
   /* 黑色都改成这个 */
-  --tableText: #E3E3E3;
+  --tableText: rgba(255,255,255,0.6);
   /* 下面几个是表格的 */
   --tableBack: #1f1f1f;
   --activeTabBtn: #f0e7e7;
@@ -53,6 +54,7 @@ html {
 
 #header a {
   min-width: 110px;
+  font-size: 16px;
 }
 
 #logo {
@@ -74,7 +76,7 @@ html {
   text-decoration: none;
 }
 
-.noActive::before {
+/* .noActive::before {
   content: '';
   display: inline-block;
   position: relative;
@@ -82,9 +84,9 @@ html {
   width: 24px;
   height: 24px;
   background-size: 24px 24px;
-}
+} */
 
-.noActive:nth-child(2):before {
+/* .noActive:nth-child(2):before {
   top: 8px;
   background-image: url(./images/heatmap1.svg);
 }
@@ -107,7 +109,7 @@ html {
 .noActive:nth-child(6):before {
   top: 5px;
   background-image: url(./images/advertise1.svg);
-}
+} */
 
 .noActive:hover {
   color: var(--themeColor);
@@ -118,7 +120,7 @@ html {
   background-color: var(--bodyColor);
 }
 
-.onActive:nth-child(2):before {
+/* .onActive:nth-child(2):before {
   top: 8px;
   background-image: url(./images/heatmap2.svg);
 }
@@ -165,7 +167,7 @@ html {
 .noActive:nth-child(6):hover.noActive:nth-child(6):before {
   top: 5px;
   background-image: url(./images/advertise2.svg);
-}
+} */
 
 #main {
   justify-content: center;

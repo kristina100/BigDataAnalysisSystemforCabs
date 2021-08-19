@@ -134,12 +134,11 @@ export default class Rightcontent extends Component {
                     if(response.data.data2){
                         initDataPrint = response.data.data2.split('\n');
                         initDataPrint = initDataPrint.filter((item) => {
-                            return item != ''
+                            return item !== ''
                         })
                         addressPrint = response.data.data1;
                         axios.get(` http://39.98.41.126:31100/getCenterRadiusForMobile`).then(
                             response => {
-                                console.log(response.data);
                                 that.setState({ loading: false });
                                 message.success({ content: '渲染完成！', key, duration: 1.5 })
                                 let radiusArr = [];
