@@ -1,18 +1,17 @@
 #tips-boxs {
     position: absolute;
-    width: 330px;
-    height: 45px;
-    border-radius: 10px;
+    width: 245px;
+    height: 60px;
+    border-radius: 0 0 0 10px;
     background-color: var(--ltBack);
     color: var(--themeColor);
-    right: 2px;
-    top: 56px;
+    right: -5px;
+    top: 0px;
     font-size: 16px;
     text-align: center;
-    line-height: 38px;
+    line-height: 60px;
     -webkit-user-select: none;
     user-select: none;
-    border: 3px solid var(--themeColor);
     box-shadow: 2px 2px 2px rgb(0 0 0 / 20%);
     z-index: 100;
 }
@@ -42,19 +41,24 @@
 }
 
 .left_nav header {
+    /* width: 88%; */
     text-align: center;
     color: var(--text);
     margin: 15px;
-    height: 50px;
+    height: 35px;
     line-height: 50px;
-    border-bottom: 1px solid var(--text);
+    /* border-bottom: 1px solid var(--text); */
     font-size: 16px;
 }
 
 .left_nav ul {
+    height: calc(100% - 100px);
+    overflow: auto;
     list-style: none;
     margin: 20px;
+    padding-top: 10px;
     color: var(--text);
+    border-top: 1px solid var(--text);
 }
 
 .left_nav ul li {
@@ -63,6 +67,24 @@
     height: 45px;
     line-height: 20px;
     margin-bottom: 15px;
+}
+
+.left_nav ul::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 10px;
+}
+
+.left_nav ul::-webkit-scrollbar-thumb {
+    background-color: var(--themeColor);
+    border-radius: 5px;
+}
+
+.left_nav ul::-webkit-scrollbar-track-piece {
+    background-color: var(--deepGrey);
+}
+
+.left_nav ul li:nth-last-child(1) {
+    margin-bottom: 0;
 }
 
 .tipMessage {
@@ -81,14 +103,25 @@
 }
 
 /* 右边等级盒子 */
+.ant-space-vertical {
+    width: 100%;
+}
+
+.ant-space-item {
+    width: 100%;
+}
+
+.ant-space-item .ant-picker {
+    width: 100% !important;
+}
+
 .right_levelnav {
     position: absolute;
     top: 50%;
     right: 0;
     width: 240px;
-    height: 420px;
-    padding: 0 20px;
-
+    height: 450px;
+    padding: 10px 20px;
     margin-top: -15%;
     background-color: var(--ltBack);
     color: var(--text);
@@ -158,7 +191,7 @@
     height: 200px;
     overflow: hidden;
     font-size: 12px;
-    margin-left: 30px;
+    margin-left: 60px;
 }
 
 .level2 .color {
@@ -217,5 +250,4 @@
     height: 35px;
     text-align: center;
     margin-top: 10px;
-
 }
