@@ -1,4 +1,5 @@
 import numpy as np
+from math import *
 
 #计算两点间距离
 def vlen(p1, p2):
@@ -51,3 +52,36 @@ def min_max_lon_lat(data):
     gps_range['lat'] = (min_lat, max_lat)
 
     return gps_range
+
+def kld(p, q):
+    """
+
+    calculate kl divergence
+
+    Args:
+        p: probability distributions p
+        q: probability distributions q
+
+    Returns:
+
+    """
+    p += np.spacing(1)
+    q += np.spacing(1)
+
+    return sum([_p * log(_p / _q) for (_p, _q) in zip(p, q)])
+
+def jsd(p, q):
+    """
+
+    calculate Jensen–Shannon divergence
+
+    Args:
+        p: probability distributions p
+        q: probability distributions q
+
+    Returns:
+
+    """
+    M = [0.5 * (_p + _q) for _p, _q in zip(p, q)]
+
+    return 0.5 * kld(p, M) + 0.5 * kld(q, M)
