@@ -122,7 +122,6 @@ export default class Rightcontent extends Component {
         //订阅流向图时间
 
         let initData = new Promise(function (resolve, reject) {
-
             map = new window.AMap.Map(container, {
                 center: [113.364931, 23.275388],
                 zoom: 8.8,
