@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import History from '../../components/History'
 import Predict from '../../components/Predict'
+import axios from 'axios'
 import { Switch,Redirect , Route } from 'react-router'
 import { NavLink } from 'react-router-dom';
 import './index.css'
@@ -160,17 +161,26 @@ export default class Advertise extends Component {
        map.add(myList);
      }
    
-         const getComStations = ()=>{
-           /* $.get("http://39.98.41.126:31101/crutch/getRecommend",(res,err)=>{
-               markerList = [];
-               markerList = JSON.parse(res).map((ele)=>{
-                   return [ele.longitude,ele.latitude];
-               });
-               showMarker(markerList);
-               getStationsData();
-               if( btn[0].style.color !== "white") reloadFlag = 0;
-           }) */
-           showMarker(markerList);
+         const getComStations = ()=>{ 
+              (async () => {
+                const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
+                axios.get('http://39.98.41.126:31103/getBillboard').then(
+                    response =>{
+                      if(!response.data){
+                        return;
+                      }
+                      showMarker(response.data);
+                      
+                    },
+                    error =>{
+                      console.log(error.message);
+                    }
+                  )
+                  
+                await sleep(400);
+                map.setCenter([113.2660,23.1315]);
+                map.setZoom(13)
+            })()  
        }
        // 经纬度转换为地址
        function lngLatToaddres(lng, lat,callback) {
