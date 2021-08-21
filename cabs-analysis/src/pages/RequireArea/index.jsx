@@ -95,6 +95,7 @@ export default class Rightcontent extends Component {
                     window.loca.destroy();
                 }
             }
+            map.setZoom(9);
         }
     }
 
@@ -616,8 +617,8 @@ export default class Rightcontent extends Component {
         const response = await fetch(`http://39.98.41.126:31100/getFlow/${dateString}`)
 
         const data = await response.json()
-        console.log(data);
-
+        map.setCenter(data[0][0])
+        map.setZoom(14)
         allLine = data
 
 

@@ -66,11 +66,11 @@ export default class Abnormal extends React.Component {
         downTd.setAttribute('data-down', '');
 
         downTd.addEventListener('click', function () {
-            if (flagDown == 1) {  // 改为向上箭头
+            if (flagDown === 1) {  // 改为向上箭头
                 flagDown = 0;  // 1 向下  0 向上
                 downTd.setAttribute('data-down', '');
                 Inform.className = 'wrongInform noHover'
-            } else if (flagDown == 0) { // 改为向下箭头
+            } else if (flagDown === 0) { // 改为向下箭头
                 flagDown = 1;
                 downTd.setAttribute('data-down', '');
                 Inform.className = 'wrongInform hover'

@@ -59,7 +59,7 @@ export default class HeatMap extends Component {
                             //eslint-disable-next-line no-loop-func    
                             response => {  
                                 if(response.data){
-                                    heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
+                                    heatmap.setDataSet({data:response.data,max:30}); //设置热力图数据集
                                 }
                                
                             },
