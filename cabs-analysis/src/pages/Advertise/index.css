@@ -3,7 +3,10 @@
     height: 100%;
     min-width: 300px;
     min-height: 670px;
+    position: relative;
+    z-index: 99;
     background-color: var(--ltBack);
+    box-shadow: 3px 0px 6px rgba(0, 0, 0, 0.16);
 }
 
 #graph-box {
@@ -93,15 +96,13 @@
     position: absolute;
     width: 200px;
     height: 60px;
-    /* border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px; */
-
+    box-shadow: -2px 2px 2px rgb(0 0 0 / 20%);
     border-bottom-left-radius: 10px;
     background-color: var(--ltBack);
     color: var(--themeColor);
     right: 0;
     top: 50px;
-    z-index: 100;
+    z-index: 99;
     font-size: 18px;
     text-align: center;
     line-height: 60px;

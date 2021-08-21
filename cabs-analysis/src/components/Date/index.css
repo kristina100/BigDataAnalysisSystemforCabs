@@ -137,14 +137,18 @@ a{
 }
 .anticon-check-circle svg{
     fill:var(--themeColor);
-    background-color: var(--text);
+    background-color: white;
     transition: 0.2s all;
 }
 .anticon-loading svg{
     fill:var(--themeColor);
-    background-color: var(--text);
+    background-color: white;
+}
+.ant-picker-clear svg{
+    fill:var(--themeColor);
+    background-color: var(--ltBack);
 }
 .anticon-exclamation-circle svg{
-    background-color: var(--text);
+    background-color: white;
     fill:var(--themeColor);
 }

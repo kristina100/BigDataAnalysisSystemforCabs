@@ -1,13 +1,27 @@
 * {
   margin: 0;
   padding: 0;
+  transition: color 0.2s ease-out,background-color 0.2s ease-out;
+  
+}
+.amap-logo {
+  right: 0 !important;
+  left: auto !important;
+  display: none !important;
+}
 
+.amap-copyright {
+  right: 70px !important;
+  left: auto !important;
+  opacity:0 !important;
 }
 html {
   overflow-y: overlay;
 }
 :root {
   --themeColor: #03DAC5;
+  --titleColor:#03DAC5;
+  --btnAct:black;
   /* 主题色 */
   --text: rgba(255,255,255,0.87);
   --ltText:rgba(255,255,255,0.38);
@@ -25,9 +39,12 @@ html {
   /* 黑色都改成这个 */
   --tableText: rgba(255,255,255,0.6);
   /* 下面几个是表格的 */
+  --table-head:#303030;
   --tableBack: #1f1f1f;
   --activeTabBtn: #f0e7e7;
   --tabHover: #f5f5f5;
+  --listActText:rgba(255,255,255,0.87);
+  --reserveBg:white;
 }
 
 #wrapper {
@@ -39,7 +56,10 @@ html {
 #header-ct {
   height: 50px;
   width: 100vw;
-
+  min-width: 766px;
+  position: relative;
+  z-index: 100;
+box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   background-color: var(--deepBack);
 }
 
@@ -80,7 +100,13 @@ html {
   user-select: none;
   text-decoration: none;
 }
-
+#theme-change{
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s all;
+  position: absolute;
+  right: 0;
+}
 /* .noActive::before {
   content: '';
   display: inline-block;
@@ -117,12 +143,12 @@ html {
 } */
 
 .noActive:hover {
-  color: var(--themeColor);
+  color: var(--titleColor);
 }
 
 .onActive {
-  color: var(--themeColor);
-  background-color: var(--bodyColor);
+  color: var(--titleColor);
+  background-color: var(--btnAct);
 }
 
 /* .onActive:nth-child(2):before {
@@ -189,7 +215,7 @@ html {
   display: flex;
 }
 
-@media screen and (max-width:860px) {
+@media screen and (max-width:960px) {
   #header {
 
     margin-left: 0;

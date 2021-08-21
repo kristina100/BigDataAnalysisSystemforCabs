@@ -6,22 +6,25 @@
     flex-direction: column;
     justify-content: space-between;
 }
-
+#salary-pt{
+    height: 600px;
+}
 #ana-predict p{
     margin-bottom: 6px;
 }
 #ana-predict div:nth-child(1) p:nth-child(1){
     font-size: 20px;
-    color: var(--text);
+    margin-bottom: 26px;
+    color: var(--titleColor);
 }
 #ana-predict div:nth-child(1) p:nth-child(2){
     margin-top: 14px;
     font-size:  16px;
-    color: var(--text); 
+    color: var(--titleColor); 
 }
 #ana-predict div:nth-child(2) p{
     font-size:  16px;
-    color: var(--text); 
+    color: var(--titleColor); 
 }
 @media screen and (min-height: 800px) {
     #uli-pt{

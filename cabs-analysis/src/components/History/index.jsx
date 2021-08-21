@@ -54,9 +54,9 @@ export default class History extends Component {
                 fill: '#6d6d6d', // 文本颜色
                 fontSize: '12', // 文本大小
             }, // 文本的图形样式属性
-            offsetX: -6, // x 方向的偏移量
-            offsetY: -200, // y 方向偏移量
-        })
+            offsetX: -10, // x 方向的偏移量
+            offsetY: -160, // y 方向偏移量
+          })
         /* registerShape('interval', 'borderRadius', {
           draw: function draw(cfg, container) {
             var points = cfg.points;
@@ -180,16 +180,15 @@ const showUti = (time)=>{
             .position('Value')
             .color('Time', [color, '#1A6C64'])
             .style({
-              opacity: 0.6,
-              
+              fillOpacity:0.8
             });
           view.annotation().text({
             position: [ '50%', '50%' ],
             content: data[0].Time,
             style: {
               fontSize: 12,
-              fill: 'rgba(255,255,255,0.87)',
-              fontWeight: 300,
+              fill: '#838282',
+              fontWeight: 500,
               textBaseline: 'bottom',
               textAlign: 'center'
             },
@@ -213,6 +212,11 @@ const showUti = (time)=>{
       });
       chart2.render();
 }
+let token3 = PubSub.subscribe('color',(_,data) => {
+  if(data){
+    if(chart2) chart2.render();
+  }
+})
 const getUti = (date)=>{
   axios.get('http://39.98.41.126:31100/getUtilization/'+date).then(
     response =>{
@@ -239,7 +243,7 @@ let token2 = PubSub.subscribe('timeUti',(_,data)=>{
 })
     }
     componentWillUnmount(){
-      PubSub.unsubscribe('token1','token2');
+      PubSub.unsubscribe('token1','token2','token3');
       this.setState = (state,callback) => {
           return;
       }

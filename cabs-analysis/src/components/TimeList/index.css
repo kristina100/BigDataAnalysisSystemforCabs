@@ -38,7 +38,7 @@
     color: var(--text);
 }
 .ant-select-dropdown{
-    background-color: #141414;
+    background-color: var(--tableBack);
 }
 #utilization .ant-select-item-option-active{
     color: var(--ltBack)!important;
@@ -46,10 +46,10 @@
 }
 
 .ant-select-item-option-content{
-    color: var(--ltText);
+    color: var(--grayText);
 }
 .ant-select-item-option-active .ant-select-item-option-content{
-    color: var(--ltBack);
+    color: var(--grayText);
 }
 .ant-select-item-option-selected .ant-select-item-option-content{
     color: var(--ltBack);
