@@ -49,6 +49,7 @@
     line-height: 50px;
     /* border-bottom: 1px solid var(--text); */
     font-size: 16px;
+    -webkit-user-select: none;
 }
 
 .left_nav ul {
@@ -59,6 +60,7 @@
     padding-top: 10px;
     color: var(--text);
     border-top: 1px solid var(--text);
+
 }
 
 .left_nav ul li {
@@ -67,6 +69,7 @@
     height: 45px;
     line-height: 20px;
     margin-bottom: 15px;
+    -webkit-user-select: none;
 }
 
 .left_nav ul::-webkit-scrollbar {
@@ -125,8 +128,8 @@
     margin-top: -15%;
     background-color: var(--ltBack);
     color: var(--text);
-
     z-index: 999;
+    -webkit-user-select: none;
 }
 
 .right_levelnav ul li {
@@ -136,7 +139,6 @@
     line-height: 40px;
     list-style: none;
     color: var(--text);
-
 }
 
 /* 颜色块 */

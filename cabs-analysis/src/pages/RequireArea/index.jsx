@@ -148,16 +148,28 @@ export default class Rightcontent extends Component {
                                 let radiusArr = [];
                                 let latlngArr = [];
                                 let dataArr = response.data.data;
-                                dataArr.map((item) => {
-                                    radiusArr.push(item.radius)
-                                    latlngArr.push(item.longitude + ',' + item.latitude);
-                                })
-                                resolve({ addressPrint, initDataPrint, radiusArr, latlngArr });
-
+                                console.log(11111, response.data);
+                                if (response.data) {
+                                    dataArr.map((item) => {
+                                        radiusArr.push(item.radius)
+                                        latlngArr.push(item.longitude + ',' + item.latitude);
+                                    })
+                                    resolve({ addressPrint, initDataPrint, radiusArr, latlngArr });
+                                } else {
+                                    that.warning('数据库数据为空！请稍后重试')
+                                }
+                            },
+                            error => {
+                                that.warning('服务器连接失败！请稍后重试')
                             }
                         )
+                    } else {
+                        that.warning('数据库数据为空！请稍后重试')
                     }
 
+                },
+                error => {
+                    that.warning('服务器连接失败！请稍后重试')
                 }
             )
         })
