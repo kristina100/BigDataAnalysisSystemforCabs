@@ -146,7 +146,6 @@ export default class Abnormal extends React.Component {
             url: myUrl,
             method: 'get'
         }).then(data => {
-            console.log(data);
             if(data.list){
                 data.list.map((item) => {
                     item.errorDate = this.toRealTime(Number(item.errorDate));

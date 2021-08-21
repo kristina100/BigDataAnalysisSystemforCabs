@@ -50,8 +50,6 @@ export default class controller extends Component {
 
             }
         }
-        // console.log(this.state.carId);
-
         PubSub.publish('setCar', { finding: true, delete: false, carName: this.state.carId, pathDate: this.state.pathDate })
     }
 
@@ -67,7 +65,6 @@ export default class controller extends Component {
             const newCarInfo = [...carInfos, newCarObj]
             //更新
             this.setState({ carInfos: newCarInfo })
-            // console.log(newCarInfo); 
         }
     }
 
@@ -80,12 +77,7 @@ export default class controller extends Component {
                 break ;
             }
         }
-        console.log(dIndex);
         carInfos.splice(dIndex, 1)
-        console.log(carName);
-        console.log(pathDate);
-        // console.log(dIndex);
-        // console.log(carInfos);
         this.setState({ carInfos: carInfos })
         PubSub.publish('setCar', { delete: true, finding: false, deleteIndex: dIndex })
     }

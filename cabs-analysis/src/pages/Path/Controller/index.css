@@ -28,10 +28,7 @@
     cursor: text;
 }
 
-#findCar:focus {
-    background-color: var(--deepGrey);
-    box-shadow: none;
-}
+
 
 #findCar::placeholder {
     color: var(--grayText);

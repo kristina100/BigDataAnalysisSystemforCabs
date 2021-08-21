@@ -45,19 +45,23 @@ export default class HeatMap extends Component {
         let token1 = PubSub.subscribe('date',(_,data)=>{
             data[0] = data[0].replace(' ','_');
             data[1] = data[1].replace(' ','_');
-            
+          
             if(heatflag === 0){
                 heatflag = 1;
                 let isOk = 1;
+        
                 (async () => {
                     const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
-                    message.loading({ content: '正在渲染...', key,duration:1000});
-          
+                    message.loading({ content: '正在动态渲染...', key,duration:1000});
+              
                     for (let i = 1; i <= 10; i++) {
                         axios.get('http://39.98.41.126:31106/selectByTimeSlot/'+data[0]+'/'+data[1]+'/'+ i +'/8000').then(
                             //eslint-disable-next-line no-loop-func    
                             response => {  
-                                heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
+                                if(response.data){
+                                    heatmap.setDataSet({data:response.data,max:60}); //设置热力图数据集
+                                }
+                               
                             },
                             //eslint-disable-next-line no-loop-func
                             error => {                           
@@ -71,9 +75,10 @@ export default class HeatMap extends Component {
                         await sleep(2000)
                     }
                     if(isOk){
+                        heatflag = 0;
                         message.success({ content: '渲染完成！', key, duration: 2 });
                     }
-                    heatflag = 0;
+                   
                 })()  
             }else{
                 message.warning({content:'正在渲染中，请稍后再试！',duration:2});
@@ -202,9 +207,7 @@ export default class HeatMap extends Component {
         alert('当前环境不支持 Canvas！');
         return;
     }
-    let color = ['#E6556F','#E3843C','#EEC055', '#1EC78A', '#4E72E2', '#E24ED7','#71E24E', '#7F4EE2',
-    '#4ECEE2','#BB4EE2'];
-    
+    let color = ['#E6556F','#E3843C', '#1EC78A', '#E24ED7','#71E24E','#4ECEE2']
     var pointSimplifierIns = new PointSimplifier({
         map: map, //所属的地图实例
         autoSetFitView: false,
@@ -273,6 +276,11 @@ export default class HeatMap extends Component {
     const flowPointShow = (num)=>{
         let isOk = 1;
         let key2 = 'flow123';
+ 
+        if(num=== 2) num=3;
+        else if(num === 3) num = 5;
+        else if(num === 4) num = 6;
+        else if(num === 5) num = 8;
         (async () => {
             const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
     /*         message.loading({ content: '正在渲染...', key2}); */ 
@@ -297,10 +305,6 @@ export default class HeatMap extends Component {
                 return; 
             }  
             await sleep(1000);
-           /*  if(isOk){
-                message.success({ content: '渲染完成！', key2, duration: 2 });
-               
-            } */
             isLoading = 0;
         })()  
         
@@ -427,7 +431,7 @@ export default class HeatMap extends Component {
         (async () => {
             const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
             let typeBtn = document.getElementsByClassName('flow-item');
-            for(let i = 0;i<10;i++){
+            for(let i = 0;i<6;i++){
                 //eslint-disable-next-line no-loop-func
                 typeBtn[i].onclick = ()=>{
                     if(isLoading){
@@ -499,14 +503,14 @@ export default class HeatMap extends Component {
                     <p>车流量点类型</p>
                     <li className="flow-item"><span style={{backgroundColor:'#E6556F'}}></span>类型1</li>
                     <li className="flow-item"><span style={{backgroundColor:'#E3843C'}}></span>类型2</li>
-                    <li className="flow-item"><span style={{backgroundColor:'#EEC055'}}></span>类型3</li>
-                    <li className="flow-item"><span style={{backgroundColor:'#1EC78A'}}></span>类型4</li>
-                    <li className="flow-item"><span style={{backgroundColor:'#4E72E2'}}></span>类型5</li>
-                    <li className="flow-item"><span style={{backgroundColor:'#E24ED7'}}></span>类型6</li>
-                    <li className="flow-item"><span style={{backgroundColor:'#71E24E'}}></span>类型7</li>
-                    <li className="flow-item"><span style={{backgroundColor:'#7F4EE2'}}></span>类型8</li>
-                    <li className="flow-item"><span style={{backgroundColor:'#4ECEE2'}}></span>类型9</li>
-                    <li className="flow-item"><span style={{backgroundColor:'#BB4EE2'}}></span>类型10</li>
+        
+                    <li className="flow-item"><span style={{backgroundColor:'#1EC78A'}}></span>类型3</li>
+                    
+                    <li className="flow-item"><span style={{backgroundColor:'#E24ED7'}}></span>类型4</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#71E24E'}}></span>类型5</li>
+                 
+                    <li className="flow-item"><span style={{backgroundColor:'#4ECEE2'}}></span>类型6</li>
+                  
                     
                 </div>
             </div>

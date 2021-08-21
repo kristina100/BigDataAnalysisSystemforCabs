@@ -182,8 +182,8 @@ const showUti = (time)=>{
               content: data[0].Time,
               style: {
                 fontSize: 12,
-                fill: textColor,
-                fontWeight: 300,
+                fill: '#838282',
+              fontWeight: 500,
                 textBaseline: 'bottom',
                 textAlign: 'center'
               },
@@ -209,7 +209,6 @@ const showUti = (time)=>{
 }
 PubSub.subscribe('color',(_,data) => {
   if(data){
-    textColor = '#1E2020';
     if(chart2) chart2.render();
   }
 })
