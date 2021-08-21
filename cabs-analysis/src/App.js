@@ -54,9 +54,6 @@ export default class App extends Component {
         
     }
     
-     
-
-
     }
     changeTheme()
     let themeChg = document.getElementById('theme-change');
