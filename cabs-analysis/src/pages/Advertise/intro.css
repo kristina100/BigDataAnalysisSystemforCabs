@@ -59,7 +59,7 @@ body,
     width: 255px;
     height: 100px;
     margin-left: 14px;
-    color: var(--tableText);
+    color: var(--text);
     font-size: 16px;
     margin-top: 6px;
     padding-bottom: 10px;

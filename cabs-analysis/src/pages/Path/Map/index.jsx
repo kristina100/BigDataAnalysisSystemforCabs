@@ -197,12 +197,12 @@ export default class Map extends Component {
 
                             },
                             startPointStyle:{
-                                fillStyle: '#03dac5',
+                                fillStyle: '#BB86FC',
                                 radius: 7,
                                 strokeStyle:'white'
                             },
                             endPointStyle: {
-                                fillStyle: '#03dac5',
+                                fillStyle: '#BB86FC',
                                 radius: 7,
                                 strokeStyle:'white'
                             },
@@ -281,8 +281,7 @@ export default class Map extends Component {
                 fillStyle: 'red',                                
                 width: 30,
                 height: 30,
-                content: window.PathSimplifier.Render.Canvas.getImageContent('../../car.png'),
-                autoRotate:false
+                content: window.PathSimplifier.Render.Canvas.getImageContent('../../car2.png'),
             }
         });
         navg.start();

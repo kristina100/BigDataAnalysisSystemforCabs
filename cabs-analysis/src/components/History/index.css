@@ -11,24 +11,24 @@
 
 #ana-history div:nth-child(1) p:nth-child(1){
     font-size: 20px;
-    color: var(--themeColor);
+    color: var(--text);
 }
 #ana-history p{
     margin-bottom: 6px;
 }
 #ana-history div:nth-child(1) p:nth-child(2){
     font-size: 16px;
-    color: var(--text);
+    color: var(--tableText);
     margin-bottom: 10px;
 }
 #ana-history div:nth-child(2) p{
     margin-top: 14px;
     font-size:  16px;
-    color: var(--themeColor); 
+    color: var(--text); 
 }
 #ana-history div:nth-child(3) p{
     font-size:  16px;
-    color: var(--themeColor); 
+    color: var(--text); 
 }
 
 @media screen and (min-height: 800px) {

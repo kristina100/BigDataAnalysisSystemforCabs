@@ -12,7 +12,6 @@ export default class HeatMap extends Component {
         var heatmap;
         let heatflag = 0;
         const key = 'updatable';
-        const key2 = 'flow';
         let container = this.refs.container;
         let style = []
         
@@ -257,9 +256,10 @@ export default class HeatMap extends Component {
     });
     const flowPointShow = (num)=>{
         let isOk = 1;
+        let key2 = 'flow123';
         (async () => {
             const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
-            message.loading({ content: '正在渲染...', key2,duration:0.7}); 
+    /*         message.loading({ content: '正在渲染...', key2}); */ 
             isLoading = 1;           
             axios.get('http://39.98.41.126:31103/getFlowPoints/0/150000/'+num).then(
                 //eslint-disable-next-line no-loop-func    
@@ -275,9 +275,13 @@ export default class HeatMap extends Component {
                 message.warning({content:'服务器出现问题，加载失败！',duration:2});   
                 return; 
             }
+            
             await sleep(1000);
+           /*  if(isOk){
+                message.success({ content: '渲染完成！', key2, duration: 2 });
+               
+            } */
             isLoading = 0;
-            message.success({ content: '渲染完成！', key2,duration:1});        
         })()  
         
     }
@@ -417,11 +421,11 @@ export default class HeatMap extends Component {
                         colorType = i;
                         pointSimplifierIns.setData(null);
                         flowPointShow(i);
-                 
+                        flowGraphShow(i);
                     }         
                 }
             }   
-             flowGraphShow(0) 
+             flowGraphShow(0);
             await sleep(500);
            
         })()  
