@@ -46,7 +46,7 @@ export default class Rightcontent extends Component {
         if (checked) {
             this.setState({ mainFlowBtn: true })
             if (this.state.flowDate === '') {
-                this.warning('时间不能为空,请在右侧选择流向图的时间')
+                this.warning('若要查看主流向图，请在右侧选择主流向图的时间！')
             } else {
                 this.setFlowPath(this.state.flowDate)
             }
@@ -147,6 +147,7 @@ export default class Rightcontent extends Component {
                                 let radiusArr = [];
                                 let latlngArr = [];
                                 let dataArr = response.data.data;
+                                console.log(response.data);
                                 dataArr.map((item) => {
                                     radiusArr.push(item.radius)
                                     latlngArr.push(item.longitude + ',' + item.latitude);
@@ -600,7 +601,9 @@ export default class Rightcontent extends Component {
         let finalLine = [],
             finalSpot = [],
             allLine = [];
-        const response = await fetch(`http://39.98.41.126:31100/getFlow/2017-02-01`)
+        // const response = await fetch(`http://39.98.41.126:31100/getFlow/2017-02-01`)
+        const response = await fetch(`http://39.98.41.126:31100/getFlow/${dateString}`)
+
         const data = await response.json()
         console.log(data);
 
@@ -725,8 +728,8 @@ export default class Rightcontent extends Component {
                         {/* <DatePicker onChange={this.onChangeTime} /> */}
                         <Datepick />
                     </div>
-                    <div className="btn_flowDirection"><span className="title">主流向展示</span> <Switch disabled={this.state.ableTurn || this.state.loading} onChange={this.onChangeOpenFlow} /></div>
-                    <div className="btn_flowDirection"><span className="title">全流向展示</span> <Switch disabled={this.state.ableTurn || this.state.loading} onChange={this.onChangeOpenAllFlow} /></div>
+                    <div className="btn_flowDirection"><span className="title">主流向及需求区域</span> <Switch disabled={this.state.ableTurn || this.state.loading} onChange={this.onChangeOpenFlow} /></div>
+                    <div className="btn_flowDirection"><span className="title">区内流向</span> <Switch disabled={this.state.ableTurn || this.state.loading} onChange={this.onChangeOpenAllFlow} /></div>
                     <div className="btn_hotGetIn"><span className="title">全部载客热点</span> <Switch disabled={this.state.loading} onChange={this.onChangeOpenHot} checked={!this.state.isClick} /></div>
                     <div className="title">区域等级划分</div>
                     <div className="levelBox">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import reqwest from 'reqwest';
+import { message } from 'antd'
 import './index.css'
 import axios from 'axios';
 
@@ -30,7 +31,7 @@ const columns = [
         title: '时间',
         dataIndex: 'errorDate',
     }, {
-        title: `全部异常`,
+        title: `全部异常类型`,
         dataIndex: 'error',
     }
 ];
@@ -146,19 +147,23 @@ export default class Abnormal extends React.Component {
             method: 'get'
         }).then(data => {
             console.log(data);
-            data.list.map((item) => {
-                item.errorDate = this.toRealTime(Number(item.errorDate));
-            })
-            // 收到数据就更改state，react根据state里的数据重新渲染表格数据
-            this.setState({
-                loading: false,
-                data: data.list,
-                pagination: {
-                    ...params.pagination,
-                    total: data.total // 数据总条数，根据这个数据来分页
-                },
-                keyWords: keyWords
-            });
+            if(data.list){
+                data.list.map((item) => {
+                    item.errorDate = this.toRealTime(Number(item.errorDate));
+                })
+                // 收到数据就更改state，react根据state里的数据重新渲染表格数据
+                this.setState({
+                    loading: false,
+                    data: data.list,
+                    pagination: {
+                        ...params.pagination,
+                        total: data.total // 数据总条数，根据这个数据来分页
+                    },
+                    keyWords: keyWords
+                });
+            }else{
+                message.warning({content:'服务器或网络出现问题，加载失败！',duration:2});  
+            }
         });
     };
     componentWillUnmount() {

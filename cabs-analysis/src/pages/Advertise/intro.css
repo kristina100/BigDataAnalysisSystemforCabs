@@ -40,7 +40,7 @@ body,
     cursor: pointer;
 }
 .intro_box .after:hover{
-    color: white;
+    color: var(--reserveBg);
 }
 .triangle {
     position: relative;

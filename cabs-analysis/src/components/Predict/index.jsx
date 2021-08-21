@@ -14,6 +14,7 @@ export default class Predict extends Component {
         let salaryData;
         let timeSelect = 0;
         let UseData;
+        let textColor = 'rgba(255,255,255,0.87)';
         const ds = new DataSet();
         const chart1 = new Chart({
             container:  container3,
@@ -53,8 +54,8 @@ export default class Predict extends Component {
               fill: '#6d6d6d', // 文本颜色
               fontSize: '12', // 文本大小
           }, // 文本的图形样式属性
-          offsetX: -6, // x 方向的偏移量
-          offsetY: -200, // y 方向偏移量
+          offsetX: -10, // x 方向的偏移量
+          offsetY: -160, // y 方向偏移量
         })
         /* registerShape('interval', 'borderRadius', {
           draw: function draw(cfg, container) {
@@ -181,7 +182,7 @@ const showUti = (time)=>{
               content: data[0].Time,
               style: {
                 fontSize: 12,
-                fill: 'rgba(255,255,255,0.87)',
+                fill: textColor,
                 fontWeight: 300,
                 textBaseline: 'bottom',
                 textAlign: 'center'
@@ -206,6 +207,12 @@ const showUti = (time)=>{
       });
       chart2.render();
 }
+PubSub.subscribe('color',(_,data) => {
+  if(data){
+    textColor = '#1E2020';
+    if(chart2) chart2.render();
+  }
+})
 const getUti = ()=>{
   axios.get('http://39.98.41.126:31100/getUtilization/-----').then(
     response =>{

@@ -5,7 +5,10 @@
     background-color: var(--ltBack);
     padding-top: 50px;
     min-width: 300px;
+    position: relative;
+    z-index: 99;
     text-align: center;
+    box-shadow: 3px 0px 6px rgba(0, 0, 0, 0.16);
 }
 
 #findCar {

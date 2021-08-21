@@ -15,7 +15,6 @@ export default class HeatMap extends Component {
         let container = this.refs.container;
         let style = []
         
-        
        
         var map = new window.AMap.Map(container, {
    
@@ -254,17 +253,39 @@ export default class HeatMap extends Component {
         },
        
     });
+    /* function lngLatToaddres(lng, lat) {
+        var geocoder,address;
+        window.AMap.plugin(["AMap.Geocoder"], function () {
+            geocoder = new window.AMap.Geocoder();
+        })
+        let flag = 0;
+        geocoder.getAddress([lng, lat], function (status, result) {
+            if (status === 'complete' && result.info === 'OK') {
+                address = result.regeocode.addressComponent.adcode;
+                console.log(address);
+                if(address==='440117') flag = 1;
+                
+            } 
+        });
+        if(flag)  return lng+','+lat;
+    }
+     */
     const flowPointShow = (num)=>{
         let isOk = 1;
         let key2 = 'flow123';
         (async () => {
             const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
     /*         message.loading({ content: '正在渲染...', key2}); */ 
-            isLoading = 1;           
+            isLoading = 1;
+           /*  let points = [];    */        
             axios.get('http://39.98.41.126:31103/getFlowPoints/0/150000/'+num).then(
                 //eslint-disable-next-line no-loop-func    
-                response => {  
-                    pointSimplifierIns.setData(response.data);                 
+                response => { 
+                    if(response.data.length === 0){
+                        message.warning({content:'该类型暂无广州市内数据！',duration:2});
+                    }else{
+                        pointSimplifierIns.setData(response.data); 
+                    }                          
                 },
                 //eslint-disable-next-line no-loop-func
                 error => {                           
@@ -274,8 +295,7 @@ export default class HeatMap extends Component {
             if(!isOk){
                 message.warning({content:'服务器出现问题，加载失败！',duration:2});   
                 return; 
-            }
-            
+            }  
             await sleep(1000);
            /*  if(isOk){
                 message.success({ content: '渲染完成！', key2, duration: 2 });
@@ -370,7 +390,7 @@ export default class HeatMap extends Component {
                     
                     itemName: {
                         style: {
-                            fill: '#fff',
+                            fill: '#838282',
                         }
                     },
                     items: [
@@ -402,7 +422,7 @@ export default class HeatMap extends Component {
         })()  
     
     }
- 
+   
     const defTypeBtn = ()=>{
         (async () => {
             const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
