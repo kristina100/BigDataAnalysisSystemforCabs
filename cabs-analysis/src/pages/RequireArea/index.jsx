@@ -186,7 +186,7 @@ export default class Rightcontent extends Component {
 
         // 加载圆形自定义区域
         initData.then(function (data) {
-
+            const { addressPrint } = that.refs;
             that.token = PubSub.subscribe('flowDate', (_, stateObj) => {
                 that.setState({ flowDate: stateObj.flowDate })
                 if (that.state.mainFlowBtn) {
@@ -212,7 +212,7 @@ export default class Rightcontent extends Component {
 
             that.setState({ dataPrint: data.initDataPrint, addressPrint: data.addressPrint, radiusArr: data.radiusArr, latlngArr: data.latlngArr, hoverAddress: data.addressPrint })
 
-            const { addressPrint } = that.refs;
+
             if (that.state.addressPrint) {
                 for (let i = 0; i < that.state.addressPrint.length; ++i) {
                     let li = document.createElement('li');
@@ -326,7 +326,6 @@ export default class Rightcontent extends Component {
                     // 返回点标记的经纬度
                     getPosition: function (item) {
 
-                        // console.log(11, item);
                         if (!item) {
                             return null;
                         }
@@ -337,7 +336,7 @@ export default class Rightcontent extends Component {
                     },
 
                     getHoverTitle: function (dataItem, idx) {
-                        return idx + ':' + that.state.hoverAddress[idx];
+                        return (idx + 1) + ':' + that.state.hoverAddress[idx];
                     },
 
                     renderOptions: {
@@ -372,28 +371,30 @@ export default class Rightcontent extends Component {
                 // 将海量数据点保存在state中
                 that.setState({ pointSimplifierIns: pointSimplifierIns })
 
-                for (let i = 0; i < addressPrint.children.length; ++i) {
-                    const { dataPrint, pointSimplifierIns } = that.state;
-                    addressPrint.children[i].addEventListener('click', function () {
-                        that.setState({ isClick: true });
-                        for (let i = 0; i < addressPrint.children.length; ++i) {
-                            addressPrint.children[i].style = 'border: none '
-                        }
-                        addressPrint.children[i].style = 'color: var(--themeColor) '
+                if (addressPrint) {
+                    for (let i = 0; i < addressPrint.children.length; ++i) {
 
-                        // 转为地址
-                        geocoder.getAddress([parseFloat(dataPrint[i].split(',')[0]), parseFloat(dataPrint[i].split(',')[1])], function (status, result) {
-                            if (status === 'complete' && result.info === 'OK') {
-                                console.log(result.regeocode.formattedAddress);
-                                that.setState({ hoverAddress: [result.regeocode.formattedAddress] })
+                        const { dataPrint, pointSimplifierIns } = that.state;
+                        addressPrint.children[i].addEventListener('click', function () {
+                            that.setState({ isClick: true });
+                            for (let i = 0; i < addressPrint.children.length; ++i) {
+                                addressPrint.children[i].style = 'border: none '
                             }
+                            addressPrint.children[i].style = 'color: var(--themeColor) '
+
+                            // 转为地址
+                            geocoder.getAddress([parseFloat(dataPrint[i].split(',')[0]), parseFloat(dataPrint[i].split(',')[1])], function (status, result) {
+                                if (status === 'complete' && result.info === 'OK') {
+                                    that.setState({ hoverAddress: [result.regeocode.formattedAddress] })
+                                }
+                            })
+                            pointSimplifierIns.setData([dataPrint[i]]);
                         })
-                        console.log(that.state.hoverAddress);
-                        pointSimplifierIns.setData([dataPrint[i]]);
-                    })
 
+                    }
+                } else {
+                    that.warning('您的网页出错！请刷新！')
                 }
-
                 // 行政区划分
                 let districtExplorer = new DistrictExplorer({
                     map: map,
@@ -418,6 +419,11 @@ export default class Rightcontent extends Component {
 
                 // 点击展示海量数据点
                 districtExplorer.on('featureClick', function (e, feature) {
+
+                    const { addressPrint } = that.refs;
+                    for (let i = 0; i < addressPrint.children.length; ++i) {
+                        addressPrint.children[i].style = 'border: none '
+                    }
                     that.setState({ isClick: true })
                     Switch.__ANT_SWITCH = false;
                     flagChange++;
@@ -446,6 +452,7 @@ export default class Rightcontent extends Component {
                             timeArr = [];
                             flagChange = 0;
                         } else {
+
                             getData(dataPrint, adcode, function (newDataPrint, newAddPrint) {
 
                                 data1 = newDataPrint;
@@ -589,58 +596,6 @@ export default class Rightcontent extends Component {
 
             }
 
-
-            // 海量点标记 + 根据热度划分区域（自定义划分区域）
-            // function myAddPolygon(data) {
-            //     let polygon = new window.AMap.Polygon({
-            //         path: data,    // 根据传入的边界坐标绘制路径
-            //         fillCOlor: 'black',
-            //         fillOpacity: 0.5,
-            //         strokeColor: 'skyblue',
-            //         strokeOpcity: 0.6,
-            //         strokeWeight: 1,
-            //         strokeStyle: 'dashed',
-            //         strokeDasharray: [5, 5],
-            //         // 这里是动态的区域代号
-            //         extData: { id: `${++i}` }
-            //     })
-
-            //     polygon.on('mouseover', () => {
-            //         polygon.setOptions({
-            //             fillCOlor: 'black',
-            //             fillOpacity: 0.7,
-            //         })
-            //     })
-
-            //     polygon.on('mouseout', () => {
-            //         polygon.setOptions({
-            //             fillCOlor: '#00B2D5',
-            //             fillOpacity: 0.5,
-            //         })
-            //     }) 
-
-            //     // 自定义区域中使用海量点标记
-            //     // 点击对应的区域可以根据id值拿到该区域的热点位置
-            //     polygon.on('click', () => {
-            //         // 拿到这个区域的id值，去请求其内部的载客热点
-            //         let id = polygon.getExtData().id
-            //         // 请求接口
-            //         axios.get(`http://39.98.41.126:31100/qgtaxi/getHotPoints/xxx/${id}`).then(
-            //             response => {
-
-            //                 dataPrint = response.data.split('\n');
-            //                 dataPrint = dataPrint.filter((item) => {
-            //                     return item !== ''
-            //                 })
-            //                 pointSimplifierIns.setData(dataPrint);
-            //             },
-            //             error => {
-            //                 console.log(error.message);
-            //             }
-            //         )
-            //     })
-            //     map.add(polygon)
-            // }
 
         })
 
