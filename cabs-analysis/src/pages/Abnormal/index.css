@@ -65,7 +65,9 @@
     border: 1px solid var(--tableText) !important;
     transition: all .3;
 }
-
+.ant-table{
+    min-width: 690px;
+}
 .ant-select-item{
     color: var(--text);
 }

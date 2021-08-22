@@ -394,7 +394,7 @@ export default class Rightcontent extends Component {
 
                     }
                 } else {
-                    that.warning('您的网页出错！请刷新！')
+                    that.warning('请勿频繁切换！若地图未能加载，请刷新！')
                 }
                 // 行政区划分
                 let districtExplorer = new DistrictExplorer({

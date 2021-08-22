@@ -9,17 +9,11 @@ const columns = [
     {
         title: '车牌号',
         dataIndex: 'plateNo',
-        // sorter: true,
-        // render: name => `${name.first} ${name.last}`,
         width: '20%',
     },
     {
         title: '起点',
         dataIndex: 'onLocation',
-        // filters: [
-        //     { text: 'Male', value: 'male' },
-        //     { text: 'Female', value: 'female' },
-        // ],
         width: '20%',
     },
     {
