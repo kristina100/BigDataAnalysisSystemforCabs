@@ -4,6 +4,10 @@ import PubSub from 'pubsub-js'
 import { Chart} from '@antv/g2'
 import axios from 'axios'
 import DataSet from '@antv/data-set';
+<<<<<<< HEAD
+=======
+/* import { registerShape } from '@antv/g2' */
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
 import './index.css'
 import { message } from 'antd'
 export default class Predict extends Component {
@@ -13,12 +17,20 @@ export default class Predict extends Component {
         let salaryData;
         let timeSelect = 0;
         let UseData;
+<<<<<<< HEAD
+=======
+        let textColor = 'rgba(255,255,255,0.87)';
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
         const ds = new DataSet();
         const chart1 = new Chart({
             container:  container3,
             autoFit: true,
             height: 500,
+<<<<<<< HEAD
             padding: [20, 40],
+=======
+            padding:[20,20,20,14]
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
           });
           
         chart1.scale({
@@ -35,15 +47,66 @@ export default class Predict extends Component {
         chart1.axis('Time', {
         tickLine: null
         });
+<<<<<<< HEAD
           
+=======
+        chart1.axis('Value',{
+          grid:{
+              line:{
+                  style:{
+                      stroke:'#676767'
+                  }
+              }
+          }
+        })
+        chart1.guide().text({
+          top: true, // 指定 giude 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层
+          position: ['100', '0'], // 文本的起始位置，值为原始数据值，支持 callback
+          content: '(元)', // 显示的文本内容
+          style: {  // 文本的图形样式属性
+              fill: '#6d6d6d', // 文本颜色
+              fontSize: '12', // 文本大小
+          }, // 文本的图形样式属性
+          offsetX: -10, // x 方向的偏移量
+          offsetY: -160, // y 方向偏移量
+        })
+        /* registerShape('interval', 'borderRadius', {
+          draw: function draw(cfg, container) {
+            var points = cfg.points;
+           
+            var path = [];
+          
+            path.push(['M', points[0].x, points[0].y]);
+            path.push(['L', points[1].x, points[1].y]);
+            path.push(['L', points[2].x, points[2].y]);
+            console.log(path);
+         
+            path = this.parsePath(path); // 将 0 - 1 转化为画布坐标
+            return container.addShape('rect', {
+              attrs: {
+                x: path[1][1], // 矩形起始点为左上角
+                y: path[1][2],
+                width: path[2][1] - path[1][1],
+                height: path[0][2] - path[1][2],
+                fill: '#03dac5',
+                radius: 4
+              }
+            });
+          }
+        }); */
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
         const view1 = chart1.createView();
         const key = 'updatable1';
         
         const getSalary = ()=>{
             axios.get('http://39.98.41.126:31100/getSalary/-----').then(
                 //eslint-disable-next-line no-loop-func    
+<<<<<<< HEAD
                 response => {  
                     console.log(response);
+=======
+                response => { 
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
                     if(!response.data.data){
                       message.warning({content:'服务器遇到了问题，数据加载失败！',duration:2});
                       return;
@@ -69,10 +132,18 @@ export default class Predict extends Component {
                     view1
                       .interval()
                       .position('Time*Value')
+<<<<<<< HEAD
                       .style({
                         fillOpacity: 1,
                         fill:'#03DAC5'
                       });
+=======
+                      
+                      .style({
+                        fillOpacity: 1,
+                        fill:'#03DAC5'
+                      })/* .shape('borderRadius') */;
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
                       chart1.render();
                               
                     
@@ -106,6 +177,12 @@ const showUti = (time)=>{
       chart2.tooltip({
         showMarkers: false
       });
+<<<<<<< HEAD
+=======
+     
+      
+   
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
       chart2.facet('rect', {
         fields: ['Time'],
         padding: 20,
@@ -125,6 +202,7 @@ const showUti = (time)=>{
             .interval()
             .adjust('stack')
             .position('Value')
+<<<<<<< HEAD
             .color('Time', [color, '#eceef1'])
             .style({
               opacity: 1,
@@ -153,12 +231,50 @@ const showUti = (time)=>{
             },
             offsetY: 10,
           });
+=======
+            .color('Time', [color, '#1A6C64'])
+            .style({
+              opacity: 0.6,
+            });
+            view.annotation().text({
+              position: [ '50%', '50%' ],
+              content: data[0].Time,
+              style: {
+                fontSize: 12,
+                fill: '#838282',
+              fontWeight: 500,
+                textBaseline: 'bottom',
+                textAlign: 'center'
+              },
+              offsetY: -6,
+            });
+        
+            view.annotation().text({
+              position: ['50%', '50%'],
+              content: data[0].Value,
+              style: {
+                fontSize: 18,
+                fill: '#03DAC5',
+                fontWeight: 500,
+                textAlign: 'center'
+              },
+              offsetY: 10,
+            });
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
       
           view.interaction('element-active');
         }
       });
       chart2.render();
 }
+<<<<<<< HEAD
+=======
+PubSub.subscribe('color',(_,data) => {
+  if(data){
+    if(chart2) chart2.render();
+  }
+})
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
 const getUti = ()=>{
   axios.get('http://39.98.41.126:31100/getUtilization/-----').then(
     response =>{
@@ -166,7 +282,10 @@ const getUti = ()=>{
         return;
       }
       UseData =response.data.data;
+<<<<<<< HEAD
       console.log(UseData);
+=======
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
       showUti(UseData[timeSelect])
     },
     error =>{
@@ -179,7 +298,11 @@ const getUti = ()=>{
   getUti();
   await sleep(0)
 })()  
+<<<<<<< HEAD
 PubSub.subscribe('timeUti',(_,data)=>{
+=======
+let token1 = PubSub.subscribe('timeUti',(_,data)=>{
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
     (async () => {
       const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
       showUti(UseData[data])
@@ -188,6 +311,7 @@ PubSub.subscribe('timeUti',(_,data)=>{
     })()  
     })
     }
+<<<<<<< HEAD
     render() {
         return (
             <div id="ana-predict">
@@ -199,6 +323,29 @@ PubSub.subscribe('timeUti',(_,data)=>{
                 
                 <p>出租车司机收入</p>
                 <div id="salary" ref="salary"></div>
+=======
+    componentWillUnmount(){
+      PubSub.unsubscribe('token1');
+      this.setState = (state,callback) => {
+          return;
+      }
+  }
+    render() {
+        return (
+            <div id="ana-predict">
+                
+                <div id="uli-pt">
+                <p>数据预测</p>
+                  <p>出租车利用率</p>
+                  <div id="utilization" ref="utilization" style={{marginBottom:'30px'}}>
+                      <TimeList></TimeList>
+                  </div>
+                </div>                
+                <div id="salary-pt">
+                  <p>出租车司机收入</p>
+                  <div id="salary" ref="salary"></div>
+                </div>
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
             </div>
         )
     }

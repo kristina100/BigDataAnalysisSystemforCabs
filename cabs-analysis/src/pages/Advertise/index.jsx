@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import History from '../../components/History'
 import Predict from '../../components/Predict'
+<<<<<<< HEAD
+=======
+import axios from 'axios'
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
 import { Switch,Redirect , Route } from 'react-router'
 import { NavLink } from 'react-router-dom';
 import './index.css'
@@ -17,30 +21,127 @@ export default class Advertise extends Component {
           zoom:9,
           mapStyle: 'amap://styles/whitesmoke'
        });
+       window.AMapUI.loadUI(['geo/DistrictExplorer'], function(DistrictExplorer) {
+        var currentAreaNode = null;
+        //创建一个实例
+        var districtExplorer = new DistrictExplorer({
+            eventSupport: true,
+            map: map
+        });
+    
+         //绘制某个区域的边界
+         function renderAreaPolygons(areaNode) {
+          //更新地图视野
+          map.setBounds(areaNode.getBounds(), null, null, true);
+      
+          //清除已有的绘制内容
+          districtExplorer.clearFeaturePolygons();
+      
+          //绘制子区域
+          districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
+      
+  
+      
+              return {
+                  cursor: 'default',
+                  bubble: true,
+                  strokeColor: '#03DAC5', //线颜色
+                  strokeOpacity: 1, //线透明度
+                  strokeWeight: 1, //线宽
+            
+                  fillOpacity: 0, //填充透明度
+              };
+          });
+      
+          //绘制父区域
+          districtExplorer.renderParentFeature(areaNode, {
+            cursor: 'default',
+            bubble: true,
+            strokeColor: '#03DAC5', //线颜色
+            strokeOpacity: 1, //线透明度
+            strokeWeight: 1, //线宽
+            
+            fillOpacity: 0, //填充透明度
+          });
+      }
+      
+      //切换区域后刷新显示内容
+      function refreshAreaNode(areaNode) {
+      
+          districtExplorer.setHoverFeature(null);
+      
+          renderAreaPolygons(areaNode);
+      
+       
+      }
+      
+      //切换区域
+      function switch2AreaNode(adcode, callback) {
+      
+          if (currentAreaNode && ('' + currentAreaNode.getAdcode() === '' + adcode)) {
+              return;
+          }
+      
+          loadAreaNode(adcode, function(error, areaNode) {
+      
+              if (error) {
+      
+                  if (callback) {
+                      callback(error);
+                  }
+      
+                  return;
+              }
+      
+              currentAreaNode = window.currentAreaNode = areaNode;
+      
+              //设置当前使用的定位用节点
+              districtExplorer.setAreaNodesForLocating([currentAreaNode]);
+      
+              refreshAreaNode(areaNode);
+      
+              if (callback) {
+                  callback(null, areaNode);
+              }
+          });
+      }
+      
+      //加载区域
+      function loadAreaNode(adcode, callback) {
+      
+          districtExplorer.loadAreaNode(adcode, function(error, areaNode) {
+      
+              if (error) {
+      
+                  if (callback) {
+                      callback(error);
+                  }
+      
+                  console.error(error);
+      
+                  return;
+              }
+      
+            
+      
+              if (callback) {
+                  callback(null, areaNode);
+              }
+          });
+      }
+      switch2AreaNode(440100);
+      });
          //点标记
       let myList = [];
-       let markerList = [[113.3883888 ,  23.04370157],
-       [114.11066   ,  22.614832  ],
-       [113.39779661,  23.03520641],
-       [114.122851  ,  22.550083  ],
-       [114.031334  ,  22.611129  ],
-       [113.944172  ,  22.538665  ],
-       [113.39278568,  23.04209278],
-       [113.39631454,  23.03805442],
-       [114.22046675,  22.66324175],
-       [113.38610966,  23.04212242],
-       [113.38838069,  23.03673003],
-       [113.38824572,  23.042078  ],
-       [113.39730714,  23.04021752],
-       [113.385728  ,  23.058035  ]];
+       let markerList = [[113.586194, 23.548025], [113.586241, 23.508985], [113.586241, 23.508985], [113.516672, 23.642737], [113.850217, 23.842054], [113.850217, 23.842054], [113.516045, 23.542329], [113.468513, 23.486949], [113.727533, 23.621207], [113.846141, 23.644276]]
    
            // 创建一个 icon
        let serveIcon = new window.AMap.Icon({
-         size: new window.AMap.Size(24, 25),
+         size: new window.AMap.Size(25, 25),
            // 图标的取图地址
-           image: 'images/marker.png',
+           image: '../marker.png',
            // 图标所用图片大小
-           imageSize: new window.AMap.Size(20, 25),
+           imageSize: new window.AMap.Size(25, 25),
    
        });
     // 将 icon 传入 marker
@@ -50,10 +151,13 @@ export default class Advertise extends Component {
            let marker = new window.AMap.Marker({
              icon:serveIcon,
              offset: new window.AMap.Pixel(-13, -30),
-               position: markerList[i],
+              position: markerList[i],
            })
            myList.push(marker);
+<<<<<<< HEAD
             console.log(window.AMap);
+=======
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
            window.AMap.Event.addListener(marker, 'click', function () {
                lngLatToaddres(marker.getPosition().lng, marker.getPosition().lat,function(titleData) {
                    makeInfoWindow(marker.getPosition().lng.toFixed(4), marker.getPosition().lat.toFixed(4), marker,titleData)
@@ -64,17 +168,26 @@ export default class Advertise extends Component {
        map.add(myList);
      }
    
-         const getComStations = ()=>{
-           /* $.get("http://39.98.41.126:31101/crutch/getRecommend",(res,err)=>{
-               markerList = [];
-               markerList = JSON.parse(res).map((ele)=>{
-                   return [ele.longitude,ele.latitude];
-               });
-               showMarker(markerList);
-               getStationsData();
-               if( btn[0].style.color !== "white") reloadFlag = 0;
-           }) */
-           showMarker(markerList);
+         const getComStations = ()=>{ 
+              (async () => {
+                const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
+                axios.get('http://39.98.41.126:31103/getBillboard').then(
+                    response =>{
+                      if(!response.data){
+                        return;
+                      }
+                      showMarker(response.data);
+                      
+                    },
+                    error =>{
+                      console.log(error.message);
+                    }
+                  )
+                  
+                await sleep(400);
+                map.setCenter([113.2660,23.1315]);
+                map.setZoom(13)
+            })()  
        }
        // 经纬度转换为地址
        function lngLatToaddres(lng, lat,callback) {
@@ -157,7 +270,12 @@ export default class Advertise extends Component {
                     </Switch>
                   </div>
                 </div>
+<<<<<<< HEAD
                 <div style={{width:'75%',height:'100%'}} ref="container"></div>
+=======
+                <div id="tips-box">广告牌位置推荐</div>
+                <div style={{width:'80%',height:'100%'}} ref="container"></div>
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
             </div>
         )
     }

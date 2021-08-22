@@ -1,0 +1,60 @@
+.g2-tooltip{
+    background-color:var(--ltBack)!important;
+}
+.g2-tooltip-title{
+    color: var(--themeColor)!important;
+    font-size: 14px;
+    font-weight: bold;
+}
+.g2-tooltip-marker{
+    background: var(--themeColor)!important;
+}
+.g2-tooltip-name{
+    color: var(--themeColor);
+}
+.g2-tooltip-value{
+    color: var(--text);
+    margin-left: 6px!important;
+}
+#utilization .ant-select{
+    position: absolute;
+    width: 70px!important;
+    z-index: 100;
+    top: 90px;
+    right: -50px;
+}
+.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+    background-color: var(--ltBack);
+    border: none;
+}
+.ant-select:not(.ant-select-customize-input) .ant-select-selector:hover{
+    border: none;
+}
+.ant-select:not(.ant-select-customize-input) .ant-select-selector:active{
+    border: none;
+    box-shadow: none;
+}
+.ant-select-selection-item{
+    color: var(--text);
+}
+.ant-select-dropdown{
+    background-color: var(--tableBack);
+}
+#utilization .ant-select-item-option-active{
+    color: var(--ltBack)!important;
+    background-color: var(--themeColor)!important;
+}
+
+.ant-select-item-option-content{
+    color: var(--grayText);
+}
+.ant-select-item-option-active .ant-select-item-option-content{
+    color: var(--grayText);
+}
+.ant-select-item-option-selected .ant-select-item-option-content{
+    color: var(--ltBack);
+}
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector{
+    border:none;
+    box-shadow: none;
+}

@@ -17,7 +17,11 @@ export default class Datepick extends Component {
 
     render() {
         return (
+<<<<<<< HEAD
                 <Space direction="vertical">
+=======
+                <Space direction="vertical" id="datePick">
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
                     <DatePicker
                      onChange={this.check} format="YYYY-MM-DD"
                      disabledDate={disabledDate}            

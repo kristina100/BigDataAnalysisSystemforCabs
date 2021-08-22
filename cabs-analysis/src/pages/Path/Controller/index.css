@@ -1,5 +1,6 @@
 #control {
     float: left;
+<<<<<<< HEAD
     width: 384px;
     height: 100%;
     background-color: rgba(0, 0, 0, .8) ;
@@ -10,13 +11,34 @@
 }
 #findCar {
     width: 285px;
+=======
+    width: 20%;
+    height: 100%;
+    background-color: var(--ltBack);
+    padding-top: 50px;
+    min-width: 300px;
+    position: relative;
+    z-index: 99;
+    text-align: center;
+    box-shadow: 3px 0px 6px rgba(0, 0, 0, 0.16);
+}
+
+#findCar {
+    width: 98%;
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
     height: 40px;
     font-size: 18px;
     font-weight: 400;
     font-family: Microsoft YaHei;
+<<<<<<< HEAD
     color: #999999 !important;
     background-color: #616161;
     padding-left: 50px;
+=======
+    color: var(--text) !important;
+    background-color: var(--hoverBtn);
+    padding-left: 70px;
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
     outline: none;
     border: none;
     border-radius: 6px;
@@ -25,6 +47,7 @@
     cursor: text;
 }
 
+<<<<<<< HEAD
 #findCar:focus {
     background-color: #4d4c4c;
 }
@@ -34,6 +57,15 @@
 }
 
 #findInput{
+=======
+
+
+#findCar::placeholder {
+    color: var(--grayText);
+}
+
+#findInput {
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
     position: relative;
 }
 
@@ -42,6 +74,7 @@
     position: absolute;
     height: 40px;
     font-size: 18px;
+<<<<<<< HEAD
     padding: 7px 0px 0px 15px;
     color: #fff;
 }
@@ -63,4 +96,51 @@
 
 #findBtn:hover {
     background-color: #4d4c4c;
+=======
+    align-items: center;
+    padding: 5px 0px 0px 10px;
+    color: var(--text);
+    z-index: 2;
+}
+#firstName img{
+    margin-top: -2px;
+    margin-right: 2px;
+}
+#findBtn {
+    display: inline-block;
+    width: 27%;
+    height: 34px;
+    background-color: var(--hoverBtn);
+    border-radius: 6px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--text);
+    line-height: 30px;
+    margin-left: 17px;
+    cursor: pointer;
+    transition: .4s;
+    position: relative;
+    bottom: 1px;
+}
+
+#findBtn:hover {
+    background-color: var(--deepGrey);
+}
+
+#controlBox {
+    width: 76%;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+#datePick .ant-space-item .ant-picker {
+    width: 100% !important;
+}
+
+#datePick .ant-space-item {
+    width: 100% !important;
+}
+#datePick {
+    width: 65% !important;
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
 }

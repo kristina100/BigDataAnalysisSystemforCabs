@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 #analyse-graph{
     width: 25%;
@@ -20,11 +21,45 @@
 
 #graph-box::-webkit-scrollbar-thumb {
     background-color: #03dac5; 
+=======
+#analyse-graph {
+    width: 20%;
+    height: 100%;
+    min-width: 300px;
+    min-height: 670px;
+    position: relative;
+    z-index: 99;
+    background-color: var(--ltBack);
+    box-shadow: 3px 0px 6px rgba(0, 0, 0, 0.16);
+}
+
+#graph-box {
+    
+    min-height: 620px;
+    height: calc(100% - 50px);
+}
+.amap-container{
+    min-height: 670px;
+}
+#graph-box::-webkit-scrollbar {
+    width: 6px;
+
+}
+
+#graph-box::-webkit-scrollbar-track {
+    background-color: var(--ltBack);
+
+}
+
+#graph-box::-webkit-scrollbar-thumb {
+    background-color: var(--themeColor);
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
     border-radius: 5px;
 }
 
 #graph-box::-webkit-scrollbar-button {
     display: none;
+<<<<<<< HEAD
 } 
 #utilization{
     width: 70%;
@@ -98,17 +133,39 @@
     border-color: #03DAC5!important;
 }
 #ana-btn-ct{
+=======
+}
+
+#utilization {
+    width: 70%;
+    height: 200px;
+    position: relative;
+}
+
+#salary {
+    width: 100%;
+    height: 200px;
+}
+
+#ana-btn-ct {
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
     width: 100%;
     position: relative;
     height: 50px;
 }
+<<<<<<< HEAD
   .ana-btn{
+=======
+
+.ana-btn {
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
     width: 50%;
     height: 100%;
     font-size: 16px;
     text-align: center;
     line-height: 40px;
     display: inline-block;
+<<<<<<< HEAD
     color: #999;
     background-color: #1f1f1f;
   }
@@ -119,11 +176,26 @@
     height: 4px;
     width: 0;
     position:relative;
+=======
+    color: var(--grayText);
+    background-color: var(--deepBack);
+}
+
+.ana-btn:hover.ana-btn div {
+    width: 20px;
+}
+
+.ana-btn div {
+    height: 4px;
+    width: 0;
+    position: relative;
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
     left: 50%;
     transform: translateX(-50%);
     bottom: 6px;
     border-radius: 2px;
     transition: 0.2s all;
+<<<<<<< HEAD
     background-color: #03DAC5; 
   }
   
@@ -137,3 +209,37 @@
   .active div{
     width: 20px;
   }
+=======
+    background-color: var(--themeColor);
+}
+
+.ana-btn:hover {
+    color: var(--themeColor);
+}
+
+.active {
+    color: var(--themeColor);
+    background-color: var(--ltBack);
+}
+
+.active div {
+    width: 20px;
+}
+#tips-box{
+    position: absolute;
+    width: 200px;
+    height: 60px;
+    box-shadow: -2px 2px 2px rgb(0 0 0 / 20%);
+    border-bottom-left-radius: 10px;
+    background-color: var(--ltBack);
+    color: var(--themeColor);
+    right: 0;
+    top: 50px;
+    z-index: 99;
+    font-size: 18px;
+    text-align: center;
+    line-height: 60px;
+    user-select: none;
+   
+}
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9

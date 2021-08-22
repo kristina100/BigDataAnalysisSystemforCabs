@@ -45,7 +45,11 @@ export default class Datepick extends Component {
                     //  showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                      defaultPickerValue={moment("2017-02-01")}
                     //  defaultValue={moment("2017-02-01")}
+<<<<<<< HEAD
                     value={this.cleanValue()}
+=======
+                    // value={this.cleanValue()}
+>>>>>>> 909892b1b180361ac26c62fe532772ff25415da9
                     />
                 </Space>
 
