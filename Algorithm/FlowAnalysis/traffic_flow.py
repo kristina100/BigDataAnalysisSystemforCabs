@@ -34,19 +34,20 @@ def read_single_csv(input_path):
 # 使用函数
 res = read_single_csv("Data/operator_his_OPERATE_HIS.csv")
 # 读取某一天
-new_data = res[res['B'].str.contains('20170201')]
+new_data = res[res['B'].str.contains('20170216')]
 # 只读取需要字段
-area_0 = pd.DataFrame(new_data, columns=['B', 'get_on_long', 'get_on_lat', 'get_off_long', 'get_off_lat'])
+area_0 = pd.DataFrame(new_data, columns=['get_on_long', 'get_on_lat', 'get_off_long', 'get_off_lat'])
 # 清洗数据
 area_0 = area_0.drop(area_0[area_0.get_on_long < 0.01].index)
 area_0 = area_0.drop(area_0[area_0.get_on_lat < 0.01].index)
 area_0 = area_0.drop(area_0[area_0.get_off_long < 0.01].index)
 area_0 = area_0.drop(area_0[area_0.get_off_long < 0.01].index)
+print(len(area_0))
 
-# 坐标转换
-for index, row in area_0.iterrows():
-    row['get_off_long'], row['get_off_lat'] = wgs84_to_gcj02.wgs84_to_gcj02(row['get_off_long'], row['get_off_lat'])
-    row['get_on_long'], row['get_on_lat'] = wgs84_to_gcj02.wgs84_to_gcj02(row['get_on_long'], row['get_on_lat'])
+# # 坐标转换
+# for index, row in area_0.iterrows():
+#     row['get_off_long'], row['get_off_lat'] = wgs84_to_gcj02.wgs84_to_gcj02(row['get_off_long'], row['get_off_lat'])
+#     row['get_on_long'], row['get_on_lat'] = wgs84_to_gcj02.wgs84_to_gcj02(row['get_on_long'], row['get_on_lat'])
 
 # 去除不在广州市内的点
 for index, row in area_0.iterrows():
@@ -60,7 +61,7 @@ start_point = []
 sort_area = area_0.sort_values(by=['get_on_long'])
 print(sort_area)
 
-final_data = area_0.sample(n=50000)
+final_data = sort_area.sample(n=10000)
 
 num = 0
 sum_on_long = round(0, 6)
@@ -69,15 +70,15 @@ sum_off_long = round(0, 6)
 sum_off_lat = round(0, 6)
 start_end_point = []
 
-for index, line in tqdm(sort_area.iterrows()):
-    if index == 50000:
+for index, line in tqdm(final_data.iterrows()):
+    if index == 10000:
         break
     num += 1
     sum_on_long += float(line[0])
     sum_on_lat += float(line[1])
     sum_off_long += float(line[2])
     sum_off_lat += float(line[3])
-    while num == 500:
+    while num == 200:
         mean_get_on_long = round(sum_on_long / num, 6)
         mean_get_on_lat = round(sum_on_lat / num, 6)
         mean_get_off_long = round(sum_off_long / num, 6)
@@ -92,7 +93,7 @@ for index, line in tqdm(sort_area.iterrows()):
 sleep(0.5)
 
 # 逐行存入csv
-with open('20170201.csv', "a", encoding='utf-8') as f:
+with open('20170216.csv', "a", encoding='utf-8') as f:
     writer = csv.writer(f)
     for point in start_end_point:
         writer.writerow(point)
