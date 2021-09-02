@@ -4,7 +4,7 @@
     height: 60px;
     border-radius: 0 0 0 10px;
     background-color: var(--ltBack);
-    color: var(--titleColor);
+    color: var(--tableText);
     right: -5px;
     top: 0px;
     font-size: 16px;
@@ -46,22 +46,21 @@
     text-align: center;
     color: var(--text);
     margin: 15px;
-    height: 35px;
+    height: 45px;
     line-height: 50px;
-    /* border-bottom: 1px solid var(--text); */
     font-size: 16px;
-    -webkit-user-select: none;
+    user-select: none;
+    border-bottom: 1px solid var(--text);
 }
 
 .left_nav ul {
     height: calc(100% - 100px);
     overflow: auto;
     list-style: none;
-    margin: 20px;
-    padding-top: 10px;
+    margin: 0 auto;
+    width: 84%;
+    padding-right: 16px;
     color: var(--text);
-    border-top: 1px solid var(--text);
-
 }
 
 .left_nav ul li {
@@ -71,7 +70,7 @@
     height: 45px;
     line-height: 20px;
     margin-bottom: 15px;
-    -webkit-user-select: none;
+    user-select: none;
 }
 
 .left_nav ul::-webkit-scrollbar {
@@ -80,7 +79,7 @@
 }
 
 .left_nav ul::-webkit-scrollbar-thumb {
-    background-color: var(--themeColor);
+    background-color:var(--scroll);
     border-radius: 5px;
 }
 
@@ -125,15 +124,17 @@
     top: 50%;
     right: 0;
     width: 240px;
-    height: 450px;
+    height: 400px;
     padding: 10px 20px;
-    margin-top: -15%;
+    transform: translateY(-50%);
     background-color: var(--ltBack);
     color: var(--text);
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
     z-index: 99;
 }
-
+.right_levelnav p:nth-child(7){
+    font-size: 13px;
+}
 .right_levelnav ul li {
     display: flex;
     align-items: center;
@@ -153,7 +154,7 @@
 .level {
     width: 50%;
     /* display: flex; */
-    height: 200px;
+    height: 120px;
     overflow: hidden;
     font-size: 12px;
     /* justify-content: space-between; */
@@ -169,30 +170,24 @@
 }
 
 .level li:nth-child(1) .color {
-    background-color: #E6556F;
+    background-color: #59585A;
 }
 
 .level li:nth-child(2) .color {
-    background-color: #E3843C;
+    background-color:  #EEC055;
 }
 
 .level li:nth-child(3) .color {
-    background-color: #EEC055;
+    background-color:#1EC78A;;
 
 }
 
-.level li:nth-child(4) .color {
-    background-color: #1EC78A;
-}
 
-.level li:nth-child(5) .color {
-    background-color: #4E72E2;
 
-}
 
 .level2 {
     width: 50%;
-    height: 200px;
+    height: 120px;
     overflow: hidden;
     font-size: 12px;
     margin-left: 60px;
@@ -209,24 +204,18 @@
 }
 
 .level2 li:nth-child(1) .color {
-    background-color: #E24ED7;
+    background-color: #E6556F;
 }
 
 .level2 li:nth-child(2) .color {
-    background-color: #71E24E;
+    background-color: #4ECEE2;
 }
 
 .level2 li:nth-child(3) .color {
     background-color: #7F4EE2;
 }
 
-.level2 li:nth-child(4) .color {
-    background-color: #4ECEE2;
-}
 
-.level2 li:nth-child(5) .color {
-    background-color: #BB4EE2;
-}
 
 /* 顶部 */
 .ant-switch-checked {

@@ -81,7 +81,7 @@ box-shadow: 3px 0px 6px rgba(0, 0, 0, 0.16);
   }
 #flow-selector{
   width: 140px;
-  height: 286px;
+  height: 290px;
   background-color: var(--ltBack);
   position: absolute;
   right: 0;

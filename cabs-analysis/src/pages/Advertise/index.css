@@ -99,7 +99,7 @@
     box-shadow: -2px 2px 2px rgb(0 0 0 / 20%);
     border-bottom-left-radius: 10px;
     background-color: var(--ltBack);
-    color: var(--themeColor);
+    color: var(--tableText);
     right: 0;
     top: 50px;
     z-index: 99;

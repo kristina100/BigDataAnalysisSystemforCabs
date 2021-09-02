@@ -51,7 +51,7 @@ export default class Rightcontent extends Component {
                 this.setFlowPath(this.state.flowDate)
             }
             // 绘制需求区域
-            let requireColors = ['#E6556F', '#E3843C', '#EEC055', '#1EC78A', '#4E72E2', '#E24ED7', '#71E24E', '#7F4EE2', '#4ECEE2', '#BB4EE2']
+            let requireColors = ['#59585A','#EEC055','#1EC78A','#E6556F','#4ECEE2','#7F4EE2']
             for (let i = 0; i < this.state.radiusArr.length; ++i) {
 
                 var circle = new window.AMap.Circle({
@@ -159,12 +159,11 @@ export default class Rightcontent extends Component {
                                 let radiusArr = [];
                                 let latlngArr = [];
                                 let dataArr = response.data.data;
-
                                 if (response.data) {
                                     dataArr.map((item) => {
                                         radiusArr.push(item.radius)
                                         latlngArr.push(item.longitude + ',' + item.latitude);
-                                    })
+                                    })                            
                                     resolve({ addressPrint, initDataPrint, radiusArr, latlngArr });
                                 } else {
                                     that.warning('数据库数据为空！请稍后重试')
@@ -394,7 +393,7 @@ export default class Rightcontent extends Component {
 
                     }
                 } else {
-                    that.warning('请勿频繁切换！若地图未能加载，请刷新！')
+                    that.warning('请勿频繁切换！若地图未能加载，请刷新！');
                 }
                 // 行政区划分
                 let districtExplorer = new DistrictExplorer({
@@ -705,7 +704,7 @@ export default class Rightcontent extends Component {
     }
 
     setFlowPath = async (dataString) => {
-        const response = await fetch(`http://39.98.41.126:31106/mainRoute/${dataString}`)
+        const response = await fetch(`http://39.98.41.126:31100/mainRoute/${dataString}`)
         const data = await response.json()
 
         for (let i = 0; i < data.length; i++) {
@@ -727,14 +726,6 @@ export default class Rightcontent extends Component {
                 <div className="left_nav">
                     <header>载客热点</header>
                     <ul ref="addressPrint" className="addressPrint">
-                        {/* <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li>
-                        <li>广东省广州市天河区xxx</li> */}
                     </ul>
                 </div>
 
@@ -752,17 +743,15 @@ export default class Rightcontent extends Component {
                             <li><span className="color"></span> <span className="level_words">等级一</span></li>
                             <li><span className="color"></span> <span className="level_words">等级二</span></li>
                             <li><span className="color"></span> <span className="level_words">等级三</span></li>
-                            <li><span className="color"></span> <span className="level_words">等级四</span></li>
-                            <li><span className="color"></span> <span className="level_words">等级五</span></li>
                         </ul>
                         <ul className="level2">
+                            <li><span className="color"></span> <span className="level_words">等级四</span></li>
+                            <li><span className="color"></span> <span className="level_words">等级五</span></li>
                             <li><span className="color"></span> <span className="level_words">等级六</span></li>
-                            <li><span className="color"></span> <span className="level_words">等级七</span></li>
-                            <li><span className="color"></span> <span className="level_words">等级八</span></li>
-                            <li><span className="color"></span> <span className="level_words">等级九</span></li>
-                            <li><span className="color"></span> <span className="level_words">等级十</span></li>
                         </ul>
+                      
                     </div>
+                    <p>Tips: 基于区域热度划分等级。</p>
                 </div>
 
             </div>

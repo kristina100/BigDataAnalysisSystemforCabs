@@ -67,7 +67,7 @@ export default class Abnormal extends React.Component {
             } else if (flagDown === 0) { // 改为向下箭头
                 flagDown = 1;
                 downTd.setAttribute('data-down', '');
-                Inform.className = 'wrongInform hover'
+                Inform.className = 'wrongInform'
             }
         })
 

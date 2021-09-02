@@ -6,7 +6,10 @@
     color: var(--themeColor)!important;
 }
 .ant-picker-datetime-panel .ant-picker-time-panel {
-    border-left: 1px solid var(--text);
+    border-left: 1px solid var(--grayText);
+}
+.ant-picker-time-panel-column:not(:first-child){
+    border-left: 1px solid var(--grayText);
 }
 .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
     color: var(--bodyColor);
@@ -46,8 +49,14 @@
     color: var(--grayText);
     pointer-events: none;
 }
+.ant-picker-panel .ant-picker-footer,.ant-picker-header{
+    border-top: 1px solid var(--grayText)!important;
+}
+.ant-picker-header{
+    border-bottom: 1px solid var(--grayText);
+}
 .ant-picker-time-panel-column > li.ant-picker-time-panel-cell .ant-picker-time-panel-cell-inner {
-    color: var(--text);
+    color: var(--grayText);
 }
 .ant-picker-time-panel-column > li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
     background: var(--themeColor);
@@ -122,7 +131,7 @@ a{
     background:var(--ltBack);
 }
 .ant-picker-dropdown{
-    border: 1px solid var(--text);
+    border: 1px solid var(--grayText);
 }
 .anticon svg{
     fill:var(--text);

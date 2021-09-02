@@ -109,7 +109,6 @@ export default class controller extends Component {
                     <span id="firstName"><img id="search" src={'../../search.svg'}></img>粤A</span>
                     <Input type="text" id="findCar" ref="carName" placeholder="请输入车牌号" maxLength="5" onKeyUp={this.noWord} autoComplete="off" disabled={this.state.isFinding ? true : false} onChange={ event => this.handleInput(event)}/>
                 </div>
-                {/* <input type="date" ref="pathDate"/> */}
                 <Datepick/>
                 <span id="findBtn" onClick={() => { this.findCar() }}>确定</span>
                 {

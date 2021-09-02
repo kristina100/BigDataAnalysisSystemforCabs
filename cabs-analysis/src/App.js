@@ -27,6 +27,7 @@ export default class App extends Component {
       root.style.setProperty('--reserveBg','black');
       root.style.setProperty('--hoverBtn','#bfbfbf');
       root.style.setProperty('--deepGrey','#999');
+      root.style.setProperty('--scroll','#A8A9AC');
     }
     let darkTheme = ()=>{
       let root = document.querySelector(':root');
@@ -43,6 +44,7 @@ export default class App extends Component {
       root.style.setProperty('--reserveBg','white');
       root.style.setProperty('--hoverBtn','#6a6a6a');
       root.style.setProperty('--deepGrey','#292929');
+      root.style.setProperty('--scroll','#E4E9E9');
     }
     let changeTheme = ()=>{
       

@@ -55,7 +55,7 @@ export default class HeatMap extends Component {
                     message.loading({ content: '正在动态渲染...', key,duration:1000});
               
                     for (let i = 1; i <= 10; i++) {
-                        axios.get('http://39.98.41.126:31106/selectByTimeSlot/'+data[0]+'/'+data[1]+'/'+ i +'/8000').then(
+                        axios.get('http://39.98.41.126:31100/selectByTimeSlot/'+data[0]+'/'+data[1]+'/'+ i +'/8000').then(
                             //eslint-disable-next-line no-loop-func    
                             response => {  
                                 if(response.data){
@@ -256,23 +256,7 @@ export default class HeatMap extends Component {
         },
        
     });
-    /* function lngLatToaddres(lng, lat) {
-        var geocoder,address;
-        window.AMap.plugin(["AMap.Geocoder"], function () {
-            geocoder = new window.AMap.Geocoder();
-        })
-        let flag = 0;
-        geocoder.getAddress([lng, lat], function (status, result) {
-            if (status === 'complete' && result.info === 'OK') {
-                address = result.regeocode.addressComponent.adcode;
-                console.log(address);
-                if(address==='440117') flag = 1;
-                
-            } 
-        });
-        if(flag)  return lng+','+lat;
-    }
-     */
+  
     const flowPointShow = (num)=>{
         let isOk = 1;
         let key2 = 'flow123';
@@ -283,10 +267,10 @@ export default class HeatMap extends Component {
         else if(num === 5) num = 8;
         (async () => {
             const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
-    /*         message.loading({ content: '正在渲染...', key2}); */ 
+  
             isLoading = 1;
-           /*  let points = [];    */        
-            axios.get('http://39.98.41.126:31103/getFlowPoints/0/150000/'+num).then(
+           
+            axios.get('http://39.98.41.126:31100/getFlowPoints/0/150000/'+num).then(
                 //eslint-disable-next-line no-loop-func    
                 response => { 
                     if(response.data.length === 0){
@@ -350,7 +334,7 @@ export default class HeatMap extends Component {
             const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
 
             isLoading = 1;           
-            axios.get('http://39.98.41.126:31103/getFlowLines/'+area).then(
+            axios.get('http://39.98.41.126:31100/getFlowLines/'+area).then(
                 //eslint-disable-next-line no-loop-func    
                 response => {  
                     chart.data(response.data);
@@ -500,16 +484,16 @@ export default class HeatMap extends Component {
                 <div style={{width:'80%',height:'100%'}} ref="container"></div>
 
                 <div id="flow-selector">
-                    <p>车流量点类型</p>
-                    <li className="flow-item"><span style={{backgroundColor:'#E6556F'}}></span>类型1</li>
-                    <li className="flow-item"><span style={{backgroundColor:'#E3843C'}}></span>类型2</li>
+                    <p>区域车流量概览</p>
+                    <li className="flow-item"><span style={{backgroundColor:'#E6556F'}}></span>区域1</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#EEC055'}}></span>区域2</li>
         
-                    <li className="flow-item"><span style={{backgroundColor:'#1EC78A'}}></span>类型3</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#1EC78A'}}></span>区域3</li>
                     
-                    <li className="flow-item"><span style={{backgroundColor:'#E24ED7'}}></span>类型4</li>
-                    <li className="flow-item"><span style={{backgroundColor:'#71E24E'}}></span>类型5</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#E24ED7'}}></span>区域4</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#4ECEE2'}}></span>区域5</li>
                  
-                    <li className="flow-item"><span style={{backgroundColor:'#4ECEE2'}}></span>类型6</li>
+                    <li className="flow-item"><span style={{backgroundColor:'#7F4EE2'}}></span>区域6</li>
                   
                     
                 </div>

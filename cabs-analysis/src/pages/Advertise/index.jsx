@@ -164,11 +164,12 @@ export default class Advertise extends Component {
          const getComStations = ()=>{ 
               (async () => {
                 const sleep = delay => new Promise(resolve => setTimeout(resolve, delay || 0))
-                axios.get('http://39.98.41.126:31103/getBillboard').then(
+                axios.get('http://39.98.41.126:31100/getBillboard').then(
                     response =>{
                       if(!response.data){
                         return;
                       }
+                    
                       showMarker(response.data);
                       
                     },

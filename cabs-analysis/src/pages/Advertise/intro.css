@@ -19,7 +19,7 @@ body,
 }
 
 .intro_box {
-
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16);
     width: 300px;
     height: 114px;
     border-radius: 10px;
