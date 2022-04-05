@@ -85,7 +85,7 @@ box-shadow: 3px 0px 6px rgba(0, 0, 0, 0.16);
   background-color: var(--ltBack);
   position: absolute;
   right: 0;
-  top: 50%;
+  top: 40%;
   
 box-shadow: -3px 0px 6px rgba(0, 0, 0, 0.16);
   transform: translateY(-50%);
