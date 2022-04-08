@@ -81,11 +81,11 @@ box-shadow: 3px 0px 6px rgba(0, 0, 0, 0.16);
   }
 #flow-selector{
   width: 140px;
-  height: 290px;
+  height: 490px;
   background-color: var(--ltBack);
   position: absolute;
   right: 0;
-  top: 40%;
+  top: 50%;
   
 box-shadow: -3px 0px 6px rgba(0, 0, 0, 0.16);
   transform: translateY(-50%);

@@ -533,17 +533,17 @@ export default class HeatMap extends Component {
 
                 <div id="flow-selector">
                     <p>区域车流量概览</p>
-                    <li className="flow-item"><span style={{ backgroundColor: '#E6556F' }}></span>从化区</li>
-                    <li className="flow-item"><span style={{ backgroundColor: '#EEC055' }}></span>南沙区</li>
-                    <li className="flow-item"><span style={{ backgroundColor: '#1EC78A' }}></span>增城区</li>
                     <li className="flow-item"><span style={{ backgroundColor: '#E24ED7' }}></span>天河区</li>
-                    <li className="flow-item"><span style={{ backgroundColor: '#89b8cd' }}></span>海珠区</li>
-                    <li className="flow-item"><span style={{ backgroundColor: '#7F4EE2' }}></span>番禺区</li>
-                    <li className="flow-item"><span style={{ backgroundColor: '#eda6a7' }}></span>白云区</li>
-                    <li className="flow-item"><span style={{ backgroundColor: '#4b6b77' }}></span>花都区</li>
                     <li className="flow-item"><span style={{ backgroundColor: '#c19992' }}></span>荔湾区</li>
-                    <li className="flow-item"><span style={{ backgroundColor: '#8c91ab' }}></span>越秀区</li>
+                    <li className="flow-item"><span style={{ backgroundColor: '#1EC78A' }}></span>增城区</li>
+                    <li className="flow-item"><span style={{ backgroundColor: '#eda6a7' }}></span>白云区</li>
+                    <li className="flow-item"><span style={{ backgroundColor: '#89b8cd' }}></span>海珠区</li>
+                    <li className="flow-item"><span style={{ backgroundColor: '#4b6b77' }}></span>花都区</li>
                     <li className="flow-item"><span style={{ backgroundColor: '#736577' }}></span>黄埔区</li>
+                    <li className="flow-item"><span style={{ backgroundColor: '#EEC055' }}></span>南沙区</li>
+                    <li className="flow-item"><span style={{ backgroundColor: '#7F4EE2' }}></span>番禺区</li>
+                    <li className="flow-item"><span style={{ backgroundColor: '#8c91ab' }}></span>越秀区</li>
+                    <li className="flow-item"><span style={{ backgroundColor: '#E6556F' }}></span>从化区</li>
 
 
                 </div>
