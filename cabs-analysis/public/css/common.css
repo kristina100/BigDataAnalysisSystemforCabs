@@ -1,0 +1,8 @@
+.w {
+    margin: 0 auto;
+    width: 90vw;
+}
+
+html {
+    overflow-y: overlay;
+}

@@ -1,0 +1,40 @@
+#ana-history{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 610px;
+    padding-left: 16px;
+    padding-top: 10px;
+}
+
+#ana-history div:nth-child(1) p:nth-child(1){
+    font-size: 20px;
+    color: var(--titleColor);
+}
+#ana-history p{
+    margin-bottom: 6px;
+}
+#ana-history div:nth-child(1) p:nth-child(2){
+    font-size: 16px;
+    color: var(--tableText);
+    margin-bottom: 10px;
+}
+#ana-history div:nth-child(2) p{
+    margin-top: 14px;
+    font-size:  16px;
+    color: var(--titleColor); 
+}
+#ana-history div:nth-child(3) p{
+    font-size:  16px;
+    color: var(--titleColor); 
+}
+
+@media screen and (min-height: 800px) {
+    #box1{
+        height: 240px;
+    }
+    #box2{
+        height: 320px;
+    }
+}

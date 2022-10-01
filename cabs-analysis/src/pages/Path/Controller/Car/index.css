@@ -1,0 +1,44 @@
+#carController {
+    position: relative;
+    width: 99%;
+    height: 45px;
+    border-radius: 6px;
+ 
+    margin-top: 20px;
+    font-size: 18px;
+    color: #fff;
+    text-align: left;
+}
+
+#carName {
+    margin-right: 15px;
+    display: inline-block;
+    height: 45px;
+    position: relative;
+    bottom: 0;
+    line-height: 45px;
+    margin-left: 12px;
+    user-select: none;
+}
+
+#pathDate {
+    font-size: 15px;
+    font-weight: 400;
+    display: inline-block;
+    height: 45px;
+    line-height: 45px;
+    position: relative;
+    bottom: 1px;
+    user-select: none;
+}
+
+.deleteBtn {
+    position: absolute;
+    right: 11px;
+    top: 9px;
+    cursor: pointer;
+}
+
+.deleteBtn path {
+    cursor: pointer;
+}

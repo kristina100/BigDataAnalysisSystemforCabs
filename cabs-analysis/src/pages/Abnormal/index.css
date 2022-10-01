@@ -1,0 +1,231 @@
+@font-face {
+    font-family: 'icomoon';
+    src: url('../../fonts/icomoon.eot');
+    src: url('../../fonts/icomoon.eot?jpzchj#iefix') format('embedded-opentype'),
+        url('../../fonts/icomoon.ttf?jpzchj') format('truetype'),
+        url('../../fonts/icomoon.woff?jpzchj') format('woff'),
+        url('../../fonts/icomoon.svg?jpzchj#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+.header {
+    height: 80px;
+    background-color: pink;
+    color: var(--bodyColor);
+}
+
+.ant-table-pagination.ant-pagination {
+    margin: 16px 0;
+    text-align: center;
+    display: block;
+}
+
+/* .ant-table-thead {
+    display: flex;
+    justify-content: space-around;
+} */
+.ant-table-thead>tr>th {
+    width: 20%;
+}
+
+/* 表格字体大小 */
+.ant-table {
+    font-size: 16px;
+}
+
+/* 底部页码样式 */
+
+.ant-pagination-item {
+    border-radius: 50% !important;
+    background-color: var(--ltBack) !important;
+    color: var(--tableText);
+    background-color: var(--bodyColor) !important;
+    border: none !important;
+}
+
+
+.ant-pagination-item a {
+    color: var(--tableText) !important;
+}
+
+.ant-pagination-item-ellipsis {
+    color: rgb(255 255 255 / 25%) !important;
+}
+
+
+.ant-pagination-item-link[type="button"] {
+    background-color: var(--ltBack) !important;
+    border: 1px solid var(--ltBack) !important;
+    color: var(--tableText) !important;
+}
+
+.ant-pagination-item-link[type="button"]:hover {
+    border: 1px solid var(--tableText) !important;
+    transition: all .3;
+}
+.ant-table{
+    min-width: 690px;
+}
+.ant-select-item{
+    color: var(--text);
+}
+#abnormal-box.ant-select-selector {
+    background-color: var(--ltBack) !important;
+    color: var(--tableText) !important;
+}
+
+#abnormal-box.ant-select:not(#abnormal-box.ant-select-customize-input) #abnormal-box.ant-select-selector {
+    border: 1px solid var(--ltBack) !important;
+}
+.ant-select-item-option-selected .ant-select-item-option-content{
+    color: var(--text)!important;
+}
+.ant-select-item-option-active .ant-select-item-option-content{
+    color: var(--listActText)!important;
+
+}
+#ana-history .ant-space{
+    width: 88%;
+}
+#ana-history .ant-space-item{
+    width: 100%;
+}
+.ant-select-item-option-content{
+    text-align: center;
+}
+#abnormal-box.ant-select-dropdown {
+    border-radius: 4px;
+    background-color: var(--ltBack) !important;
+}
+
+#abnormal-box.ant-select-item-option-selected {
+    background-color: var(--text) !important;
+}
+
+#abnormal-box.ant-select-item-option-active:not(#abnormal-box.ant-select-item-option-disabled) {
+    background-color: transparent !important;
+}
+
+#abnormal-box .rc-virtual-list-holder-inner {
+    color: var(--text) !important;
+}
+#abnormal-box .rc-virtual-list{
+    background-color: var(--ltBack);
+    border-radius: 4px;
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled){
+    background-color: var(--btnAct);
+    color: var(--text);
+}
+
+/* 选中的页码样式 */
+#abnormal-box .ant-pagination-item-active {
+    font-weight: 600;
+    background-color: var(--ltBack) !important;
+    /* border: 1px solid var(--activeTabBtn) !important; */
+}
+
+/* 表头的样式 */
+.ant-table-thead>tr>th {
+    color: var(--text) !important;
+    text-align: center !important;
+    background: var(--table-head) !important;
+    border-bottom: 1px solid var(--ltBack) !important;
+}
+
+/* 数据表格样式 */
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+    color: var(--tableText) !important;
+    background-color: var(--tableBack) !important;
+    border-bottom: 1px solid var(--ltBack) !important;
+}
+
+
+.ant-table {
+    margin-top: 50px !important;
+}
+.ant-select-item-option-active:not(.ant-select-item-option-disabled){
+    background-color: var(--table-head)!important;
+    color: var(--deepGrey);
+}
+/* 背景样式 */
+body {
+    background-color: var(--bodyColor) !important;
+}
+
+/* 下拉框上面的样式*/
+.ant-table-thead tr {
+    position: relative !important;
+}
+
+.ant-table-thead tr th:nth-child(5) {
+    /* display: flex;
+    align-items: center; */
+    /* 禁用父元素的点击事件 */
+    pointer-events: none;
+    padding-left: 60px;
+    line-height: calc(170%);
+}
+
+
+/* 控制伪元素的内容 */
+.ant-table-thead tr th:nth-child(5)::after {
+    position: relative;
+    display: inline-block;
+    font-family: 'icomoon';
+    content: attr(data-down);
+    width: 30px;
+    height: 30px;
+    top: 3px;
+    margin-left: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    /* 伪元素添加点击事件 */
+    pointer-events: auto;
+}
+
+
+
+/* 下拉框样式 */
+.wrongInform {
+    position: absolute;
+    top: 65px;
+    right: 2vw;
+    padding: 10px;
+    min-width: 210px;
+    max-width: 220px;
+    border-radius: 5px;
+    list-style: none;
+    color: var(--text);
+    background-color: var(--ltBack);
+    z-index: 999;
+}
+
+
+
+.wrongInform li {
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    color: var(--grayText);
+    text-align: center;
+}
+
+.wrongInform li:hover {
+    background-color: var(--btnAct);
+    color: var(--tableText);
+    cursor: pointer;
+}
+
+.noHover {
+    display: none;
+}
+
+.hover {
+    display: block;
+}

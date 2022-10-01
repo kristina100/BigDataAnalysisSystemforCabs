@@ -1,0 +1,246 @@
+#tips-boxs {
+    position: absolute;
+    width: 245px;
+    height: 60px;
+    border-radius: 0 0 0 10px;
+    background-color: var(--ltBack);
+    color: var(--tableText);
+    right: -5px;
+    top: 0px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 60px;
+    -webkit-user-select: none;
+    user-select: none;
+    box-shadow: -2px 2px 2px rgb(0 0 0 / 20%);
+    z-index: 99;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.amap-logo {
+    display: none;
+}
+
+.amap-copyright {
+    opacity: 0;
+}
+
+/* 左边的导航栏 */
+.left_nav {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 20%;
+    min-width: 308px;
+    background-color: var(--ltBack);
+    z-index: 99;
+    box-shadow: 3px 0px 6px rgba(0, 0, 0, 0.16);
+}
+
+.left_nav header {
+    /* width: 88%; */
+    text-align: center;
+    color: var(--text);
+    margin: 15px;
+    height: 45px;
+    line-height: 50px;
+    font-size: 16px;
+    user-select: none;
+    border-bottom: 1px solid var(--text);
+}
+
+.left_nav ul {
+    height: calc(100% - 100px);
+    overflow: auto;
+    list-style: none;
+    margin: 0 auto;
+    width: 84%;
+    padding-right: 16px;
+    color: var(--text);
+}
+
+.left_nav ul li {
+
+    font-size: 14px;
+    cursor: pointer;
+    height: 45px;
+    line-height: 20px;
+    margin-bottom: 15px;
+    user-select: none;
+}
+
+.left_nav ul::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 10px;
+}
+
+.left_nav ul::-webkit-scrollbar-thumb {
+    background-color:var(--scroll);
+    border-radius: 5px;
+}
+
+.left_nav ul::-webkit-scrollbar-track-piece {
+    background-color: var(--deepBack);
+}
+
+.left_nav ul li:nth-last-child(1) {
+    margin-bottom: 0;
+}
+
+.tipMessage {
+    color: var(--text);
+    font-size: 14px;
+    width: 120px;
+    text-align: center;
+    font-weight: 400;
+    background-color: var(--ltBack);
+    border-radius: 5px;
+    cursor: pointer !important;
+}
+
+.hover {
+    opacity: 0.9;
+}
+
+/* 右边等级盒子 */
+.ant-space-vertical {
+    width: 100%;
+}
+
+.ant-space-item {
+    width: 100%;
+}
+
+.ant-space-item .ant-picker {
+    width: 100% !important;
+}
+
+.right_levelnav {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 240px;
+    height: 400px;
+    padding: 10px 20px;
+    transform: translateY(-50%);
+    background-color: var(--ltBack);
+    color: var(--text);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    z-index: 99;
+}
+.right_levelnav p:nth-child(7){
+    font-size: 13px;
+}
+.right_levelnav ul li {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    line-height: 40px;
+    list-style: none;
+    color: var(--text);
+}
+
+/* 颜色块 */
+.levelBox {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.level {
+    width: 50%;
+    /* display: flex; */
+    height: 120px;
+    overflow: hidden;
+    font-size: 12px;
+    /* justify-content: space-between; */
+}
+
+.level .color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    /* background-color: green; */
+    margin-right: 15px;
+}
+
+.level li:nth-child(1) .color {
+    background-color: #59585A;
+}
+
+.level li:nth-child(2) .color {
+    background-color:  #EEC055;
+}
+
+.level li:nth-child(3) .color {
+    background-color:#1EC78A;;
+
+}
+
+
+
+
+.level2 {
+    width: 50%;
+    height: 120px;
+    overflow: hidden;
+    font-size: 12px;
+    margin-left: 60px;
+}
+
+.level2 .color {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.level2 li:nth-child(1) .color {
+    background-color: #E6556F;
+}
+
+.level2 li:nth-child(2) .color {
+    background-color: #4ECEE2;
+}
+
+.level2 li:nth-child(3) .color {
+    background-color: #7F4EE2;
+}
+
+
+
+/* 顶部 */
+.ant-switch-checked {
+    background-color: var(--themeColor) !important;
+}
+
+.right_levelnav div[class^="btn"] {
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    /* background-color: green; */
+}
+
+.right_levelnav .title {
+    font-size: 16px;
+    margin: 15px 0;
+}
+
+.right_levelnav .chooseTime {
+
+    /* visibility: hidden; */
+    height: 35px;
+    text-align: center;
+    margin-top: 10px;
+}

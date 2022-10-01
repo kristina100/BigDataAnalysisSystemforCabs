@@ -1,0 +1,91 @@
+#control {
+    float: left;
+    width: 20%;
+    height: 100%;
+    background-color: var(--ltBack);
+    padding-top: 50px;
+    min-width: 300px;
+    position: relative;
+    z-index: 99;
+    text-align: center;
+    box-shadow: 3px 0px 6px rgba(0, 0, 0, 0.16);
+}
+
+#findCar {
+    width: 98%;
+    height: 40px;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: Microsoft YaHei;
+    color: var(--text) !important;
+    background-color: var(--hoverBtn);
+    padding-left: 70px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 26px;
+    transition: .4s;
+    cursor: text;
+}
+
+
+
+#findCar::placeholder {
+    color: var(--grayText);
+}
+
+#findInput {
+    position: relative;
+}
+
+#firstName {
+    display: inline-block;
+    position: absolute;
+    height: 40px;
+    font-size: 18px;
+    align-items: center;
+    padding: 5px 0px 0px 10px;
+    color: var(--text);
+    z-index: 2;
+}
+#firstName img{
+    margin-top: -2px;
+    margin-right: 2px;
+}
+#findBtn {
+    display: inline-block;
+    width: 27%;
+    height: 34px;
+    background-color: var(--hoverBtn);
+    border-radius: 6px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--text);
+    line-height: 34px;
+    margin-left: 17px;
+    cursor: pointer;
+    transition: .4s;
+    position: relative;
+    bottom: 1px;
+}
+
+#findBtn:hover {
+    background-color: var(--deepGrey);
+}
+
+#controlBox {
+    width: 76%;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+#datePick .ant-space-item .ant-picker {
+    width: 100% !important;
+}
+
+#datePick .ant-space-item {
+    width: 100% !important;
+}
+#datePick {
+    width: 65% !important;
+}
