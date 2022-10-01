@@ -18,37 +18,37 @@ export default class App extends Component {
   componentDidMount() {
     let normalTheme = () => {
       let root = document.querySelector(':root');
-      root.style.setProperty('--deepBack', '#F2F3F3');
-      root.style.setProperty('--ltBack', '#EEE');
-      root.style.setProperty('--text', '#1E2020');
-      root.style.setProperty('--btnAct', '#BFBFBF');
-      root.style.setProperty('--titleColor', '#333');
-      root.style.setProperty('--bodyColor', 'white');
-      root.style.setProperty('--tableBack', '#eaeaea');
-      root.style.setProperty('--table-head', '#c0c0c0');
-      root.style.setProperty('--tableText', '#1E2020');
-      root.style.setProperty('--listActText', '#292929');
-      root.style.setProperty('--reserveBg', 'black');
-      root.style.setProperty('--hoverBtn', '#bfbfbf');
-      root.style.setProperty('--deepGrey', '#999');
-      root.style.setProperty('--scroll', '#A8A9AC');
+      root.style.setProperty('--deepBack','#F2F3F3');
+      root.style.setProperty('--ltBack','#EEE');
+      root.style.setProperty('--text','#1E2020');
+      root.style.setProperty('--btnAct','#BFBFBF');
+      root.style.setProperty('--titleColor','#333');
+      root.style.setProperty('--bodyColor','white');
+      root.style.setProperty('--tableBack','#eaeaea');
+      root.style.setProperty('--table-head','#c0c0c0');
+      root.style.setProperty('--tableText','#1E2020');
+      root.style.setProperty('--listActText','#292929');
+      root.style.setProperty('--reserveBg','black');
+      root.style.setProperty('--hoverBtn','#bfbfbf');
+      root.style.setProperty('--deepGrey','#999');
+      root.style.setProperty('--scroll','#A8A9AC');
     }
     let darkTheme = () => {
       let root = document.querySelector(':root');
-      root.style.setProperty('--deepBack', '#292929');
-      root.style.setProperty('--ltBack', '#303030');
-      root.style.setProperty('--text', 'rgba(255,255,255,0.87)');
-      root.style.setProperty('--btnAct', 'black');
-      root.style.setProperty('--titleColor', '#03DAC5');
-      root.style.setProperty('--bodyColor', 'black');
-      root.style.setProperty('--tableBack', '#1f1f1f');
-      root.style.setProperty('--table-head', '#303030');
-      root.style.setProperty('--tableText', 'rgba(255,255,255,0.6)');
-      root.style.setProperty('--listActText', 'rgba(255,255,255,0.87)');
-      root.style.setProperty('--reserveBg', 'white');
-      root.style.setProperty('--hoverBtn', '#6a6a6a');
-      root.style.setProperty('--deepGrey', '#292929');
-      root.style.setProperty('--scroll', '#E4E9E9');
+      root.style.setProperty('--deepBack','#292929');
+      root.style.setProperty('--ltBack','#303030');
+      root.style.setProperty('--text','rgba(255,255,255,0.87)');
+      root.style.setProperty('--btnAct','black');
+      root.style.setProperty('--titleColor','#03DAC5');
+      root.style.setProperty('--bodyColor','black');
+      root.style.setProperty('--tableBack','#1f1f1f');
+      root.style.setProperty('--table-head','#303030');
+      root.style.setProperty('--tableText','rgba(255,255,255,0.6)');
+      root.style.setProperty('--listActText','rgba(255,255,255,0.87)');
+      root.style.setProperty('--reserveBg','white');
+      root.style.setProperty('--hoverBtn','#6a6a6a');
+      root.style.setProperty('--deepGrey','#292929');
+      root.style.setProperty('--scroll','#E4E9E9');
     }
     let changeTheme = () => {
 

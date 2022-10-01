@@ -48,10 +48,12 @@
     color: var(--text);
     z-index: 2;
 }
-#firstName img{
+
+#firstName img {
     margin-top: -2px;
     margin-right: 2px;
 }
+
 #findBtn {
     display: inline-block;
     width: 27%;
@@ -86,6 +88,7 @@
 #datePick .ant-space-item {
     width: 100% !important;
 }
+
 #datePick {
     width: 65% !important;
 }
