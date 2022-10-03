@@ -1,9 +1,10 @@
 * {
   margin: 0;
   padding: 0;
-  transition: color 0.2s ease-out,background-color 0.2s ease-out;
-  
+  transition: color 0.2s ease-out, background-color 0.2s ease-out;
+
 }
+
 .amap-logo {
   right: 0 !important;
   left: auto !important;
@@ -13,18 +14,20 @@
 .amap-copyright {
   right: 70px !important;
   left: auto !important;
-  opacity:0 !important;
+  opacity: 0 !important;
 }
+
 html {
   overflow-y: overlay;
 }
+
 :root {
   --themeColor: #03DAC5;
-  --titleColor:#03DAC5;
-  --btnAct:black;
+  --titleColor: #03DAC5;
+  --btnAct: black;
   /* 主题色 */
-  --text: rgba(255,255,255,0.87);
-  --ltText:rgba(255,255,255,0.38);
+  --text: rgba(255, 255, 255, 0.87);
+  --ltText: rgba(255, 255, 255, 0.38);
   /* 正文 */
   --hoverBtn: #6a6a6a;
   /* 按钮悬浮 */
@@ -37,15 +40,15 @@ html {
   /* 侧栏稍微浅色的背景 */
   --bodyColor: black;
   /* 黑色都改成这个 */
-  --tableText: rgba(255,255,255,0.6);
+  --tableText: rgba(255, 255, 255, 0.6);
   /* 下面几个是表格的 */
-  --table-head:#303030;
+  --table-head: #303030;
   --tableBack: #1f1f1f;
   --activeTabBtn: #f0e7e7;
   --tabHover: #f5f5f5;
-  --listActText:rgba(255,255,255,0.87);
-  --reserveBg:white;
-  --scroll:#A8A9AC;
+  --listActText: rgba(255, 255, 255, 0.87);
+  --reserveBg: white;
+  --scroll: #A8A9AC;
 }
 
 #wrapper {
@@ -60,14 +63,14 @@ html {
   min-width: 766px;
   position: relative;
   z-index: 100;
-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   background-color: var(--deepBack);
 }
 
 #header {
   height: 50px;
   width: 52%;
-  margin-left: 22%;
+  margin-left: 15%;
   display: flex;
   transition: 0.2s all;
   justify-content: space-between;
@@ -78,7 +81,7 @@ box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   font-size: 16px;
 }
 
-#logo{
+#logo {
   display: block;
   width: 130px;
   height: 50px;
@@ -101,13 +104,15 @@ box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   user-select: none;
   text-decoration: none;
 }
-#theme-change{
+
+#theme-change {
   font-size: 16px;
   cursor: pointer;
   transition: 0.2s all;
   position: absolute;
   right: 0;
 }
+
 /* .noActive::before {
   content: '';
   display: inline-block;

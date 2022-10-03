@@ -91,7 +91,7 @@ export default class App extends Component {
             <MyNavLink to="/path" children="行驶轨迹" />
             <MyNavLink to="/abnormal" children="异常情况" />
             <MyNavLink to="/advertise" children="预测分析" />
-            <MyNavLink onClick={(Event) => this.handleJump(`https://www.baidu.com`)} to="dawawda" children="城市吸引力" />
+            <MyNavLink onClick={(Event) => this.handleJump(`https://qgailab.com/attract-rank/`)} to="dawawda" children="城市吸引力" />
             <Dropdown />
             <div id="theme-change" className="noActive">主题切换</div>
           </div>
