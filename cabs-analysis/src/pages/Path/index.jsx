@@ -6,8 +6,8 @@ export default class App extends Component {
     render() {
         return (
             <div className="map-ct">
-                <Controller/>
-                <Map/>
+                <Controller />
+                <Map />
             </div>
         )
     }

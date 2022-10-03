@@ -11,7 +11,7 @@ export default class controller extends Component {
 
     state = {
         carInfos: [],
-        isFinding:false
+        isFinding: false
     }
 
     componentDidMount() {
@@ -27,12 +27,12 @@ export default class controller extends Component {
         })
     }
 
-    handleInput = (event)=>{
-        if(event && event.target && event.target.value){
-          let id = event.target.value;
-          this.setState(()=>({carId:id }))
+    handleInput = (event) => {
+        if (event && event.target && event.target.value) {
+            let id = event.target.value;
+            this.setState(() => ({ carId: id }))
         }
-      }
+    }
 
     findCar = () => {
         if (this.state.carInfos.length === 5) {
@@ -40,10 +40,9 @@ export default class controller extends Component {
             return;
         }
 
-        for(let i = 0; i < this.state.carInfos.length; i++){
-            if('粤A'+this.state.carId === this.state.carInfos[i].carName){
-                if(this.state.pathDate === this.state.carInfos[i].pathDate)
-                {
+        for (let i = 0; i < this.state.carInfos.length; i++) {
+            if ('粤A' + this.state.carId === this.state.carInfos[i].carName) {
+                if (this.state.pathDate === this.state.carInfos[i].pathDate) {
                     message.warning('请勿重复查询该车同一天行驶轨迹');
                     return;
                 }
@@ -68,13 +67,13 @@ export default class controller extends Component {
         }
     }
 
-    deleteCar = (carName,pathDate) => {
+    deleteCar = (carName, pathDate) => {
         let { carInfos } = this.state
         let dIndex
         for (let i = 0; i < carInfos.length; i++) {
             if (carName === carInfos[i].carName && pathDate === carInfos[i].pathDate) {
                 dIndex = i;
-                break ;
+                break;
             }
         }
         carInfos.splice(dIndex, 1)
@@ -105,17 +104,17 @@ export default class controller extends Component {
         return (
             <div id="control">
                 <div id="controlBox">
-                <div id="findInput">
-                    <span id="firstName"><img id="search" src={'../../search.svg'}></img>粤A</span>
-                    <Input type="text" id="findCar" ref="carName" placeholder="请输入车牌号" maxLength="5" onKeyUp={this.noWord} autoComplete="off" disabled={this.state.isFinding ? true : false} onChange={ event => this.handleInput(event)}/>
-                </div>
-                <Datepick/>
-                <span id="findBtn" onClick={() => { this.findCar() }}>确定</span>
-                {
-                    carInfos.map((carInfos, index) => {
-                        return <Car key={index} {...carInfos} deleteCar={this.deleteCar} color={colors[index]} />
-                    })
-                }
+                    <div id="findInput">
+                        <span id="firstName"><img id="search" src={'../../search.svg'}></img>粤A</span>
+                        <Input type="text" id="findCar" ref="carName" placeholder="请输入车牌号" maxLength="5" onKeyUp={this.noWord} autoComplete="off" disabled={this.state.isFinding ? true : false} onChange={event => this.handleInput(event)} />
+                    </div>
+                    <Datepick />
+                    <span id="findBtn" onClick={() => { this.findCar() }}>确定</span>
+                    {
+                        carInfos.map((carInfos, index) => {
+                            return <Car key={index} {...carInfos} deleteCar={this.deleteCar} color={colors[index]} />
+                        })
+                    }
                 </div>
             </div>
         )
